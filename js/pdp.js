@@ -191,9 +191,31 @@
     });
   }
 
-  /* ---- Add to bag button ------------------------------------------------------ */
-  var addBtn = document.querySelector('[data-pd-add-btn]');
-  if (addBtn) addBtn.setAttribute('data-add-to-bag', product.name);
+  /* ---- Add to bag button(s) — main CTA + mobile sticky bar -------------------- */
+  document.querySelectorAll('[data-pd-add-btn]').forEach(function (btn) {
+    btn.setAttribute('data-add-to-bag', product.name);
+    btn.setAttribute('data-price', product.price);
+    btn.setAttribute('data-slug', product.slug);
+  });
+
+  /* ---- Mobile sticky add-to-bag bar -------------------------------------------- */
+  var stickyBar = document.querySelector('[data-pd-sticky-bar]');
+  if (stickyBar) {
+    setText('[data-pd-sticky-name]', product.name);
+    setText('[data-pd-sticky-price]', money(product.price));
+    var qtyRowEl = document.querySelector('.qty-add-row');
+    if (qtyRowEl && 'IntersectionObserver' in window) {
+      var stickyObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            stickyBar.setAttribute('data-visible', String(!entry.isIntersecting));
+          });
+        },
+        { threshold: 0 }
+      );
+      stickyObserver.observe(qtyRowEl);
+    }
+  }
 
   /* ---- Wishlist ------------------------------------------------------------ */
   var wishlistBtn = document.querySelector('[data-pd-wishlist]');
