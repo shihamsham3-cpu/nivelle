@@ -129,14 +129,18 @@
     if (isNaN(target)) return;
     var decimals = parseInt(el.getAttribute('data-count-decimals'), 10) || 0;
     var suffix = el.getAttribute('data-count-suffix') || '';
-    var finalText = target.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
+    var prefix = el.getAttribute('data-count-prefix') || '';
+    var format = function (value) {
+      return prefix + value.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
+    };
+    var finalText = format(target);
 
     if (reduceMotion) {
       el.textContent = finalText;
       return;
     }
 
-    el.textContent = (0).toFixed(decimals) + suffix;
+    el.textContent = format(0);
     onceInView(
       el,
       function () {
@@ -148,8 +152,7 @@
           /* ease-out cubic: fast start, settled landing */
           var eased = 1 - Math.pow(1 - progress, 3);
           var value = target * eased;
-          el.textContent =
-            value.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',') + suffix;
+          el.textContent = format(value);
           if (progress < 1) {
             requestAnimationFrame(tick);
           } else {
@@ -230,7 +233,7 @@
   var stickyDismissed = false;
 
   try {
-    stickyDismissed = window.sessionStorage.getItem('atelier-noir-cta-dismissed') === '1';
+    stickyDismissed = window.sessionStorage.getItem('nivelle-cta-dismissed') === '1';
   } catch (err) {
     stickyDismissed = false;
   }
@@ -242,7 +245,7 @@
       stickyCta.setAttribute('data-visible', 'false');
       document.body.classList.remove('has-sticky-cta');
       try {
-        window.sessionStorage.setItem('atelier-noir-cta-dismissed', '1');
+        window.sessionStorage.setItem('nivelle-cta-dismissed', '1');
       } catch (err) {
         /* storage unavailable — the bar simply returns next session */
       }

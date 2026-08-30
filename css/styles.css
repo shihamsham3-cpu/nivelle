@@ -2853,3 +2853,148 @@ body.has-sticky-cta .back-to-top {
     gap: 0;
   }
 }
+
+/* ==========================================================================
+   Live Shopify catalog — real product photography
+   Product imagery is served from the Shopify CDN and framed with contain, so
+   nothing gets cropped regardless of how each shot is composed.
+   ========================================================================== */
+.product-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--space-4);
+  background: var(--color-muted-bg);
+  transform-origin: 50% 55%;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.product-card:hover .product-media img {
+  transform: scale(1.06) translateY(-4px);
+}
+
+.spotlight-media img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  will-change: transform;
+}
+
+.gallery-grid[data-colorway-strip] .gallery-item {
+  background: var(--color-muted-bg);
+}
+
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.pd-gallery-main img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--space-5);
+}
+
+.pd-thumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: var(--color-muted-bg);
+  padding: var(--space-1);
+}
+
+/* Colour chips in the hero proof cluster */
+.swatch-chip {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  border: 2px solid #171412;
+  margin-left: -8px;
+  display: inline-block;
+}
+
+.swatch-chip:first-child {
+  margin-left: 0;
+}
+
+/* Sold-out variant swatches on the product page */
+.color-option[data-sold-out='true'] {
+  position: relative;
+  opacity: 0.55;
+}
+
+.color-option[data-sold-out='true']::after {
+  content: '';
+  position: absolute;
+  inset: 45% -2px auto -2px;
+  height: 2px;
+  background: var(--color-destructive);
+  transform: rotate(-45deg);
+}
+
+/* Buy link when the selected variant is gone */
+.btn.is-disabled {
+  background: var(--color-muted);
+  border-color: var(--color-muted);
+}
+
+.pd-stock {
+  margin-top: var(--space-3);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9a3412;
+}
+
+/* Availability filter row on the shop page */
+.filter-group .filter-option input[type='checkbox'] {
+  accent-color: var(--color-primary);
+}
+
+/* No-JS fallback list for the catalog grids */
+.noscript-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.noscript-list a {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card:hover .product-media img,
+  .gallery-item:hover img {
+    transform: none;
+  }
+}
+
+/* Ten colourways sit as two clean rows of five on wide screens */
+@media (min-width: 1024px) {
+  .gallery-grid[data-colorway-strip] {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Colour chips read as a row of swatches, not stacked avatars */
+.swatch-chip {
+  margin-left: 5px;
+  border-width: 1px;
+}
