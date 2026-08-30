@@ -14,9 +14,24 @@
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
+<div class="scroll-progress" data-scroll-progress aria-hidden="true"><span></span></div>
+
 <div class="announcement">
   <div class="container">
-    <span>Complimentary shipping on all orders over $500 &middot; Free returns within 30 days</span>
+    <ul class="announce-rotator" data-rotator>
+      <li data-active="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg>
+        Complimentary worldwide shipping on orders over $500
+      </li>
+      <li data-active="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14H8"/></svg>
+        Free returns within 30 days &mdash; no questions asked
+      </li>
+      <li data-active="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/><path d="M9 12.5l2 2 4-4.5"/></svg>
+        Lifetime repair promise on every bag we make
+      </li>
+    </ul>
   </div>
 </div>
 
@@ -86,7 +101,7 @@
   <!-- ============================= HERO ============================= -->
   <section class="hero">
     <div class="hero-glow" aria-hidden="true"></div>
-    <svg class="hero-silhouette" viewBox="0 0 300 360" aria-hidden="true" focusable="false">
+    <svg class="hero-silhouette" data-parallax="0.08" viewBox="0 0 300 360" aria-hidden="true" focusable="false">
       <g fill="none" stroke="#dcb15a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M118,108 C118,90 132,78 150,78 C168,78 182,90 182,108" />
         <rect x="66" y="150" width="168" height="140" rx="14" fill="#dcb15a" fill-opacity="0.14" />
@@ -100,6 +115,15 @@
         <span class="eyebrow">Est. 2011 &middot; Made in Italy</span>
         <h1 class="display-1">Carried with<br><em>quiet confidence.</em></h1>
         <p class="lede">Full-grain leather handbags, cut and stitched by hand in a family-run atelier outside Florence. Each piece is numbered, and built to outlast trend cycles.</p>
+        <div class="hero-proof">
+          <span class="avatar-row" aria-hidden="true">
+            <span class="avatar-chip">M</span>
+            <span class="avatar-chip">L</span>
+            <span class="avatar-chip">R</span>
+          </span>
+          <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg></span>
+          <span><strong>4.9 / 5</strong> from 1,240 verified owners</span>
+        </div>
         <div class="hero-actions">
           <a href="shop.html" class="btn btn-primary">Shop The Collection</a>
           <a href="about.html#craftsmanship" class="btn btn-outline-light">Our Craftsmanship</a>
@@ -121,6 +145,27 @@
       </div>
     </div>
     <span class="scroll-cue" aria-hidden="true"><span class="line"></span>Scroll</span>
+  </section>
+
+  <!-- ============================ PRESS ============================== -->
+  <section class="press-strip" aria-label="Press coverage">
+    <div class="marquee-viewport">
+      <div class="marquee" aria-hidden="true">
+        <span>Vogue Italia</span>
+        <span>Monocle</span>
+        <span>The Gentlewoman</span>
+        <span>Financial Times</span>
+        <span>Kinfolk</span>
+        <span>Cereal</span>
+        <span>Vogue Italia</span>
+        <span>Monocle</span>
+        <span>The Gentlewoman</span>
+        <span>Financial Times</span>
+        <span>Kinfolk</span>
+        <span>Cereal</span>
+      </div>
+    </div>
+    <p class="visually-hidden">Atelier Noir has been featured in Vogue Italia, Monocle, The Gentlewoman, the Financial Times, Kinfolk and Cereal.</p>
   </section>
 
   <!-- ========================= BRAND STATEMENT ======================== -->
@@ -148,7 +193,7 @@
         </a>
       </div>
 
-      <div class="product-grid cols-4">
+      <div class="product-grid cols-4" data-stagger="90">
 
         <article class="product-card" data-reveal>
           <div class="product-media">
@@ -177,6 +222,10 @@
             <span class="product-category">Totes</span>
             <h3><a href="product.html?slug=aurelia-tote">The Aurelia Tote</a></h3>
             <div class="product-price"><span>$1,280</span></div>
+            <p class="product-proof">
+              <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg></span>
+              <span>4.6 &middot; 42 reviews</span>
+            </p>
           </div>
         </article>
 
@@ -208,6 +257,11 @@
             <h3><a href="product.html?slug=sabine-satchel">The Sabine Satchel</a></h3>
             <div class="product-price"><span>$1,650</span>
             <span class="was">$1,950</span></div>
+            <p class="product-proof">
+              <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg></span>
+              <span>4.7 &middot; 59 reviews</span>
+            </p>
+            <p class="stock-note">Only 4 left at this price</p>
           </div>
         </article>
 
@@ -236,6 +290,10 @@
             <span class="product-category">Clutches</span>
             <h3><a href="product.html?slug=noor-clutch">The Noor Clutch</a></h3>
             <div class="product-price"><span>$690</span></div>
+            <p class="product-proof">
+              <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg></span>
+              <span>4.8 &middot; 76 reviews</span>
+            </p>
           </div>
         </article>
 
@@ -266,6 +324,11 @@
             <span class="product-category">Crossbody</span>
             <h3><a href="product.html?slug=margot-crossbody">The Margot Crossbody</a></h3>
             <div class="product-price"><span>$890</span></div>
+            <p class="product-proof">
+              <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg></span>
+              <span>4.6 &middot; 93 reviews</span>
+            </p>
+            <p class="stock-note">Low stock &mdash; 6 remaining</p>
           </div>
         </article>
 
@@ -278,7 +341,7 @@
     <div class="container">
       <div class="spotlight-grid" data-reveal>
         <div class="spotlight-media">
-          <svg viewBox="0 0 300 360" role="img" aria-labelledby="spotlight-vesper">
+          <svg viewBox="0 0 300 360" role="img" aria-labelledby="spotlight-vesper" data-parallax="0.05">
             <title id="spotlight-vesper">The Vesper &mdash; Atelier Noir's signature satchel, shown in Noir leather with brass hardware</title>
             <g fill="none" stroke="#dcb15a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <path class="bag-line" d="M118,108 C118,90 132,78 150,78 C168,78 182,90 182,108" />
@@ -307,6 +370,15 @@
               Numbered edition of 200 per season
             </li>
           </ul>
+          <div class="edition-meter" data-meter="82">
+            <div class="labels">
+              <span>Autumn edition</span>
+              <span><strong>164 of 200</strong> claimed</span>
+            </div>
+            <div class="bar" role="img" aria-label="164 of the 200 bags in this edition have been claimed">
+              <span class="fill"></span>
+            </div>
+          </div>
           <a href="product.html?slug=sabine-satchel" class="btn btn-primary">Discover The Vesper</a>
         </div>
       </div>
@@ -360,19 +432,19 @@
     <div class="container">
       <dl class="stats-strip" data-reveal>
         <div class="stat">
-          <dd>13</dd>
+          <dd data-count-to="13">13</dd>
           <dt>Years in Florence</dt>
         </div>
         <div class="stat">
-          <dd>6,400+</dd>
+          <dd data-count-to="6400" data-count-suffix="+">6,400+</dd>
           <dt>Bags Hand-Finished</dt>
         </div>
         <div class="stat">
-          <dd>7</dd>
+          <dd data-count-to="7">7</dd>
           <dt>Master Artisans</dt>
         </div>
         <div class="stat">
-          <dd>4.9/5</dd>
+          <dd data-count-to="4.9" data-count-decimals="1" data-count-suffix="/5">4.9/5</dd>
           <dt>Average Rating</dt>
         </div>
       </dl>
@@ -453,8 +525,8 @@
         <h2 class="section-title">From The Studio</h2>
       </div>
     </div>
-    <div class="gallery-grid">
-      <a class="gallery-item" href="about.html#craftsmanship" aria-label="Studio, Milan">
+    <div class="gallery-grid" data-stagger="70">
+      <a class="gallery-item" data-reveal="wipe" href="about.html#craftsmanship" aria-label="Studio, Milan">
         <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-0">
           <title id="gallery-0">Editorial style illustration &mdash; Studio, Milan</title>
           <rect width="100%" height="100%" fill="#171412"/>
@@ -468,7 +540,7 @@
         </svg>
         <span class="handle">Studio, Milan</span>
       </a>
-      <a class="gallery-item" href="about.html#craftsmanship" aria-label="Atelier Detail">
+      <a class="gallery-item" data-reveal="wipe" href="about.html#craftsmanship" aria-label="Atelier Detail">
         <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-1">
           <title id="gallery-1">Editorial style illustration &mdash; Atelier Detail</title>
           <rect width="100%" height="100%" fill="#1f1a16"/>
@@ -482,7 +554,7 @@
         </svg>
         <span class="handle">Atelier Detail</span>
       </a>
-      <a class="gallery-item" href="product.html?slug=aurelia-tote" aria-label="Cognac Tote">
+      <a class="gallery-item" data-reveal="wipe" href="product.html?slug=aurelia-tote" aria-label="Cognac Tote">
         <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-2">
           <title id="gallery-2">Editorial style illustration &mdash; Cognac Tote</title>
           <rect width="100%" height="100%" fill="#141110"/>
@@ -495,7 +567,7 @@
         </svg>
         <span class="handle">Cognac Tote</span>
       </a>
-      <a class="gallery-item" href="shop.html" aria-label="New Season">
+      <a class="gallery-item" data-reveal="wipe" href="shop.html" aria-label="New Season">
         <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-3">
           <title id="gallery-3">Editorial style illustration &mdash; New Season</title>
           <rect width="100%" height="100%" fill="#221c17"/>
@@ -508,7 +580,7 @@
         </svg>
         <span class="handle">New Season</span>
       </a>
-      <a class="gallery-item" href="about.html#craftsmanship" aria-label="Behind the Seams">
+      <a class="gallery-item" data-reveal="wipe" href="about.html#craftsmanship" aria-label="Behind the Seams">
         <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-4">
           <title id="gallery-4">Editorial style illustration &mdash; Behind the Seams</title>
           <rect width="100%" height="100%" fill="#181513"/>
@@ -520,7 +592,7 @@
         </svg>
         <span class="handle">Behind the Seams</span>
       </a>
-      <a class="gallery-item" href="product.html?slug=thea-weekender" aria-label="Weekend Edit">
+      <a class="gallery-item" data-reveal="wipe" href="product.html?slug=thea-weekender" aria-label="Weekend Edit">
         <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-5">
           <title id="gallery-5">Editorial style illustration &mdash; Weekend Edit</title>
           <rect width="100%" height="100%" fill="#1c1712"/>
@@ -537,13 +609,42 @@
     </div>
   </section>
 
+  <!-- ========================== ASSURANCES ============================= -->
+  <section class="assurance-band">
+    <div class="container">
+      <div class="assurance-grid" data-stagger="80">
+        <div class="assurance-item" data-reveal>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14H8"/></svg>
+          <div>
+            <h3>30-Day Returns</h3>
+            <p>Carry it, live with it. If it isn&rsquo;t right, send it back free within 30 days.</p>
+          </div>
+        </div>
+        <div class="assurance-item" data-reveal>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/><path d="M9 12.5l2 2 4-4.5"/></svg>
+          <div>
+            <h3>Lifetime Repairs</h3>
+            <p>Stitching, hardware, edge paint &mdash; repaired by the artisan who made it.</p>
+          </div>
+        </div>
+        <div class="assurance-item" data-reveal>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+          <div>
+            <h3>Secure Checkout</h3>
+            <p>Encrypted payment with Visa, Mastercard, Amex and PayPal. Pay in 4 available.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- =========================== NEWSLETTER ============================= -->
   <section class="newsletter section">
     <div class="container">
       <div class="newsletter-inner" data-reveal>
         <span class="eyebrow">Join The List</span>
         <h2 class="section-title">Early Access To New Editions</h2>
-        <p class="lede text-center">Be first to know when a limited run drops, plus care guides and atelier stories. No spam, unsubscribe anytime.</p>
+        <p class="lede text-center">Join the list for <strong>10% off your first order</strong>, plus first access when a limited run drops. No spam, unsubscribe anytime.</p>
         <form class="newsletter-form" data-newsletter-form novalidate>
           <div class="field-group">
             <label for="newsletter-email" class="visually-hidden">Email address</label>
@@ -623,6 +724,19 @@
   </div>
 </footer>
 
+<div class="sticky-cta" data-sticky-cta data-visible="false">
+  <div class="container">
+    <div class="sticky-cta-copy">
+      <strong>The Vesper</strong>
+      <span>Autumn edition &middot; $1,650 &middot; 36 of 200 left &middot; Free shipping</span>
+    </div>
+    <a href="product.html?slug=sabine-satchel" class="btn btn-primary">Shop The Vesper</a>
+    <button type="button" class="icon-btn" data-sticky-dismiss aria-label="Dismiss offer bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+  </div>
+</div>
+
 <div class="toast" data-visible="false" role="status" aria-live="polite">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
   <span data-toast-message>Added to your bag</span>
@@ -633,5 +747,6 @@
 </button>
 
 <script src="js/main.js" defer></script>
+<script src="js/motion.js" defer></script>
 </body>
 </html>

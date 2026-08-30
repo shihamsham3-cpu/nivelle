@@ -2198,3 +2198,658 @@ p {
 .mx-auto {
   margin-inline: auto;
 }
+
+/* ==========================================================================
+   Motion System & Conversion Layer
+   Scroll choreography, animated bag illustrations, and the trust/urgency
+   components used on the landing page. All motion is opt-out via
+   prefers-reduced-motion (see the block at the end of this section).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Scroll progress rail
+   -------------------------------------------------------------------------- */
+.scroll-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  height: 2px;
+  z-index: calc(var(--z-header) + 5);
+  pointer-events: none;
+  background: rgba(28, 25, 23, 0.08);
+}
+
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  background: linear-gradient(90deg, var(--color-accent), #dcb15a);
+}
+
+/* --------------------------------------------------------------------------
+   Reveal variants — extends the base [data-reveal] transition
+   -------------------------------------------------------------------------- */
+.js [data-reveal='left'] {
+  transform: translate3d(-28px, 0, 0);
+}
+
+.js [data-reveal='right'] {
+  transform: translate3d(28px, 0, 0);
+}
+
+.js [data-reveal='zoom'] {
+  transform: scale(0.955);
+}
+
+/* A curtain that lifts, rather than clipping the element itself — clipping
+   the target would zero out its IntersectionObserver ratio and it would
+   never be told to reveal. */
+.js [data-reveal='wipe'] {
+  opacity: 1;
+  transform: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.js [data-reveal='wipe']::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: 3;
+  background: var(--color-background);
+  transition: transform 900ms var(--ease-out);
+}
+
+.js [data-reveal].in-view {
+  transform: none;
+}
+
+.js [data-reveal='wipe'].in-view::before {
+  transform: translate3d(0, -101%, 0);
+}
+
+/* --------------------------------------------------------------------------
+   Announcement ticker
+   -------------------------------------------------------------------------- */
+.announcement .container {
+  min-height: 0;
+  padding-block: var(--space-3);
+}
+
+.announce-rotator {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  /* Two lines of room on narrow screens so a long message never clips. */
+  height: 2.7em;
+  overflow: hidden;
+}
+
+@media (min-width: 700px) {
+  .announce-rotator {
+    height: 1.4em;
+  }
+}
+
+.announce-rotator li {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  opacity: 0;
+  transform: translateY(105%);
+  transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out);
+}
+
+.announce-rotator li[data-active='true'] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.announce-rotator svg {
+  width: 13px;
+  height: 13px;
+  color: #dcb15a;
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   Hero — staged intro, drifting light, floating silhouette
+   -------------------------------------------------------------------------- */
+.js .hero-content > * {
+  opacity: 0;
+  transform: translate3d(0, 20px, 0);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+}
+
+.js .hero.is-ready .hero-content > * {
+  opacity: 1;
+  transform: none;
+}
+
+.js .hero-content > *:nth-child(1) { transition-delay: 60ms; }
+.js .hero-content > *:nth-child(2) { transition-delay: 160ms; }
+.js .hero-content > *:nth-child(3) { transition-delay: 260ms; }
+.js .hero-content > *:nth-child(4) { transition-delay: 360ms; }
+.js .hero-content > *:nth-child(5) { transition-delay: 460ms; }
+.js .hero-content > *:nth-child(6) { transition-delay: 560ms; }
+
+.hero-glow {
+  animation: glowdrift 14s ease-in-out infinite;
+}
+
+@keyframes glowdrift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.9; }
+  50% { transform: translate3d(-3%, 4%, 0) scale(1.08); opacity: 1; }
+}
+
+.hero-silhouette {
+  will-change: transform;
+}
+
+.hero-silhouette > g {
+  animation: bagfloat 9s ease-in-out infinite;
+}
+
+@keyframes bagfloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-9px); }
+}
+
+/* Social proof cluster under the headline */
+.hero-proof {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+  color: rgba(250, 249, 247, 0.78);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+.hero-proof .stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.hero-proof .stars svg {
+  width: 15px;
+  height: 15px;
+  fill: #dcb15a;
+}
+
+.hero-proof strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.avatar-row {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-chip {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-full);
+  border: 2px solid #171412;
+  margin-left: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  color: #1c1917;
+  background: #dcb15a;
+}
+
+.avatar-chip:first-child {
+  margin-left: 0;
+}
+
+.avatar-chip:nth-child(2) { background: #cbbba4; }
+.avatar-chip:nth-child(3) { background: #a9764c; color: #fff; }
+
+/* --------------------------------------------------------------------------
+   Animated bag illustrations — strokes draw on, fills fade up
+   JS measures each path and drives stroke-dashoffset from full length to 0.
+   -------------------------------------------------------------------------- */
+.js .bag-draw path,
+.js .bag-draw line,
+.js .bag-draw circle,
+.js .bag-draw polyline {
+  transition: stroke-dashoffset 1200ms var(--ease-out);
+}
+
+.js .bag-draw .bag-fill {
+  opacity: 0;
+  transition: opacity 700ms var(--ease-out) 420ms;
+}
+
+.js .bag-draw.is-drawn .bag-fill {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Press / editorial marquee
+   -------------------------------------------------------------------------- */
+.press-strip {
+  background: var(--color-primary);
+  color: rgba(250, 249, 247, 0.62);
+  padding-block: var(--space-5);
+  overflow: hidden;
+  border-block: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.marquee-viewport {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  gap: var(--space-8);
+  padding-left: var(--space-8);
+  animation: marquee 34s linear infinite;
+}
+
+.press-strip:hover .marquee,
+.marquee:focus-within {
+  animation-play-state: paused;
+}
+
+.marquee span {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 2.2vw, 1.45rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@keyframes marquee {
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* --------------------------------------------------------------------------
+   Product cards — lift, sheen sweep, proof & scarcity
+   -------------------------------------------------------------------------- */
+.product-card {
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.product-card:hover {
+  transform: translate3d(0, -4px, 0);
+}
+
+.product-media svg {
+  transform-origin: 50% 58%;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.product-card:hover .product-media svg {
+  transform: scale(1.06) translateY(-6px);
+}
+
+/* The older per-path scale would compound with the media scale above. */
+.product-card:hover .product-media svg .bag-line {
+  transform: none;
+}
+
+.product-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.5) 50%, transparent 58%);
+  transform: translate3d(-130%, 0, 0);
+  transition: transform 900ms var(--ease-out);
+}
+
+.product-card:hover .product-media::after {
+  transform: translate3d(130%, 0, 0);
+}
+
+.product-proof {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: 2px;
+  font-size: 0.72rem;
+  color: var(--color-muted);
+}
+
+.product-proof .stars {
+  display: inline-flex;
+  gap: 1px;
+}
+
+.product-proof .stars svg {
+  width: 12px;
+  height: 12px;
+  fill: var(--color-accent);
+}
+
+.stock-note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #9a3412;
+}
+
+.stock-note::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: currentColor;
+  animation: pulsedot 1.9s var(--ease-standard) infinite;
+}
+
+@keyframes pulsedot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.65); }
+}
+
+/* --------------------------------------------------------------------------
+   Limited-edition meter (spotlight)
+   -------------------------------------------------------------------------- */
+.edition-meter {
+  margin-block: var(--space-5) var(--space-6);
+  max-width: 420px;
+}
+
+.edition-meter .labels {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
+  font-size: 0.7rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(250, 249, 247, 0.7);
+}
+
+.edition-meter .labels strong {
+  color: #dcb15a;
+  font-weight: 600;
+}
+
+.edition-meter .bar {
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+
+.edition-meter .fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-accent), #dcb15a);
+  transition: width 1400ms var(--ease-out);
+}
+
+.spotlight-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-media::before {
+  content: '';
+  position: absolute;
+  top: 12%;
+  left: 15%;
+  width: 70%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(220, 177, 90, 0.22), transparent 65%);
+  animation: glowdrift 16s ease-in-out infinite;
+}
+
+.spotlight-media svg {
+  position: relative;
+  will-change: transform;
+}
+
+.spotlight-list li {
+  opacity: 0;
+  transform: translate3d(-12px, 0, 0);
+  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out);
+}
+
+.spotlight-grid.in-view .spotlight-list li {
+  opacity: 1;
+  transform: none;
+}
+
+.spotlight-grid.in-view .spotlight-list li:nth-child(1) { transition-delay: 260ms; }
+.spotlight-grid.in-view .spotlight-list li:nth-child(2) { transition-delay: 360ms; }
+.spotlight-grid.in-view .spotlight-list li:nth-child(3) { transition-delay: 460ms; }
+
+/* --------------------------------------------------------------------------
+   Stat counters
+   -------------------------------------------------------------------------- */
+.stat dd {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   Risk-reversal band
+   -------------------------------------------------------------------------- */
+.assurance-band {
+  border-block: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.assurance-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+  padding-block: var(--space-6);
+}
+
+@media (min-width: 640px) {
+  .assurance-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.assurance-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.assurance-item svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  color: var(--color-accent);
+}
+
+.assurance-item h3 {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.assurance-item p {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Sticky conversion bar
+   -------------------------------------------------------------------------- */
+.sticky-cta {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: calc(var(--z-header) + 10);
+  background: rgba(23, 20, 18, 0.96);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(220, 177, 90, 0.32);
+  color: var(--color-on-primary);
+  padding-block: var(--space-3);
+  padding-bottom: max(var(--space-3), env(safe-area-inset-bottom));
+  transform: translate3d(0, 115%, 0);
+  /* Hidden from the tab order until it is actually on screen. */
+  visibility: hidden;
+  transition: transform var(--duration-slow) var(--ease-out), visibility var(--duration-slow);
+}
+
+.sticky-cta[data-visible='true'] {
+  transform: none;
+  visibility: visible;
+}
+
+.sticky-cta .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.sticky-cta-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sticky-cta-copy strong {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.sticky-cta-copy span {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(250, 249, 247, 0.62);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sticky-cta .btn {
+  flex: none;
+}
+
+.sticky-cta .icon-btn {
+  color: rgba(250, 249, 247, 0.6);
+  flex: none;
+}
+
+.sticky-cta .icon-btn:hover {
+  color: #fff;
+}
+
+.sticky-cta .btn {
+  white-space: nowrap;
+}
+
+@media (max-width: 639px) {
+  .sticky-cta-copy strong {
+    font-size: 0.95rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 539px) {
+  .sticky-cta-copy span { display: none; }
+  .sticky-cta .btn { padding-inline: var(--space-4); font-size: 0.66rem; }
+}
+
+body.has-sticky-cta .back-to-top {
+  bottom: calc(var(--space-5) + 76px);
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion — keep the meaning, drop the movement
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress span,
+  .marquee,
+  .hero-glow,
+  .hero-silhouette > g,
+  .spotlight-media::before,
+  .stock-note::before {
+    animation: none !important;
+  }
+
+  .js .hero-content > *,
+  .spotlight-list li {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .js [data-reveal='wipe']::before {
+    display: none;
+  }
+
+  .js .bag-draw path,
+  .js .bag-draw line,
+  .js .bag-draw circle,
+  .js .bag-draw polyline,
+  .js .bag-draw .bag-fill {
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+    opacity: 1;
+    transition: none !important;
+  }
+
+  .product-card:hover,
+  .product-card:hover .product-media svg,
+  .product-card:hover .product-media::after {
+    transform: none;
+  }
+
+  .announce-rotator li,
+  .sticky-cta,
+  .edition-meter .fill {
+    transition: none !important;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Small-screen header — keep the wordmark and four actions on one row
+   -------------------------------------------------------------------------- */
+@media (max-width: 479px) {
+  .site-header .container {
+    gap: var(--space-2);
+  }
+
+  .logo {
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+  }
+
+  .header-actions {
+    gap: 0;
+  }
+}
