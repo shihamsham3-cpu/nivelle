@@ -2998,3 +2998,26 @@ body.has-sticky-cta .back-to-top {
   margin-left: 5px;
   border-width: 1px;
 }
+
+/* Product description copy comes from Shopify as HTML — give its paragraphs
+   and lists room to breathe. */
+.pd-desc p + p,
+.pd-desc ul,
+.pd-desc ol {
+  margin-top: var(--space-3);
+}
+
+.pd-desc ul,
+.pd-desc ol {
+  padding-left: 1.15em;
+}
+
+.pd-desc li + li {
+  margin-top: var(--space-1);
+}
+
+.pd-desc a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

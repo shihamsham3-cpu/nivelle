@@ -33,11 +33,13 @@
   document.title = product.name + ' — Nivelle';
   var metaDesc = document.querySelector('meta[name="description"]');
   if (metaDesc) {
-    metaDesc.setAttribute(
-      'content',
+    var summary =
       product.desc ||
-        product.name + ' — available in ' + C.colorValues(product).join(', ') + '. ' + C.money(product.price) + ' at Nivelle.'
-    );
+      product.name + ' — available in ' + C.colorValues(product).join(', ') + '. Nivelle.';
+    if (summary.length > 155) {
+      summary = summary.slice(0, 152).replace(/\s+\S*$/, '') + '…';
+    }
+    metaDesc.setAttribute('content', summary);
   }
 
   var colourways = C.colorValues(product);
@@ -48,7 +50,10 @@
   var descEl = $('[data-pd-desc]');
   if (descEl) {
     if (product.descHtml) {
-      descEl.innerHTML = product.descHtml;
+      /* The description ends with a "Good to know" heading covering returns,
+         shipping and payment — this page already lists all three below the
+         buy button, so only the narrative half is rendered here. */
+      descEl.innerHTML = product.descHtml.split(/<h[23][^>]*>/i)[0];
     } else {
       descEl.textContent =
         product.name + ' in ' + colourways.join(', ') + '. Ships from stock with 30-day returns.';
