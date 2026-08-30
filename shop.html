@@ -4,30 +4,42 @@
 <meta charset="UTF-8">
 <script>document.documentElement.classList.replace('no-js','js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Shop All Handbags — Atelier Noir</title>
-<meta name="description" content="Browse the full Atelier Noir collection — totes, satchels, clutches, crossbody and travel bags in full-grain leather.">
+<title>Shop All Bags — Nivelle</title>
+<meta name="description" content="Browse the full Nivelle collection — totes, satchels, clutches, crossbody and travel bags in full-grain leather.">
 <link rel="preload" href="assets/fonts/cormorant-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/styles.css">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c1917'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23dcb15a' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c1917'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23dcb15a' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <div class="announcement">
   <div class="container">
-    <span>Complimentary shipping on all orders over $500 &middot; Free returns within 30 days</span>
+    <ul class="announce-rotator" data-rotator>
+      <li data-active="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg>
+        Ships worldwide &mdash; US, UK, Canada, Australia, UAE, Austria &amp; Maldives
+      </li>
+      <li data-active="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14H8"/></svg>
+        30-day returns on every order
+      </li>
+      <li data-active="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/><path d="M9 12.5l2 2 4-4.5"/></svg>
+        Secure checkout, handled by Shopify
+      </li>
+    </ul>
   </div>
 </div>
 
 <header class="site-header">
   <div class="container">
-    <a href="index.html" class="logo">ATELIER NOIR</a>
+    <a href="index.html" class="logo">NIVELLE</a>
     <nav class="main-nav" aria-label="Primary">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="shop.html" aria-current="page">Shop</a></li>
-        <li><a href="about.html#craftsmanship">Craftsmanship</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -36,12 +48,11 @@
       <button type="button" class="icon-btn" aria-label="Search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
-      <a href="contact.html" class="icon-btn" aria-label="Account">
+      <a href="https://nivellestore.myshopify.com/account" class="icon-btn" aria-label="Your account on the Nivelle store">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
       </a>
-      <a href="shop.html" class="icon-btn" aria-label="Shopping bag, items in bag">
+      <a href="https://nivellestore.myshopify.com/cart" class="icon-btn" data-store-cart aria-label="View your bag on the Nivelle store">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-        <span class="count" data-cart-count style="display:none">0</span>
       </a>
       <button type="button" class="icon-btn nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
@@ -54,7 +65,7 @@
   <div class="drawer-backdrop"></div>
   <div class="drawer-panel" role="dialog" aria-modal="true" aria-label="Site menu">
     <div class="drawer-head">
-      <span class="logo">ATELIER NOIR</span>
+      <span class="logo">NIVELLE</span>
       <button type="button" class="icon-btn" data-drawer-close aria-label="Close menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
       </button>
@@ -63,16 +74,15 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html#craftsmanship">Craftsmanship</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
     <div class="drawer-foot">
-      <a href="tel:+18005551234" class="icon-btn" aria-label="Call us">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4c0 1-1 2-2 2C10.5 22 2 13.5 2 6c0-1 1-2 2-2Z"/></svg>
+      <a href="https://nivellestore.myshopify.com" class="icon-btn" aria-label="Visit the Nivelle store">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
       </a>
-      <a href="mailto:hello@ateliernoir.example" class="icon-btn" aria-label="Email us">
+      <a href="mailto:shihamsham3@gmail.com" class="icon-btn" aria-label="Email us">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
       </a>
     </div>
@@ -82,7 +92,7 @@
 <header class="page-header">
   <div class="container">
     <span class="eyebrow">The Collection</span>
-    <h1>Shop All Handbags</h1>
+    <h1>Shop All Bags</h1>
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       <a href="index.html">Home</a>
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
@@ -96,309 +106,54 @@
     <div class="container">
       <div class="shop-layout">
 
-        <aside aria-label="Filters">
-          <button type="button" class="filter-toggle-btn" data-filter-toggle aria-expanded="false" aria-controls="filters-panel">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/><circle cx="9" cy="6" r="1.8" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="9" cy="18" r="1.8" fill="currentColor" stroke="none"/></svg>
-            Filter &amp; Sort
-          </button>
-
-          <div class="filters" id="filters-panel" data-filter-panel data-open="false">
-            <div class="filter-group">
-              <h4>Category</h4>
-              <label class="filter-option"><input type="checkbox" data-filter-category value="Totes"> Totes</label>
-              <label class="filter-option"><input type="checkbox" data-filter-category value="Satchels"> Satchels</label>
-              <label class="filter-option"><input type="checkbox" data-filter-category value="Clutches"> Clutches</label>
-              <label class="filter-option"><input type="checkbox" data-filter-category value="Crossbody"> Crossbody</label>
-              <label class="filter-option"><input type="checkbox" data-filter-category value="Bucket Bags"> Bucket Bags</label>
-              <label class="filter-option"><input type="checkbox" data-filter-category value="Travel"> Travel</label>
-            </div>
-
-            <div class="filter-group">
-              <h4>Color</h4>
-              <div class="filter-swatches">
-                <button type="button" class="filter-swatch" data-filter-color="Cognac" data-active="false" style="background:#A9764C" aria-label="Cognac" aria-pressed="false"></button>
-                <button type="button" class="filter-swatch" data-filter-color="Noir" data-active="false" style="background:#1c1917" aria-label="Noir" aria-pressed="false"></button>
-                <button type="button" class="filter-swatch" data-filter-color="Ivory" data-active="false" style="background:#D8CDBB" aria-label="Ivory" aria-pressed="false"></button>
-                <button type="button" class="filter-swatch" data-filter-color="Emerald" data-active="false" style="background:#2F4C3B" aria-label="Emerald" aria-pressed="false"></button>
-                <button type="button" class="filter-swatch" data-filter-color="Burgundy" data-active="false" style="background:#6B2737" aria-label="Burgundy" aria-pressed="false"></button>
-                <button type="button" class="filter-swatch" data-filter-color="Sand" data-active="false" style="background:#C7B299" aria-label="Sand" aria-pressed="false"></button>
-                <button type="button" class="filter-swatch" data-filter-color="Blush" data-active="false" style="background:#C99C93" aria-label="Blush" aria-pressed="false"></button>
-                <button type="button" class="filter-swatch" data-filter-color="Chestnut" data-active="false" style="background:#6B4226" aria-label="Chestnut" aria-pressed="false"></button>
-              </div>
-            </div>
-
-            <div class="filter-group">
-              <h4>Price</h4>
-              <label class="filter-option"><input type="radio" name="price" data-filter-price value="0-800"> Under $800</label>
-              <label class="filter-option"><input type="radio" name="price" data-filter-price value="800-1400"> $800 &ndash; $1,400</label>
-              <label class="filter-option"><input type="radio" name="price" data-filter-price value="1400-9999"> $1,400+</label>
-            </div>
-
-            <button type="button" class="link-underline" data-filter-clear>Clear all filters</button>
+        <aside class="filters" data-filter-panel data-open="false" aria-label="Product filters">
+          <div class="filter-group">
+            <h4>Colour</h4>
+            <div class="filter-swatches" data-color-filters></div>
           </div>
+
+          <div class="filter-group">
+            <h4>Price</h4>
+            <div data-price-filters></div>
+          </div>
+
+          <div class="filter-group">
+            <h4>Availability</h4>
+            <label class="filter-option"><input type="checkbox" data-filter-stock> In stock only</label>
+          </div>
+
+          <button type="button" class="link-underline" data-filter-clear>Clear filters</button>
         </aside>
 
         <div>
           <div class="toolbar">
-            <p class="result-count"><span data-result-count>8</span> handbags</p>
-            <label class="sort-select">
-              Sort by
-              <select data-sort-select>
+            <button type="button" class="filter-toggle-btn" data-filter-toggle aria-expanded="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="17" x2="14" y2="17"/></svg>
+              Filters
+            </button>
+            <p class="result-count"><span data-result-count>3</span> bags</p>
+            <div class="sort-select">
+              <label for="sort">Sort by</label>
+              <select id="sort" data-sort-select>
                 <option value="featured">Featured</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="name-asc">Name: A&ndash;Z</option>
+                <option value="price-asc">Price: low to high</option>
+                <option value="price-desc">Price: high to low</option>
+                <option value="name">Name</option>
               </select>
-            </label>
+            </div>
           </div>
 
-          <div class="product-grid" data-product-grid>
+          <div class="product-grid" data-product-grid data-stagger="90"></div>
 
-<article class="product-card" data-reveal data-category="Totes" data-color="Cognac" data-price="1280">
-          <div class="product-media">
-            <span class="product-badge">New</span>
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Aurelia Tote to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=aurelia-tote" class="product-media-link" aria-label="View The Aurelia Tote">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-aurelia-tote" class="">
-<title id="p-aurelia-tote">Illustrative studio preview of The Aurelia Tote in Cognac</title>
-<rect width="100%" height="100%" fill="#F1E9DE"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <path class="bag-line" d="M78,150 C78,120 96,96 120,96 C144,96 162,120 162,150" />
-  <path class="bag-line" d="M138,150 C138,120 156,96 180,96 C204,96 222,120 222,150" />
-  <path class="bag-fill" d="M70,150 L230,150 L246,318 L54,318 Z" fill="#A9764C" fill-opacity="0.18" />
-  <line x1="86" y1="176" x2="214" y2="176" stroke-dasharray="3 6" />
-  <circle cx="150" cy="150" r="4" fill="#1c1917" stroke="none" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Aurelia Tote">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Totes</span>
-            <h3><a href="product.html?slug=aurelia-tote">The Aurelia Tote</a></h3>
-            <div class="product-price"><span>$1,280</span></div>
-          </div>
-        </article>
+          <noscript>
+            <ul class="noscript-list">
+              <li><a href="https://nivellestore.myshopify.com/products/nivelle-black">Nivelle Luxury Bag &mdash; $49.99</a></li>
+              <li><a href="https://nivellestore.myshopify.com/products/fluffy-bunny-purse">Fluffy Bunny Purse &mdash; $39.99</a></li>
+              <li><a href="https://nivellestore.myshopify.com/products/nivelle-tote-bag">Nivelle Tote Bag &mdash; $49.99</a></li>
+            </ul>
+          </noscript>
 
-<article class="product-card" data-reveal data-category="Satchels" data-color="Noir" data-price="1650">
-          <div class="product-media">
-            <span class="product-badge gold">Sale</span>
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Sabine Satchel to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=sabine-satchel" class="product-media-link" aria-label="View The Sabine Satchel">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-sabine-satchel" class="">
-<title id="p-sabine-satchel">Illustrative studio preview of The Sabine Satchel in Noir</title>
-<rect width="100%" height="100%" fill="#E9E6E1"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <path class="bag-line" d="M118,108 C118,90 132,78 150,78 C168,78 182,90 182,108" />
-  <rect class="bag-fill" x="66" y="150" width="168" height="140" rx="14" fill="#1c1917" fill-opacity="0.18" />
-  <path class="bag-line" d="M66,164 L234,164 L224,214 Q150,238 76,214 Z" />
-  <circle cx="150" cy="196" r="9" fill="none" />
-  <line x1="150" y1="188" x2="150" y2="204" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Sabine Satchel">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Satchels</span>
-            <h3><a href="product.html?slug=sabine-satchel">The Sabine Satchel</a></h3>
-            <div class="product-price"><span>$1,650</span>
-            <span class="was">$1,950</span></div>
-          </div>
-        </article>
-
-<article class="product-card" data-reveal data-category="Clutches" data-color="Emerald" data-price="690">
-          <div class="product-media">
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Noor Clutch to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=noor-clutch" class="product-media-link" aria-label="View The Noor Clutch">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-noor-clutch" class="">
-<title id="p-noor-clutch">Illustrative studio preview of The Noor Clutch in Emerald</title>
-<rect width="100%" height="100%" fill="#E7ECE7"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <rect class="bag-fill" x="70" y="188" width="160" height="96" rx="10" fill="#2F4C3B" fill-opacity="0.18" />
-  <path class="bag-line" d="M70,188 L150,150 L230,188 Z" />
-  <circle cx="150" cy="176" r="5" fill="#1c1917" stroke="none" />
-  <path class="bag-line" d="M204,196 C222,196 234,208 234,224" stroke-width="2" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Noor Clutch">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Clutches</span>
-            <h3><a href="product.html?slug=noor-clutch">The Noor Clutch</a></h3>
-            <div class="product-price"><span>$690</span></div>
-          </div>
-        </article>
-
-<article class="product-card" data-reveal data-category="Crossbody" data-color="Burgundy" data-price="890">
-          <div class="product-media">
-            <span class="product-badge">Bestseller</span>
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Margot Crossbody to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=margot-crossbody" class="product-media-link" aria-label="View The Margot Crossbody">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-margot-crossbody" class="">
-<title id="p-margot-crossbody">Illustrative studio preview of The Margot Crossbody in Burgundy</title>
-<rect width="100%" height="100%" fill="#F1E6E5"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="62" y1="72" x2="178" y2="182" />
-  <line x1="238" y1="72" x2="178" y2="182" stroke="none" />
-  <rect class="bag-fill" x="112" y="182" width="128" height="112" rx="12" fill="#6B2737" fill-opacity="0.18" />
-  <path class="bag-line" d="M112,196 L240,196 L232,232 Q176,250 120,232 Z" />
-  <circle cx="176" cy="220" r="7" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Margot Crossbody">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Crossbody</span>
-            <h3><a href="product.html?slug=margot-crossbody">The Margot Crossbody</a></h3>
-            <div class="product-price"><span>$890</span></div>
-          </div>
-        </article>
-
-<article class="product-card" data-reveal data-category="Bucket Bags" data-color="Sand" data-price="1120">
-          <div class="product-media">
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Odile Bucket to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=odile-bucket" class="product-media-link" aria-label="View The Odile Bucket">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-odile-bucket" class="">
-<title id="p-odile-bucket">Illustrative studio preview of The Odile Bucket in Sand</title>
-<rect width="100%" height="100%" fill="#F4EEE3"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <path class="bag-line" d="M120,120 C120,104 133,92 150,92 C167,92 180,104 180,120" />
-  <path class="bag-fill" d="M84,150 C84,138 96,130 150,130 C204,130 216,138 216,150 L206,292 C206,306 182,316 150,316 C118,316 94,306 94,292 Z" fill="#C7B299" fill-opacity="0.18" />
-  <path class="bag-line" d="M96,158 Q150,172 204,158" stroke-dasharray="2 7" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Odile Bucket">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Bucket Bags</span>
-            <h3><a href="product.html?slug=odile-bucket">The Odile Bucket</a></h3>
-            <div class="product-price"><span>$1,120</span></div>
-          </div>
-        </article>
-
-<article class="product-card" data-reveal data-category="Travel" data-color="Chestnut" data-price="1980">
-          <div class="product-media">
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Théa Weekender to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=thea-weekender" class="product-media-link" aria-label="View The Théa Weekender">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-thea-weekender" class="">
-<title id="p-thea-weekender">Illustrative studio preview of The Théa Weekender in Chestnut</title>
-<rect width="100%" height="100%" fill="#EFE6DC"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <path class="bag-line" d="M96,142 C96,118 112,100 132,100 L168,100 C188,100 204,118 204,142" />
-  <rect class="bag-fill" x="54" y="142" width="192" height="120" rx="30" fill="#6B4226" fill-opacity="0.18" />
-  <line x1="150" y1="150" x2="150" y2="254" stroke-dasharray="2 6" />
-  <circle cx="90" cy="202" r="4" fill="#1c1917" stroke="none" />
-  <circle cx="210" cy="202" r="4" fill="#1c1917" stroke="none" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Théa Weekender">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Travel</span>
-            <h3><a href="product.html?slug=thea-weekender">The Théa Weekender</a></h3>
-            <div class="product-price"><span>$1,980</span></div>
-          </div>
-        </article>
-
-<article class="product-card" data-reveal data-category="Totes" data-color="Ivory" data-price="1340">
-          <div class="product-media">
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Isolde Tote to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=isolde-tote" class="product-media-link" aria-label="View The Isolde Tote">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-isolde-tote" class="">
-<title id="p-isolde-tote">Illustrative studio preview of The Isolde Tote in Ivory</title>
-<rect width="100%" height="100%" fill="#F5F1E9"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <path class="bag-line" d="M78,150 C78,120 96,96 120,96 C144,96 162,120 162,150" />
-  <path class="bag-line" d="M138,150 C138,120 156,96 180,96 C204,96 222,120 222,150" />
-  <path class="bag-fill" d="M70,150 L230,150 L246,318 L54,318 Z" fill="#D8CDBB" fill-opacity="0.18" />
-  <line x1="86" y1="176" x2="214" y2="176" stroke-dasharray="3 6" />
-  <circle cx="150" cy="150" r="4" fill="#1c1917" stroke="none" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Isolde Tote">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Totes</span>
-            <h3><a href="product.html?slug=isolde-tote">The Isolde Tote</a></h3>
-            <div class="product-price"><span>$1,340</span></div>
-          </div>
-        </article>
-
-<article class="product-card" data-reveal data-category="Clutches" data-color="Blush" data-price="590">
-          <div class="product-media">
-            <span class="product-badge gold">Sale</span>
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Camille Clutch to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=camille-clutch" class="product-media-link" aria-label="View The Camille Clutch">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-camille-clutch" class="">
-<title id="p-camille-clutch">Illustrative studio preview of The Camille Clutch in Blush</title>
-<rect width="100%" height="100%" fill="#F4E9E5"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <rect class="bag-fill" x="70" y="188" width="160" height="96" rx="10" fill="#C99C93" fill-opacity="0.18" />
-  <path class="bag-line" d="M70,188 L150,150 L230,188 Z" />
-  <circle cx="150" cy="176" r="5" fill="#1c1917" stroke="none" />
-  <path class="bag-line" d="M204,196 C222,196 234,208 234,224" stroke-width="2" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Camille Clutch">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Clutches</span>
-            <h3><a href="product.html?slug=camille-clutch">The Camille Clutch</a></h3>
-            <div class="product-price"><span>$590</span>
-            <span class="was">$720</span></div>
-          </div>
-        </article>
-
-          </div>
-
-          <p data-empty-state hidden style="text-align:center; padding-block:var(--space-8); color:var(--color-muted)">No handbags match these filters. <button type="button" class="link-underline" data-filter-clear style="display:inline-flex">Clear filters</button></p>
-
-          <nav class="pagination" aria-label="Pagination">
-            <span class="active" aria-current="page">1</span>
-            <a href="#" aria-label="Page 2">2</a>
-            <a href="#" aria-label="Next page">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-            </a>
-          </nav>
+          <p data-empty-state hidden style="text-align:center; padding-block:var(--space-8); color:var(--color-muted)">No bags match these filters. <button type="button" class="link-underline" data-filter-clear style="display:inline-flex">Clear filters</button></p>
         </div>
       </div>
     </div>
@@ -409,16 +164,16 @@
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <span class="logo">ATELIER NOIR</span>
-        <p>Handcrafted leather handbags, made in small batches in Florence, Italy since 2011.</p>
+        <span class="logo">NIVELLE</span>
+        <p>A small, considered range of everyday bags. Shipped worldwide from our Shopify store, with 30-day returns on every order.</p>
         <div class="social-row">
-          <a href="#" class="icon-btn" aria-label="Atelier Noir on Instagram">
+          <a href="#" class="icon-btn" aria-label="Nivelle on Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
           </a>
-          <a href="#" class="icon-btn" aria-label="Atelier Noir on Pinterest">
+          <a href="#" class="icon-btn" aria-label="Nivelle on Pinterest">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 21c1-3 1.5-5 1.9-6.7M12 3a7 7 0 0 0-2.5 13.5c-.1-1.1 0-2.4.3-3.5l1-4.3s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.9 0 1.3.6 1.3 1.4 0 .9-.5 2.1-.8 3.3-.2 1 .5 1.8 1.5 1.8 1.8 0 3-2.3 3-5 0-2.1-1.5-3.6-4.1-3.6"/></svg>
           </a>
-          <a href="#" class="icon-btn" aria-label="Atelier Noir on Facebook">
+          <a href="#" class="icon-btn" aria-label="Nivelle on Facebook">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 9h2V6h-2c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.3l.7-3H14V9Z"/></svg>
           </a>
         </div>
@@ -426,56 +181,51 @@
       <div class="footer-col">
         <h4>Shop</h4>
         <ul>
-          <li><a href="shop.html">All Handbags</a></li>
-          <li><a href="shop.html">Totes</a></li>
-          <li><a href="shop.html">Satchels</a></li>
-          <li><a href="shop.html">Clutches</a></li>
-          <li><a href="shop.html">Travel</a></li>
+          <li><a href="shop.html">All Bags</a></li>
+          <li><a href="product.html?slug=nivelle-black">Nivelle Luxury Bag</a></li>
+          <li><a href="product.html?slug=fluffy-bunny-purse">Fluffy Bunny Purse</a></li>
+          <li><a href="product.html?slug=nivelle-tote-bag">Nivelle Tote Bag</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">Our Story</a></li>
-          <li><a href="about.html#craftsmanship">Craftsmanship</a></li>
-          <li><a href="#">Sustainability</a></li>
-          <li><a href="#">Careers</a></li>
+          <li><a href="https://nivellestore.myshopify.com">Visit The Store</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Support</h4>
         <ul>
           <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="#">Shipping &amp; Returns</a></li>
-          <li><a href="#">Repair Service</a></li>
-          <li><a href="#">FAQ</a></li>
+          <li><a href="https://checkout.shopify.com/81689837808/policies/42988306672.html?locale=en">Returns &amp; Refunds</a></li>
+          <li><a href="https://nivellestore.myshopify.com/account">Your Orders</a></li>
+          <li><a href="contact.html">FAQ</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; <span data-year>2026</span> Atelier Noir. All rights reserved.</p>
+      <p>&copy; <span data-year>2026</span> Nivelle. All rights reserved.</p>
       <div class="legal-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="https://checkout.shopify.com/81689837808/policies/42907992304.html?locale=en">Privacy Policy</a>
+        <a href="https://checkout.shopify.com/81689837808/policies/42988339440.html?locale=en">Terms of Service</a>
       </div>
       <p class="payment-row">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
-        Secure checkout &middot; Visa, Mastercard, Amex, PayPal
+        Secure checkout on Shopify &middot; Visa, Mastercard, Amex, PayPal
       </p>
     </div>
   </div>
 </footer>
 
-<div class="toast" data-visible="false" role="status" aria-live="polite">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
-  <span data-toast-message>Added to your bag</span>
-</div>
-
 <button type="button" class="back-to-top" data-visible="false" aria-label="Back to top">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><path d="M5 12l7-7 7 7"/></svg>
 </button>
 
+<script src="js/products-data.js" defer></script>
 <script src="js/main.js" defer></script>
+<script src="js/catalog.js" defer></script>
 <script src="js/shop.js" defer></script>
+<script src="js/motion.js" defer></script>
 </body>
 </html>

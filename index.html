@@ -4,31 +4,45 @@
 <meta charset="UTF-8">
 <script>document.documentElement.classList.replace('no-js','js');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Atelier Noir — Handcrafted Leather Handbags</title>
-<meta name="description" content="Atelier Noir crafts full-grain leather handbags in small batches — timeless silhouettes, hand-finished hardware, and a lifetime repair promise.">
+<title>Nivelle — Everyday Bags, Shipped Worldwide</title>
+<meta name="description" content="Nivelle makes a small range of everyday bags — three designs, ten colourways, from $39.99. Ships worldwide with 30-day returns and secure Shopify checkout.">
 <link rel="preload" href="assets/fonts/cormorant-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/styles.css">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c1917'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23dcb15a' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c1917'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23dcb15a' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
 
+<div class="scroll-progress" data-scroll-progress aria-hidden="true"><span></span></div>
+
 <div class="announcement">
   <div class="container">
-    <span>Complimentary shipping on all orders over $500 &middot; Free returns within 30 days</span>
+    <ul class="announce-rotator" data-rotator>
+      <li data-active="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg>
+        Ships worldwide &mdash; US, UK, Canada, Australia, UAE, Austria &amp; Maldives
+      </li>
+      <li data-active="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14H8"/></svg>
+        30-day returns on every order
+      </li>
+      <li data-active="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/><path d="M9 12.5l2 2 4-4.5"/></svg>
+        Secure checkout, handled by Shopify
+      </li>
+    </ul>
   </div>
 </div>
 
 <header class="site-header">
   <div class="container">
-    <a href="index.html" class="logo">ATELIER NOIR</a>
+    <a href="index.html" class="logo">NIVELLE</a>
 
     <nav class="main-nav" aria-label="Primary">
       <ul>
         <li><a href="index.html" aria-current="page">Home</a></li>
         <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html#craftsmanship">Craftsmanship</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
@@ -38,12 +52,11 @@
       <button type="button" class="icon-btn" aria-label="Search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
-      <a href="contact.html" class="icon-btn" aria-label="Account">
+      <a href="https://nivellestore.myshopify.com/account" class="icon-btn" aria-label="Your account on the Nivelle store">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
       </a>
-      <a href="shop.html" class="icon-btn" aria-label="Shopping bag, items in bag">
+      <a href="https://nivellestore.myshopify.com/cart" class="icon-btn" data-store-cart aria-label="View your bag on the Nivelle store">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-        <span class="count" data-cart-count style="display:none">0</span>
       </a>
       <button type="button" class="icon-btn nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-drawer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
@@ -56,7 +69,7 @@
   <div class="drawer-backdrop"></div>
   <div class="drawer-panel" role="dialog" aria-modal="true" aria-label="Site menu">
     <div class="drawer-head">
-      <span class="logo">ATELIER NOIR</span>
+      <span class="logo">NIVELLE</span>
       <button type="button" class="icon-btn" data-drawer-close aria-label="Close menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
       </button>
@@ -65,16 +78,15 @@
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="shop.html">Shop</a></li>
-        <li><a href="about.html#craftsmanship">Craftsmanship</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
     <div class="drawer-foot">
-      <a href="tel:+18005551234" class="icon-btn" aria-label="Call us">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4l2 5-2.5 1.5a12 12 0 0 0 6 6L15 14l5 2v4c0 1-1 2-2 2C10.5 22 2 13.5 2 6c0-1 1-2 2-2Z"/></svg>
+      <a href="https://nivellestore.myshopify.com" class="icon-btn" aria-label="Visit the Nivelle store">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
       </a>
-      <a href="mailto:hello@ateliernoir.example" class="icon-btn" aria-label="Email us">
+      <a href="mailto:shihamsham3@gmail.com" class="icon-btn" aria-label="Email us">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
       </a>
     </div>
@@ -86,7 +98,7 @@
   <!-- ============================= HERO ============================= -->
   <section class="hero">
     <div class="hero-glow" aria-hidden="true"></div>
-    <svg class="hero-silhouette" viewBox="0 0 300 360" aria-hidden="true" focusable="false">
+    <svg class="hero-silhouette" data-parallax="0.08" viewBox="0 0 300 360" aria-hidden="true" focusable="false">
       <g fill="none" stroke="#dcb15a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M118,108 C118,90 132,78 150,78 C168,78 182,90 182,108" />
         <rect x="66" y="150" width="168" height="140" rx="14" fill="#dcb15a" fill-opacity="0.14" />
@@ -97,25 +109,35 @@
     </svg>
     <div class="container">
       <div class="hero-content">
-        <span class="eyebrow">Est. 2011 &middot; Made in Italy</span>
-        <h1 class="display-1">Carried with<br><em>quiet confidence.</em></h1>
-        <p class="lede">Full-grain leather handbags, cut and stitched by hand in a family-run atelier outside Florence. Each piece is numbered, and built to outlast trend cycles.</p>
+        <span class="eyebrow">Three designs &middot; Ten colourways</span>
+        <h1 class="display-1">Made to be<br><em>carried daily.</em></h1>
+        <p class="lede">A small, considered range of everyday bags &mdash; priced to actually use, not to save for a special occasion. Every colourway ships from stock, worldwide.</p>
+        <div class="hero-proof">
+          <span class="avatar-row" aria-hidden="true">
+            <span class="swatch-chip" style="background:#F2EFE9"></span>
+            <span class="swatch-chip" style="background:#1c1917"></span>
+            <span class="swatch-chip" style="background:#E2A9BC"></span>
+            <span class="swatch-chip" style="background:#6B4226"></span>
+            <span class="swatch-chip" style="background:#7B2D3B"></span>
+          </span>
+          <span><strong>10 colourways</strong> from $39.99 &middot; in stock now</span>
+        </div>
         <div class="hero-actions">
-          <a href="shop.html" class="btn btn-primary">Shop The Collection</a>
-          <a href="about.html#craftsmanship" class="btn btn-outline-light">Our Craftsmanship</a>
+          <a href="shop.html" class="btn btn-primary">Shop All Bags</a>
+          <a href="https://nivellestore.myshopify.com" class="btn btn-outline-light">Visit The Store</a>
         </div>
         <ul class="hero-meta">
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/></svg>
-            Lifetime repair promise
+            30-day returns
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg>
-            Free worldwide shipping
+            Ships to 7 countries
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21c9 0 14-5 14-14V4h-3C7 4 5 12 5 21Z"/><path d="M5 21c0-5 3-9 8-11"/></svg>
-            Vegetable-tanned leathers
+            Secure Shopify checkout
           </li>
         </ul>
       </div>
@@ -123,13 +145,31 @@
     <span class="scroll-cue" aria-hidden="true"><span class="line"></span>Scroll</span>
   </section>
 
+  <!-- ========================== VALUE MARQUEE ========================= -->
+  <section class="press-strip" aria-label="Why shop with Nivelle">
+    <div class="marquee-viewport">
+      <div class="marquee" aria-hidden="true">
+        <span>30-Day Returns</span>
+        <span>Ships Worldwide</span>
+        <span>Secure Shopify Checkout</span>
+        <span>Ten Colourways</span>
+        <span>In Stock, Ready To Ship</span>
+        <span>30-Day Returns</span>
+        <span>Ships Worldwide</span>
+        <span>Secure Shopify Checkout</span>
+        <span>Ten Colourways</span>
+        <span>In Stock, Ready To Ship</span>
+      </div>
+    </div>
+    <p class="visually-hidden">Nivelle offers 30-day returns, worldwide shipping, and secure checkout on Shopify. Ten colourways, in stock and ready to ship.</p>
+  </section>
+
   <!-- ========================= BRAND STATEMENT ======================== -->
   <section class="statement">
     <div class="container">
       <blockquote>
-        &ldquo;We don't chase seasons. We choose one silhouette, perfect it over years, and let the leather do the talking.&rdquo;
+        Three bags. Ten colourways. Nothing here is waiting for a special occasion.
       </blockquote>
-      <cite>&mdash; Elena Voss, Founder &amp; Creative Director</cite>
     </div>
   </section>
 
@@ -138,138 +178,25 @@
     <div class="container">
       <div class="section-head-row" data-reveal>
         <div class="section-head" style="margin-bottom:0">
-          <span class="eyebrow">Featured</span>
-          <h2 class="section-title">The Signature Collection</h2>
-          <p class="lede">Eight silhouettes, refined over a decade — each available in a small palette of hides.</p>
+          <span class="eyebrow">The Range</span>
+          <h2 class="section-title">Everything We Make</h2>
+          <p class="lede">Three designs, each in its own set of colourways. Prices and stock come straight from our Shopify store.</p>
         </div>
         <a href="shop.html" class="link-underline">
-          View All
+          Shop All
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><path d="M13 6l6 6-6 6"/></svg>
         </a>
       </div>
 
-      <div class="product-grid cols-4">
+      <div class="product-grid" data-featured-grid data-stagger="90"></div>
 
-        <article class="product-card" data-reveal>
-          <div class="product-media">
-            <span class="product-badge">New</span>
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Aurelia Tote to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=aurelia-tote" class="product-media-link" aria-label="View The Aurelia Tote">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-aurelia-tote" class="">
-<title id="p-aurelia-tote">Illustrative studio preview of The Aurelia Tote in Cognac</title>
-<rect width="100%" height="100%" fill="#F1E9DE"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <path class="bag-line" d="M78,150 C78,120 96,96 120,96 C144,96 162,120 162,150" />
-  <path class="bag-line" d="M138,150 C138,120 156,96 180,96 C204,96 222,120 222,150" />
-  <path class="bag-fill" d="M70,150 L230,150 L246,318 L54,318 Z" fill="#A9764C" fill-opacity="0.18" />
-  <line x1="86" y1="176" x2="214" y2="176" stroke-dasharray="3 6" />
-  <circle cx="150" cy="150" r="4" fill="#1c1917" stroke="none" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Aurelia Tote">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Totes</span>
-            <h3><a href="product.html?slug=aurelia-tote">The Aurelia Tote</a></h3>
-            <div class="product-price"><span>$1,280</span></div>
-          </div>
-        </article>
-
-        <article class="product-card" data-reveal>
-          <div class="product-media">
-            <span class="product-badge gold">Sale</span>
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Sabine Satchel to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=sabine-satchel" class="product-media-link" aria-label="View The Sabine Satchel">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-sabine-satchel" class="">
-<title id="p-sabine-satchel">Illustrative studio preview of The Sabine Satchel in Noir</title>
-<rect width="100%" height="100%" fill="#E9E6E1"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <path class="bag-line" d="M118,108 C118,90 132,78 150,78 C168,78 182,90 182,108" />
-  <rect class="bag-fill" x="66" y="150" width="168" height="140" rx="14" fill="#1c1917" fill-opacity="0.18" />
-  <path class="bag-line" d="M66,164 L234,164 L224,214 Q150,238 76,214 Z" />
-  <circle cx="150" cy="196" r="9" fill="none" />
-  <line x1="150" y1="188" x2="150" y2="204" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Sabine Satchel">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Satchels</span>
-            <h3><a href="product.html?slug=sabine-satchel">The Sabine Satchel</a></h3>
-            <div class="product-price"><span>$1,650</span>
-            <span class="was">$1,950</span></div>
-          </div>
-        </article>
-
-        <article class="product-card" data-reveal>
-          <div class="product-media">
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Noor Clutch to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=noor-clutch" class="product-media-link" aria-label="View The Noor Clutch">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-noor-clutch" class="">
-<title id="p-noor-clutch">Illustrative studio preview of The Noor Clutch in Emerald</title>
-<rect width="100%" height="100%" fill="#E7ECE7"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <rect class="bag-fill" x="70" y="188" width="160" height="96" rx="10" fill="#2F4C3B" fill-opacity="0.18" />
-  <path class="bag-line" d="M70,188 L150,150 L230,188 Z" />
-  <circle cx="150" cy="176" r="5" fill="#1c1917" stroke="none" />
-  <path class="bag-line" d="M204,196 C222,196 234,208 234,224" stroke-width="2" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Noor Clutch">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Clutches</span>
-            <h3><a href="product.html?slug=noor-clutch">The Noor Clutch</a></h3>
-            <div class="product-price"><span>$690</span></div>
-          </div>
-        </article>
-
-        <article class="product-card" data-reveal>
-          <div class="product-media">
-            <span class="product-badge">Bestseller</span>
-            <button type="button" class="product-wishlist" aria-pressed="false" aria-label="Add The Margot Crossbody to wishlist">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-10-9.3C.4 7.8 2 4.5 5.3 4c2-.3 3.9.6 5.2 2.3l1.5 1.9 1.5-1.9C14.8 4.6 16.7 3.7 18.7 4c3.3.5 4.9 3.8 3.3 7.2-2.5 4.7-10 9.3-10 9.3Z"/></svg>
-            </button>
-            <a href="product.html?slug=margot-crossbody" class="product-media-link" aria-label="View The Margot Crossbody">
-              <svg viewBox="0 0 300 360" role="img" aria-labelledby="p-margot-crossbody" class="">
-<title id="p-margot-crossbody">Illustrative studio preview of The Margot Crossbody in Burgundy</title>
-<rect width="100%" height="100%" fill="#F1E6E5"/>
-<g fill="none" stroke="#1c1917" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-  <line x1="62" y1="72" x2="178" y2="182" />
-  <line x1="238" y1="72" x2="178" y2="182" stroke="none" />
-  <rect class="bag-fill" x="112" y="182" width="128" height="112" rx="12" fill="#6B2737" fill-opacity="0.18" />
-  <path class="bag-line" d="M112,196 L240,196 L232,232 Q176,250 120,232 Z" />
-  <circle cx="176" cy="220" r="7" />
-</g>
-</svg>
-            </a>
-            <span class="product-quickadd">
-              <button type="button" class="btn btn-dark" data-add-to-bag="The Margot Crossbody">Quick Add</button>
-            </span>
-          </div>
-          <div class="product-info">
-            <span class="product-category">Crossbody</span>
-            <h3><a href="product.html?slug=margot-crossbody">The Margot Crossbody</a></h3>
-            <div class="product-price"><span>$890</span></div>
-          </div>
-        </article>
-
-      </div>
+      <noscript>
+        <ul class="noscript-list">
+          <li><a href="https://nivellestore.myshopify.com/products/nivelle-black">Nivelle Luxury Bag &mdash; $49.99</a></li>
+          <li><a href="https://nivellestore.myshopify.com/products/fluffy-bunny-purse">Fluffy Bunny Purse &mdash; $39.99</a></li>
+          <li><a href="https://nivellestore.myshopify.com/products/nivelle-tote-bag">Nivelle Tote Bag &mdash; $49.99</a></li>
+        </ul>
+      </noscript>
     </div>
   </section>
 
@@ -278,78 +205,80 @@
     <div class="container">
       <div class="spotlight-grid" data-reveal>
         <div class="spotlight-media">
-          <svg viewBox="0 0 300 360" role="img" aria-labelledby="spotlight-vesper">
-            <title id="spotlight-vesper">The Vesper &mdash; Atelier Noir's signature satchel, shown in Noir leather with brass hardware</title>
-            <g fill="none" stroke="#dcb15a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path class="bag-line" d="M118,108 C118,90 132,78 150,78 C168,78 182,90 182,108" />
-              <rect class="bag-fill" x="66" y="150" width="168" height="140" rx="14" fill="#dcb15a" fill-opacity="0.18" />
-              <path class="bag-line" d="M66,164 L234,164 L224,214 Q150,238 76,214 Z" />
-              <circle cx="150" cy="196" r="9" fill="none" />
-              <line x1="150" y1="188" x2="150" y2="204" />
-            </g>
-          </svg>
+          <img src="https://cdn.shopify.com/s/files/1/0816/8983/7808/files/Untitled_design_8.png?v=1769482593&width=900"
+               alt="The Nivelle Tote Bag in Pink"
+               width="1080" height="1350" loading="lazy" decoding="async" data-parallax="0.04">
         </div>
         <div class="spotlight-copy">
-          <span class="eyebrow">The Icon</span>
-          <h2>Meet The Vesper</h2>
-          <p>Our most requested silhouette returns each season in a limited run of 200. A hand-turned brass clasp, a frame built to hold its shape for decades, and an interior deep enough for a full workday.</p>
+          <span class="eyebrow">Down to the last colourway</span>
+          <h2>The Nivelle Tote Bag</h2>
+          <p>The tote launched in four colourways. Three of them have sold out &mdash; Pink is the only one still in stock, at $49.99 instead of $80.00.</p>
           <ul class="spotlight-list">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              Solid brass frame &amp; hardware, hand-polished
+              $30 off while stock lasts
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              Full-grain calfskin, sourced from a single Tuscan tannery
+              Claret, Dark Coffee and Purple sold out
             </li>
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              Numbered edition of 200 per season
+              Ships from stock with 30-day returns
             </li>
           </ul>
-          <a href="product.html?slug=sabine-satchel" class="btn btn-primary">Discover The Vesper</a>
+          <div class="edition-meter" data-meter="75">
+            <div class="labels">
+              <span>Colourways</span>
+              <span><strong>3 of 4</strong> sold out</span>
+            </div>
+            <div class="bar" role="img" aria-label="Three of the four tote colourways have sold out">
+              <span class="fill"></span>
+            </div>
+          </div>
+          <a href="product.html?slug=nivelle-tote-bag" class="btn btn-primary">See The Tote</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ========================== CRAFTSMANSHIP ========================= -->
+  <!-- =========================== HOW IT WORKS ========================= -->
   <section class="section">
     <div class="container">
       <div class="section-head center" data-reveal>
-        <span class="eyebrow">Why Atelier Noir</span>
-        <h2 class="section-title">Built On Four Principles</h2>
-        <p class="lede">Every decision, from hide to hardware, is made to be defended a decade from now.</p>
+        <span class="eyebrow">Buying from us</span>
+        <h2 class="section-title">Simple, And Refundable</h2>
+        <p class="lede">Orders, payment and delivery all run through our Shopify store &mdash; so you get the same checkout, tracking and buyer protection you would anywhere else.</p>
       </div>
 
-      <div class="feature-grid cols-4">
+      <div class="feature-grid cols-4" data-stagger="80">
         <div class="feature-card" data-reveal>
           <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c3 2 7 3 7 8s-4 8-7 10c-3-2-7-5-7-10s4-6 7-8Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14H8"/></svg>
           </div>
-          <h3>Full-Grain Hides</h3>
-          <p>Sourced from tanneries that meet Leather Working Group gold-rated standards — no split leather, ever.</p>
+          <h3>30-Day Returns</h3>
+          <p>Thirty days from delivery to change your mind. Items come back unused, in their original packaging.</p>
         </div>
-        <div class="feature-card" data-reveal data-reveal-delay="80">
+        <div class="feature-card" data-reveal>
           <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 18 6"/><circle cx="19.5" cy="4.5" r="2"/><path d="M4 20c0-3 1-5 3-6"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z"/></svg>
           </div>
-          <h3>Hand-Stitched</h3>
-          <p>Saddle-stitched by a single artisan from start to finish, so each bag carries one signature.</p>
+          <h3>Ships To 7 Countries</h3>
+          <p>United States, United Kingdom, Canada, Australia, UAE, Austria and the Maldives.</p>
         </div>
-        <div class="feature-card" data-reveal data-reveal-delay="160">
+        <div class="feature-card" data-reveal>
           <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21c9 0 14-5 14-14V4h-3C7 4 5 12 5 21Z"/><path d="M5 21c0-5 3-9 8-11"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
           </div>
-          <h3>Responsibly Sourced</h3>
-          <p>Chrome-free vegetable tanning wherever the silhouette allows, cutting water use by up to 60%.</p>
+          <h3>Secure Checkout</h3>
+          <p>Payment is processed by Shopify. Visa, Mastercard, Amex and PayPal, encrypted end to end.</p>
         </div>
-        <div class="feature-card" data-reveal data-reveal-delay="240">
+        <div class="feature-card" data-reveal>
           <div class="feature-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7a4 4 0 0 1-5.3 3.8L9 17.5a2 2 0 1 1-2.8-2.8l6.7-6.7A4 4 0 1 1 21 7Z"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
           </div>
-          <h3>Lifetime Repair</h3>
-          <p>Send it back any time — we'll restitch, recondition, or replace hardware at no charge.</p>
+          <h3>In Stock, Not Made To Order</h3>
+          <p>Everything shown here is physically in stock. Sold-out colourways are marked as sold out.</p>
         </div>
       </div>
     </div>
@@ -360,202 +289,76 @@
     <div class="container">
       <dl class="stats-strip" data-reveal>
         <div class="stat">
-          <dd>13</dd>
-          <dt>Years in Florence</dt>
+          <dd data-count-to="3">3</dd>
+          <dt>Designs</dt>
         </div>
         <div class="stat">
-          <dd>6,400+</dd>
-          <dt>Bags Hand-Finished</dt>
+          <dd data-count-to="10">10</dd>
+          <dt>Colourways</dt>
         </div>
         <div class="stat">
-          <dd>7</dd>
-          <dt>Master Artisans</dt>
+          <dd data-count-to="39.99" data-count-decimals="2" data-count-prefix="$">$39.99</dd>
+          <dt>Starting Price</dt>
         </div>
         <div class="stat">
-          <dd>4.9/5</dd>
-          <dt>Average Rating</dt>
+          <dd data-count-to="30">30</dd>
+          <dt>Day Returns</dt>
         </div>
       </dl>
     </div>
   </section>
 
-  <!-- ========================== TESTIMONIALS ========================== -->
-  <section class="section">
-    <div class="container">
-      <div class="section-head center" data-reveal>
-        <span class="eyebrow">Testimonials</span>
-        <h2 class="section-title">Loved, Then Passed Down</h2>
-      </div>
-
-      <div class="testimonial-track">
-        <div class="testimonial-card" data-reveal>
-          <div class="stars" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-          </div>
-          <blockquote>&ldquo;Four years of daily use and the Sabine still looks new. The repair service re-stitched one handle for free &mdash; unheard of.&rdquo;</blockquote>
-          <div class="testimonial-author">
-            <span class="author-avatar" aria-hidden="true">R</span>
-            <div>
-              <div class="author-name">Rosalind K.</div>
-              <div class="author-role">Verified Buyer &middot; New York</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card" data-reveal data-reveal-delay="80">
-          <div class="stars" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-          </div>
-          <blockquote>&ldquo;The weight, the smell of the leather, the way the brass has started to patina &mdash; it feels like an heirloom already.&rdquo;</blockquote>
-          <div class="testimonial-author">
-            <span class="author-avatar" aria-hidden="true">M</span>
-            <div>
-              <div class="author-name">Marcus T.</div>
-              <div class="author-role">Verified Buyer &middot; London</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="testimonial-card" data-reveal data-reveal-delay="160">
-          <div class="stars" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-            <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>
-          </div>
-          <blockquote>&ldquo;Ordered the Odile Bucket in Sand for my sister's birthday. The unboxing alone made it feel worth every cent.&rdquo;</blockquote>
-          <div class="testimonial-author">
-            <span class="author-avatar" aria-hidden="true">S</span>
-            <div>
-              <div class="author-name">Sofia D.</div>
-              <div class="author-role">Verified Buyer &middot; Milan</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================ GALLERY =============================== -->
+  <!-- =========================== COLOURWAYS ============================ -->
   <section class="section" style="padding-block-end:0">
     <div class="container">
       <div class="section-head center" data-reveal>
-        <span class="eyebrow">@ateliernoir</span>
-        <h2 class="section-title">From The Studio</h2>
+        <span class="eyebrow">Every colourway</span>
+        <h2 class="section-title">Ten Ways To Carry It</h2>
       </div>
     </div>
-    <div class="gallery-grid">
-      <a class="gallery-item" href="about.html#craftsmanship" aria-label="Studio, Milan">
-        <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-0">
-          <title id="gallery-0">Editorial style illustration &mdash; Studio, Milan</title>
-          <rect width="100%" height="100%" fill="#171412"/>
-          <g fill="none" stroke="#f2ece0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path class="bag-line" d="M78,150 C78,120 96,96 120,96 C144,96 162,120 162,150" />
-            <path class="bag-line" d="M138,150 C138,120 156,96 180,96 C204,96 222,120 222,150" />
-            <path class="bag-fill" d="M70,150 L230,150 L246,318 L54,318 Z" fill="#dcb15a" fill-opacity="0.18" />
-            <line x1="86" y1="176" x2="214" y2="176" stroke-dasharray="3 6" />
-            <circle cx="150" cy="150" r="4" fill="#f2ece0" stroke="none" />
-          </g>
-        </svg>
-        <span class="handle">Studio, Milan</span>
-      </a>
-      <a class="gallery-item" href="about.html#craftsmanship" aria-label="Atelier Detail">
-        <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-1">
-          <title id="gallery-1">Editorial style illustration &mdash; Atelier Detail</title>
-          <rect width="100%" height="100%" fill="#1f1a16"/>
-          <g fill="none" stroke="#f2ece0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path class="bag-line" d="M118,108 C118,90 132,78 150,78 C168,78 182,90 182,108" />
-            <rect class="bag-fill" x="66" y="150" width="168" height="140" rx="14" fill="#c99c7a" fill-opacity="0.18" />
-            <path class="bag-line" d="M66,164 L234,164 L224,214 Q150,238 76,214 Z" />
-            <circle cx="150" cy="196" r="9" fill="none" />
-            <line x1="150" y1="188" x2="150" y2="204" />
-          </g>
-        </svg>
-        <span class="handle">Atelier Detail</span>
-      </a>
-      <a class="gallery-item" href="product.html?slug=aurelia-tote" aria-label="Cognac Tote">
-        <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-2">
-          <title id="gallery-2">Editorial style illustration &mdash; Cognac Tote</title>
-          <rect width="100%" height="100%" fill="#141110"/>
-          <g fill="none" stroke="#f2ece0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect class="bag-fill" x="70" y="188" width="160" height="96" rx="10" fill="#dcb15a" fill-opacity="0.18" />
-            <path class="bag-line" d="M70,188 L150,150 L230,188 Z" />
-            <circle cx="150" cy="176" r="5" fill="#f2ece0" stroke="none" />
-            <path class="bag-line" d="M204,196 C222,196 234,208 234,224" stroke-width="2" />
-          </g>
-        </svg>
-        <span class="handle">Cognac Tote</span>
-      </a>
-      <a class="gallery-item" href="shop.html" aria-label="New Season">
-        <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-3">
-          <title id="gallery-3">Editorial style illustration &mdash; New Season</title>
-          <rect width="100%" height="100%" fill="#221c17"/>
-          <g fill="none" stroke="#f2ece0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="62" y1="72" x2="178" y2="182" />
-            <rect class="bag-fill" x="112" y="182" width="128" height="112" rx="12" fill="#c99c7a" fill-opacity="0.18" />
-            <path class="bag-line" d="M112,196 L240,196 L232,232 Q176,250 120,232 Z" />
-            <circle cx="176" cy="220" r="7" />
-          </g>
-        </svg>
-        <span class="handle">New Season</span>
-      </a>
-      <a class="gallery-item" href="about.html#craftsmanship" aria-label="Behind the Seams">
-        <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-4">
-          <title id="gallery-4">Editorial style illustration &mdash; Behind the Seams</title>
-          <rect width="100%" height="100%" fill="#181513"/>
-          <g fill="none" stroke="#f2ece0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path class="bag-line" d="M120,120 C120,104 133,92 150,92 C167,92 180,104 180,120" />
-            <path class="bag-fill" d="M84,150 C84,138 96,130 150,130 C204,130 216,138 216,150 L206,292 C206,306 182,316 150,316 C118,316 94,306 94,292 Z" fill="#dcb15a" fill-opacity="0.18" />
-            <path class="bag-line" d="M96,158 Q150,172 204,158" stroke-dasharray="2 7" />
-          </g>
-        </svg>
-        <span class="handle">Behind the Seams</span>
-      </a>
-      <a class="gallery-item" href="product.html?slug=thea-weekender" aria-label="Weekend Edit">
-        <svg viewBox="0 0 300 360" role="img" aria-labelledby="gallery-5">
-          <title id="gallery-5">Editorial style illustration &mdash; Weekend Edit</title>
-          <rect width="100%" height="100%" fill="#1c1712"/>
-          <g fill="none" stroke="#f2ece0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path class="bag-line" d="M96,142 C96,118 112,100 132,100 L168,100 C188,100 204,118 204,142" />
-            <rect class="bag-fill" x="54" y="142" width="192" height="120" rx="30" fill="#c99c7a" fill-opacity="0.18" />
-            <line x1="150" y1="150" x2="150" y2="254" stroke-dasharray="2 6" />
-            <circle cx="90" cy="202" r="4" fill="#f2ece0" stroke="none" />
-            <circle cx="210" cy="202" r="4" fill="#f2ece0" stroke="none" />
-          </g>
-        </svg>
-        <span class="handle">Weekend Edit</span>
-      </a>
+    <div class="gallery-grid" data-colorway-strip data-stagger="70"></div>
+  </section>
+
+  <!-- ========================== ASSURANCES ============================= -->
+  <section class="assurance-band">
+    <div class="container">
+      <div class="assurance-grid" data-stagger="80">
+        <div class="assurance-item" data-reveal>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14H8"/></svg>
+          <div>
+            <h3>30-Day Returns</h3>
+            <p>Thirty days to change your mind, in original condition. Just email us to start a return.</p>
+          </div>
+        </div>
+        <div class="assurance-item" data-reveal>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z"/><path d="M9 12.5l2 2 4-4.5"/></svg>
+          <div>
+            <h3>Ships Worldwide</h3>
+            <p>Delivered to the US, UK, Canada, Australia, UAE, Austria and the Maldives.</p>
+          </div>
+        </div>
+        <div class="assurance-item" data-reveal>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+          <div>
+            <h3>Secure Checkout</h3>
+            <p>Checkout is handled by Shopify &mdash; Visa, Mastercard, Amex and PayPal.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- =========================== NEWSLETTER ============================= -->
+  <!-- ============================ FINAL CTA ============================= -->
   <section class="newsletter section">
     <div class="container">
       <div class="newsletter-inner" data-reveal>
-        <span class="eyebrow">Join The List</span>
-        <h2 class="section-title">Early Access To New Editions</h2>
-        <p class="lede text-center">Be first to know when a limited run drops, plus care guides and atelier stories. No spam, unsubscribe anytime.</p>
-        <form class="newsletter-form" data-newsletter-form novalidate>
-          <div class="field-group">
-            <label for="newsletter-email" class="visually-hidden">Email address</label>
-            <input type="email" id="newsletter-email" name="email" placeholder="you@example.com" required autocomplete="email">
-          </div>
-          <button type="submit" class="btn btn-dark">Subscribe</button>
-        </form>
-        <p class="form-success" data-visible="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
-          You're on the list &mdash; welcome to Atelier Noir.
-        </p>
-        <p class="form-note">By subscribing you agree to our Privacy Policy.</p>
+        <span class="eyebrow">Ready when you are</span>
+        <h2 class="section-title">Pick A Colour, We&rsquo;ll Ship It</h2>
+        <p class="lede text-center">Checkout runs on our Shopify store, with 30-day returns on every order. Sold-out colourways are marked before you add anything to your bag.</p>
+        <div class="hero-actions" style="justify-content:center">
+          <a href="shop.html" class="btn btn-dark">Shop All Bags</a>
+          <a href="https://nivellestore.myshopify.com" class="btn btn-outline-dark">Visit The Store</a>
+        </div>
       </div>
     </div>
   </section>
@@ -566,16 +369,16 @@
   <div class="container">
     <div class="footer-top">
       <div class="footer-brand">
-        <span class="logo">ATELIER NOIR</span>
-        <p>Handcrafted leather handbags, made in small batches in Florence, Italy since 2011.</p>
+        <span class="logo">NIVELLE</span>
+        <p>A small, considered range of everyday bags. Shipped worldwide from our Shopify store, with 30-day returns on every order.</p>
         <div class="social-row">
-          <a href="#" class="icon-btn" aria-label="Atelier Noir on Instagram">
+          <a href="#" class="icon-btn" aria-label="Nivelle on Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
           </a>
-          <a href="#" class="icon-btn" aria-label="Atelier Noir on Pinterest">
+          <a href="#" class="icon-btn" aria-label="Nivelle on Pinterest">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 21c1-3 1.5-5 1.9-6.7M12 3a7 7 0 0 0-2.5 13.5c-.1-1.1 0-2.4.3-3.5l1-4.3s-.3-.6-.3-1.5c0-1.4.8-2.4 1.8-2.4.9 0 1.3.6 1.3 1.4 0 .9-.5 2.1-.8 3.3-.2 1 .5 1.8 1.5 1.8 1.8 0 3-2.3 3-5 0-2.1-1.5-3.6-4.1-3.6"/></svg>
           </a>
-          <a href="#" class="icon-btn" aria-label="Atelier Noir on Facebook">
+          <a href="#" class="icon-btn" aria-label="Nivelle on Facebook">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 9h2V6h-2c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h2.3l.7-3H14V9Z"/></svg>
           </a>
         </div>
@@ -583,55 +386,63 @@
       <div class="footer-col">
         <h4>Shop</h4>
         <ul>
-          <li><a href="shop.html">All Handbags</a></li>
-          <li><a href="shop.html">Totes</a></li>
-          <li><a href="shop.html">Satchels</a></li>
-          <li><a href="shop.html">Clutches</a></li>
-          <li><a href="shop.html">Travel</a></li>
+          <li><a href="shop.html">All Bags</a></li>
+          <li><a href="product.html?slug=nivelle-black">Nivelle Luxury Bag</a></li>
+          <li><a href="product.html?slug=fluffy-bunny-purse">Fluffy Bunny Purse</a></li>
+          <li><a href="product.html?slug=nivelle-tote-bag">Nivelle Tote Bag</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Company</h4>
         <ul>
           <li><a href="about.html">Our Story</a></li>
-          <li><a href="about.html#craftsmanship">Craftsmanship</a></li>
-          <li><a href="#">Sustainability</a></li>
-          <li><a href="#">Careers</a></li>
+          <li><a href="https://nivellestore.myshopify.com">Visit The Store</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Support</h4>
         <ul>
           <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="#">Shipping &amp; Returns</a></li>
-          <li><a href="#">Repair Service</a></li>
-          <li><a href="#">FAQ</a></li>
+          <li><a href="https://checkout.shopify.com/81689837808/policies/42988306672.html?locale=en">Returns &amp; Refunds</a></li>
+          <li><a href="https://nivellestore.myshopify.com/account">Your Orders</a></li>
+          <li><a href="contact.html">FAQ</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>&copy; <span data-year>2026</span> Atelier Noir. All rights reserved.</p>
+      <p>&copy; <span data-year>2026</span> Nivelle. All rights reserved.</p>
       <div class="legal-links">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a href="https://checkout.shopify.com/81689837808/policies/42907992304.html?locale=en">Privacy Policy</a>
+        <a href="https://checkout.shopify.com/81689837808/policies/42988339440.html?locale=en">Terms of Service</a>
       </div>
       <p class="payment-row">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
-        Secure checkout &middot; Visa, Mastercard, Amex, PayPal
+        Secure checkout on Shopify &middot; Visa, Mastercard, Amex, PayPal
       </p>
     </div>
   </div>
 </footer>
 
-<div class="toast" data-visible="false" role="status" aria-live="polite">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>
-  <span data-toast-message>Added to your bag</span>
+<div class="sticky-cta" data-sticky-cta data-visible="false">
+  <div class="container">
+    <div class="sticky-cta-copy">
+      <strong>Fluffy Bunny Purse</strong>
+      <span>$39.99 &middot; was $45.00 &middot; four colourways in stock</span>
+    </div>
+    <a href="product.html?slug=fluffy-bunny-purse" class="btn btn-primary">Shop It</a>
+    <button type="button" class="icon-btn" data-sticky-dismiss aria-label="Dismiss offer bar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+    </button>
+  </div>
 </div>
 
 <button type="button" class="back-to-top" data-visible="false" aria-label="Back to top">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><path d="M5 12l7-7 7 7"/></svg>
 </button>
 
+<script src="js/products-data.js" defer></script>
 <script src="js/main.js" defer></script>
+<script src="js/catalog.js" defer></script>
+<script src="js/motion.js" defer></script>
 </body>
 </html>

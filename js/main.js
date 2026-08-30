@@ -64,34 +64,41 @@
 
   /* ------------------------------------------------------------------ */
   /* Scroll reveal (IntersectionObserver)                                */
+  /* Exposed so client-rendered grids can register their new cards.      */
   /* ------------------------------------------------------------------ */
-  var revealEls = document.querySelectorAll('[data-reveal]');
-  if (revealEls.length) {
-    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      revealEls.forEach(function (el) {
+  var revealObserver = null;
+  if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+    revealObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var delay = entry.target.getAttribute('data-reveal-delay');
+          if (delay) {
+            entry.target.style.transitionDelay = delay + 'ms';
+          }
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+  }
+
+  function observeReveals(root) {
+    var scope = root || document;
+    var els = scope.querySelectorAll('[data-reveal]');
+    if (!revealObserver) {
+      els.forEach(function (el) {
         el.classList.add('in-view');
       });
-    } else {
-      var io = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              var delay = entry.target.getAttribute('data-reveal-delay');
-              if (delay) {
-                entry.target.style.transitionDelay = delay + 'ms';
-              }
-              entry.target.classList.add('in-view');
-              io.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-      );
-      revealEls.forEach(function (el) {
-        io.observe(el);
-      });
+      return;
     }
+    els.forEach(function (el) {
+      revealObserver.observe(el);
+    });
   }
+
+  observeReveals();
 
   /* ------------------------------------------------------------------ */
   /* Back to top                                                         */
@@ -109,61 +116,6 @@
       window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
     });
   }
-
-  /* ------------------------------------------------------------------ */
-  /* Cart count (demo state, persisted for this browser only)            */
-  /* ------------------------------------------------------------------ */
-  var CART_KEY = 'atelier-noir-cart-count';
-  function getCartCount() {
-    return parseInt(window.localStorage.getItem(CART_KEY) || '0', 10);
-  }
-  function setCartCount(n) {
-    window.localStorage.setItem(CART_KEY, String(n));
-    document.querySelectorAll('[data-cart-count]').forEach(function (el) {
-      el.textContent = String(n);
-      el.style.display = n > 0 ? 'flex' : 'none';
-    });
-  }
-  setCartCount(getCartCount());
-
-  /* ------------------------------------------------------------------ */
-  /* Toast helper                                                        */
-  /* ------------------------------------------------------------------ */
-  var toast = document.querySelector('.toast');
-  var toastTimer = null;
-  function showToast(message) {
-    if (!toast) return;
-    toast.querySelector('[data-toast-message]').textContent = message;
-    toast.setAttribute('data-visible', 'true');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function () {
-      toast.setAttribute('data-visible', 'false');
-    }, 2600);
-  }
-
-  /* ------------------------------------------------------------------ */
-  /* Add to bag buttons (product cards + PDP)                            */
-  /* ------------------------------------------------------------------ */
-  document.querySelectorAll('[data-add-to-bag]').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var name = btn.getAttribute('data-add-to-bag') || 'Item';
-      var qtyField = document.querySelector('[data-qty-input]');
-      var qty = qtyField ? parseInt(qtyField.value, 10) || 1 : 1;
-      setCartCount(getCartCount() + qty);
-      showToast(name + ' added to your bag');
-    });
-  });
-
-  /* ------------------------------------------------------------------ */
-  /* Wishlist toggle                                                     */
-  /* ------------------------------------------------------------------ */
-  document.querySelectorAll('.product-wishlist').forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      var pressed = btn.getAttribute('aria-pressed') === 'true';
-      btn.setAttribute('aria-pressed', String(!pressed));
-    });
-  });
 
   /* ------------------------------------------------------------------ */
   /* Quantity stepper                                                     */
@@ -203,25 +155,6 @@
         });
         opt.setAttribute('data-active', 'true');
       });
-    });
-  });
-
-  /* ------------------------------------------------------------------ */
-  /* PDP thumbnail gallery                                               */
-  /* ------------------------------------------------------------------ */
-  var pdMain = document.querySelector('[data-pd-main]');
-  document.querySelectorAll('.pd-thumb').forEach(function (thumb) {
-    thumb.addEventListener('click', function () {
-      document.querySelectorAll('.pd-thumb').forEach(function (t) {
-        t.setAttribute('data-active', 'false');
-      });
-      thumb.setAttribute('data-active', 'true');
-      if (pdMain) {
-        var svgMarkup = thumb.querySelector('svg');
-        if (svgMarkup) {
-          pdMain.innerHTML = svgMarkup.outerHTML;
-        }
-      }
     });
   });
 
@@ -285,6 +218,28 @@
         firstError && firstError.focus();
         return;
       }
+      /* No server behind this static site: compose the message in the
+         visitor's own mail client rather than pretending to send it. */
+      var getField = function (name) {
+        var el = contactForm.querySelector('[name="' + name + '"]');
+        return el ? el.value.trim() : '';
+      };
+      var subjectSelect = contactForm.querySelector('[name="subject"]');
+      var subjectLabel = subjectSelect
+        ? subjectSelect.options[subjectSelect.selectedIndex].text
+        : 'Enquiry';
+      var order = getField('order');
+      var body =
+        getField('message') +
+        '\n\n---\n' +
+        'From: ' + getField('name') + ' <' + getField('email') + '>' +
+        (order ? '\nOrder: ' + order : '');
+
+      window.location.href =
+        'mailto:shihamsham3@gmail.com' +
+        '?subject=' + encodeURIComponent('Nivelle — ' + subjectLabel) +
+        '&body=' + encodeURIComponent(body);
+
       var successPanel = document.querySelector('[data-contact-success]');
       contactForm.hidden = true;
       if (successPanel) {
@@ -317,18 +272,10 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /* Shared helpers exposed for shop.js / pdp.js                         */
+  /* Shared helpers exposed for catalog.js / shop.js / pdp.js            */
   /* ------------------------------------------------------------------ */
-  window.AtelierNoir = {
-    showToast: showToast,
-    getCartCount: getCartCount,
-    setCartCount: setCartCount,
-    bindWishlistButton: function (btn) {
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        var pressed = btn.getAttribute('aria-pressed') === 'true';
-        btn.setAttribute('aria-pressed', String(!pressed));
-      });
-    },
+  window.Nivelle = {
+    observeReveals: observeReveals,
+    prefersReducedMotion: prefersReducedMotion,
   };
 })();

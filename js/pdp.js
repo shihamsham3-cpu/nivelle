@@ -1,247 +1,247 @@
+/* ==========================================================================
+   Nivelle — product detail page
+   Renders from the synced Shopify catalog. The buy button is a Shopify cart
+   permalink for the selected variant and quantity, so checkout happens on
+   the store.
+   ========================================================================== */
 (function () {
   'use strict';
 
-  var CATALOG = window.PRODUCT_CATALOG || [];
-  if (!CATALOG.length) return;
+  var C = window.NivelleCatalog;
+  if (!C || !C.products.length) return;
 
-  var PRODUCT_COLORS = {
-    Cognac: '#A9764C',
-    Noir: '#1c1917',
-    Ivory: '#D8CDBB',
-    Emerald: '#2F4C3B',
-    Burgundy: '#6B2737',
-    Sand: '#C7B299',
-    Blush: '#C99C93',
-    Chestnut: '#6B4226',
-  };
+  var params = new URLSearchParams(window.location.search);
+  var slug = params.get('slug');
+  var product =
+    C.products.filter(function (p) {
+      return p.slug === slug;
+    })[0] || C.products[0];
 
-  var BG_TINTS = {
-    Cognac: '#F1E9DE',
-    Noir: '#E9E6E1',
-    Ivory: '#F5F1E9',
-    Emerald: '#E7ECE7',
-    Burgundy: '#F1E6E5',
-    Sand: '#F4EEE3',
-    Blush: '#F4E9E5',
-    Chestnut: '#EFE6DC',
-  };
+  var variants = product.variants;
+  var current = C.firstAvailableVariant(product);
 
-  function money(n) {
-    return '$' + Number(n).toLocaleString('en-US');
+  function $(sel) {
+    return document.querySelector(sel);
   }
-
-  function getSlug() {
-    var params = new URLSearchParams(window.location.search);
-    return params.get('slug');
-  }
-
-  var slug = getSlug();
-  var product = CATALOG.filter(function (p) {
-    return p.slug === slug;
-  })[0];
-  var usedFallback = false;
-  if (!product) {
-    product = CATALOG[0];
-    usedFallback = true;
-  }
-
-  /* ---- Head / breadcrumb ------------------------------------------- */
-  document.title = product.name + ' — Atelier Noir';
-  var metaDesc = document.querySelector('meta[name="description"]');
-  if (metaDesc) metaDesc.setAttribute('content', product.desc);
-
-  setText('[data-pd-category]', product.category);
-  setText('[data-pd-breadcrumb-category]', product.category);
-  setText('[data-pd-breadcrumb-name]', product.name);
-  setText('[data-pd-name]', product.name);
-  setText('[data-pd-desc]', product.desc);
-  setText('[data-pd-materials]', product.materials);
-  setText('[data-pd-dimensions]', product.dimensions);
-
-  function setText(selector, text) {
-    document.querySelectorAll(selector).forEach(function (el) {
+  function setText(sel, text) {
+    document.querySelectorAll(sel).forEach(function (el) {
       el.textContent = text;
     });
   }
 
-  /* ---- Price ---------------------------------------------------------- */
-  var priceEl = document.querySelector('[data-pd-price]');
-  if (priceEl) {
-    priceEl.innerHTML = '';
-    var main = document.createElement('span');
-    main.textContent = money(product.price);
-    priceEl.appendChild(main);
-    if (product.was) {
-      var was = document.createElement('span');
-      was.className = 'was';
-      was.textContent = money(product.was);
-      priceEl.appendChild(was);
+  /* ---- Head ---------------------------------------------------------- */
+  document.title = product.name + ' — Nivelle';
+  var metaDesc = document.querySelector('meta[name="description"]');
+  if (metaDesc) {
+    var summary =
+      product.desc ||
+      product.name + ' — available in ' + C.colorValues(product).join(', ') + '. Nivelle.';
+    if (summary.length > 155) {
+      summary = summary.slice(0, 152).replace(/\s+\S*$/, '') + '…';
     }
-  }
-  setText('[data-pd-price-inline]', money(product.price));
-
-  /* ---- Rating ----------------------------------------------------------- */
-  var ratingEl = document.querySelector('[data-pd-rating]');
-  if (ratingEl) {
-    var starsHtml = '';
-    for (var i = 0; i < 5; i++) {
-      var filled = i < Math.round(product.rating);
-      starsHtml +=
-        '<svg viewBox="0 0 24 24" width="15" height="15" fill="' +
-        (filled ? 'currentColor' : 'none') +
-        '" stroke="currentColor" stroke-width="1.6"><path d="M12 2l2.9 6.6 7.1.7-5.4 4.7 1.6 7-6.2-3.7L6 21l1.6-7L2.2 9.3l7.1-.7L12 2Z"/></svg>';
-    }
-    ratingEl.innerHTML =
-      '<span class="stars" aria-hidden="true">' +
-      starsHtml +
-      '</span><span>' +
-      product.rating.toFixed(1) +
-      ' &middot; ' +
-      product.reviews +
-      ' reviews</span>';
+    metaDesc.setAttribute('content', summary);
   }
 
-  /* ---- Badge -------------------------------------------------------------- */
-  var badgeEl = document.querySelector('[data-pd-badge]');
-  if (badgeEl) {
-    if (product.badge) {
-      badgeEl.textContent = product.badge;
-      badgeEl.hidden = false;
-      badgeEl.classList.toggle('gold', product.badge === 'Sale');
+  var colourways = C.colorValues(product);
+  setText('[data-pd-category]', colourways.length + ' colourways');
+  setText('[data-pd-breadcrumb-name]', product.name);
+  setText('[data-pd-name]', product.name);
+
+  var descEl = $('[data-pd-desc]');
+  if (descEl) {
+    if (product.descHtml) {
+      /* The description ends with a "Good to know" heading covering returns,
+         shipping and payment — this page already lists all three below the
+         buy button, so only the narrative half is rendered here. */
+      descEl.innerHTML = product.descHtml.split(/<h[23][^>]*>/i)[0];
     } else {
-      badgeEl.hidden = true;
+      descEl.textContent =
+        product.name + ' in ' + colourways.join(', ') + '. Ships from stock with 30-day returns.';
     }
   }
 
-  /* ---- Gallery ------------------------------------------------------------- */
-  var mainEl = document.querySelector('[data-pd-main]');
-  var thumbsEl = document.querySelector('[data-pd-thumbs]');
-  var THUMB_LABELS = ['Front', 'Side', 'Detail', 'Interior', 'Studio'];
+  var storeLink = $('[data-pd-store-link]');
+  if (storeLink && product.storeUrl) storeLink.setAttribute('href', product.storeUrl);
 
-  function renderMain(svgMarkup) {
-    if (mainEl) mainEl.innerHTML = svgMarkup;
+  /* ---- Gallery -------------------------------------------------------- */
+  var mainEl = $('[data-pd-main]');
+  var thumbsEl = $('[data-pd-thumbs]');
+
+  function imageTag(image, width, eager) {
+    return (
+      '<img src="' +
+      C.imageUrl(image.url, width) +
+      '" alt="' +
+      C.escapeHtml(image.alt || product.name) +
+      '" width="' +
+      image.width +
+      '" height="' +
+      image.height +
+      '"' +
+      (eager ? '' : ' loading="lazy"') +
+      ' decoding="async">'
+    );
   }
 
-  if (mainEl) renderMain(product.main);
+  function showImage(url) {
+    if (!mainEl) return;
+    var image =
+      product.images.filter(function (i) {
+        return i.url === url;
+      })[0] || product.images[0];
+    if (!image) return;
+    mainEl.innerHTML = imageTag(image, 1200, true);
+    if (thumbsEl) {
+      thumbsEl.querySelectorAll('.pd-thumb').forEach(function (t) {
+        t.setAttribute('data-active', String(t.getAttribute('data-image') === image.url));
+      });
+    }
+  }
 
   if (thumbsEl) {
-    thumbsEl.innerHTML = '';
-    product.thumbs.forEach(function (svgMarkup, idx) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'pd-thumb';
-      btn.setAttribute('data-active', idx === 0 ? 'true' : 'false');
-      btn.setAttribute('aria-label', 'Show ' + THUMB_LABELS[idx] + ' view of ' + product.name);
-      btn.innerHTML = svgMarkup;
-      btn.addEventListener('click', function () {
-        thumbsEl.querySelectorAll('.pd-thumb').forEach(function (t) {
-          t.setAttribute('data-active', 'false');
-        });
-        btn.setAttribute('data-active', 'true');
-        renderMain(svgMarkup);
-      });
-      thumbsEl.appendChild(btn);
-    });
-  }
-
-  /* ---- Color options -------------------------------------------------------- */
-  var colorsEl = document.querySelector('[data-pd-colors]');
-  var colorNameEl = document.querySelector('[data-pd-color-name]');
-  var defaultColor = product.colors[0];
-  var oldAccent = defaultColor.hex;
-  var oldBg = BG_TINTS[defaultColor.name];
-
-  if (colorNameEl) colorNameEl.textContent = defaultColor.name;
-
-  if (colorsEl) {
-    colorsEl.innerHTML = '';
-    product.colors.forEach(function (c, idx) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'color-option';
-      btn.style.background = c.hex;
-      btn.setAttribute('data-active', idx === 0 ? 'true' : 'false');
-      btn.setAttribute('aria-label', c.name);
-      btn.addEventListener('click', function () {
-        colorsEl.querySelectorAll('.color-option').forEach(function (b) {
-          b.setAttribute('data-active', 'false');
-        });
-        btn.setAttribute('data-active', 'true');
-        if (colorNameEl) colorNameEl.textContent = c.name;
-
-        var newBg = BG_TINTS[c.name];
-        var newAccent = c.hex;
-        var recolor = function (markup) {
-          return markup.split(oldBg).join(newBg).split(oldAccent).join(newAccent);
-        };
-
-        renderMain(recolor(product.main));
-        if (thumbsEl) {
-          var thumbButtons = thumbsEl.querySelectorAll('.pd-thumb');
-          thumbButtons.forEach(function (t, i) {
-            t.innerHTML = recolor(product.thumbs[i]);
-          });
-          if (thumbButtons[0]) thumbButtons[0].setAttribute('data-active', 'true');
-          for (var j = 1; j < thumbButtons.length; j++) {
-            thumbButtons[j].setAttribute('data-active', 'false');
-          }
-        }
-      });
-      colorsEl.appendChild(btn);
-    });
-  }
-
-  /* ---- Add to bag button ------------------------------------------------------ */
-  var addBtn = document.querySelector('[data-pd-add-btn]');
-  if (addBtn) addBtn.setAttribute('data-add-to-bag', product.name);
-
-  /* ---- Wishlist ------------------------------------------------------------ */
-  var wishlistBtn = document.querySelector('[data-pd-wishlist]');
-  if (wishlistBtn && window.AtelierNoir) {
-    window.AtelierNoir.bindWishlistButton(wishlistBtn);
-    wishlistBtn.setAttribute('aria-label', 'Add ' + product.name + ' to wishlist');
-  }
-
-  /* ---- Related products ------------------------------------------------------ */
-  var relatedEl = document.querySelector('[data-pd-related]');
-  if (relatedEl) {
-    var startIdx = CATALOG.indexOf(product);
-    var related = [];
-    for (var k = 1; related.length < 4 && k <= CATALOG.length; k++) {
-      var candidate = CATALOG[(startIdx + k) % CATALOG.length];
-      if (candidate.slug !== product.slug) related.push(candidate);
-    }
-    relatedEl.innerHTML = related
-      .map(function (p) {
-        var priceHtml = '<span>' + money(p.price) + '</span>' + (p.was ? '<span class="was">' + money(p.was) + '</span>' : '');
+    thumbsEl.innerHTML = product.images
+      .map(function (image, i) {
         return (
-          '<article class="product-card">' +
-          '<div class="product-media">' +
-          '<a href="product.html?slug=' +
-          p.slug +
-          '" class="product-media-link" aria-label="View ' +
-          p.name +
+          '<button type="button" class="pd-thumb" data-image="' +
+          C.escapeHtml(image.url) +
+          '" data-active="' +
+          (i === 0) +
+          '" aria-label="Show image ' +
+          (i + 1) +
+          ' of ' +
+          product.images.length +
           '">' +
-          p.main +
-          '</a></div>' +
-          '<div class="product-info">' +
-          '<span class="product-category">' +
-          p.category +
-          '</span>' +
-          '<h3><a href="product.html?slug=' +
-          p.slug +
-          '">' +
-          p.name +
-          '</a></h3>' +
-          '<div class="product-price">' +
-          priceHtml +
-          '</div></div></article>'
+          imageTag(image, 200) +
+          '</button>'
         );
       })
       .join('');
+    thumbsEl.querySelectorAll('.pd-thumb').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        showImage(btn.getAttribute('data-image'));
+      });
+    });
   }
 
-  if (usedFallback && slug) {
-    console.warn('Atelier Noir: no product found for slug "' + slug + '" — showing ' + product.slug + ' instead.');
+  /* ---- Price, stock, buy link ------------------------------------------ */
+  var priceEl = $('[data-pd-price]');
+  var stockEl = $('[data-pd-stock]');
+  var buyEl = $('[data-pd-add-btn]');
+  var qtyInput = $('[data-qty-input]');
+
+  function qty() {
+    var n = qtyInput ? parseInt(qtyInput.value, 10) : 1;
+    return n > 0 ? n : 1;
+  }
+
+  function render() {
+    if (priceEl) {
+      priceEl.innerHTML =
+        '<span>' +
+        C.money(current.price) +
+        '</span>' +
+        (current.was && current.was > current.price
+          ? '<span class="was">' + C.money(current.was) + '</span>'
+          : '');
+    }
+
+    if (stockEl) {
+      if (!current.available) {
+        stockEl.textContent = current.title + ' is sold out';
+        stockEl.hidden = false;
+      } else if (current.inventory > 0 && current.inventory <= 25) {
+        stockEl.textContent = 'Only ' + current.inventory + ' left in ' + current.title;
+        stockEl.hidden = false;
+      } else {
+        stockEl.hidden = true;
+      }
+    }
+
+    if (buyEl) {
+      var inline = buyEl.querySelector('[data-pd-price-inline]');
+      if (current.available) {
+        buyEl.setAttribute('href', C.cartUrl(current.id, qty()));
+        buyEl.removeAttribute('aria-disabled');
+        buyEl.classList.remove('is-disabled');
+        buyEl.firstChild.textContent = 'Add to bag — ';
+        if (inline) inline.textContent = C.money(current.price * qty());
+      } else {
+        buyEl.setAttribute('href', product.storeUrl || C.store.cartUrl);
+        buyEl.setAttribute('aria-disabled', 'true');
+        buyEl.classList.add('is-disabled');
+        buyEl.firstChild.textContent = 'Sold out — ';
+        if (inline) inline.textContent = 'see other colours';
+      }
+    }
+  }
+
+  if (qtyInput) {
+    ['change', 'input', 'click'].forEach(function (evt) {
+      qtyInput.addEventListener(evt, render);
+    });
+    var stepper = qtyInput.closest('.qty-stepper');
+    if (stepper) {
+      stepper.querySelectorAll('button').forEach(function (b) {
+        b.addEventListener('click', function () {
+          window.setTimeout(render, 0);
+        });
+      });
+    }
+  }
+
+  /* ---- Colour options --------------------------------------------------- */
+  var colorsEl = $('[data-pd-colors]');
+  var colorNameEl = $('[data-pd-color-name]');
+
+  function selectVariant(variant) {
+    current = variant;
+    if (colorNameEl) colorNameEl.textContent = variant.title;
+    if (colorsEl) {
+      colorsEl.querySelectorAll('.color-option').forEach(function (b) {
+        b.setAttribute('data-active', String(b.getAttribute('data-variant') === variant.id));
+      });
+    }
+    if (variant.image) showImage(variant.image);
+    render();
+  }
+
+  if (colorsEl) {
+    colorsEl.innerHTML = variants
+      .map(function (v) {
+        return (
+          '<button type="button" class="color-option" data-variant="' +
+          v.id +
+          '" data-active="' +
+          (v.id === current.id) +
+          '" data-sold-out="' +
+          !v.available +
+          '" style="background:' +
+          C.colorHex(v.title) +
+          '" aria-label="' +
+          C.escapeHtml(v.title) +
+          (v.available ? '' : ' (sold out)') +
+          '"></button>'
+        );
+      })
+      .join('');
+    colorsEl.querySelectorAll('.color-option').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var variant = variants.filter(function (v) {
+          return v.id === btn.getAttribute('data-variant');
+        })[0];
+        if (variant) selectVariant(variant);
+      });
+    });
+  }
+
+  selectVariant(current);
+
+  /* ---- Related ----------------------------------------------------------- */
+  var relatedEl = $('[data-pd-related]');
+  if (relatedEl) {
+    var others = C.products.filter(function (p) {
+      return p.slug !== product.slug;
+    });
+    C.renderGrid(relatedEl, others);
   }
 })();

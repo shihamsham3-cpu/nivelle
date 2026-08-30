@@ -1,125 +1,161 @@
+/* ==========================================================================
+   Nivelle — shop page
+   Builds the filter controls and the grid from the synced Shopify catalog.
+   ========================================================================== */
 (function () {
   'use strict';
 
+  var C = window.NivelleCatalog;
   var grid = document.querySelector('[data-product-grid]');
-  if (!grid) return;
+  if (!C || !grid) return;
 
-  var cards = Array.prototype.slice.call(grid.querySelectorAll('.product-card'));
-  var originalOrder = cards.slice();
+  var products = C.products;
   var resultCount = document.querySelector('[data-result-count]');
   var emptyState = document.querySelector('[data-empty-state]');
-  var categoryInputs = document.querySelectorAll('[data-filter-category]');
-  var colorSwatches = document.querySelectorAll('[data-filter-color]');
-  var priceInputs = document.querySelectorAll('[data-filter-price]');
   var sortSelect = document.querySelector('[data-sort-select]');
-  var clearButtons = document.querySelectorAll('[data-filter-clear]');
+  var stockToggle = document.querySelector('[data-filter-stock]');
+  var colorWrap = document.querySelector('[data-color-filters]');
+  var priceWrap = document.querySelector('[data-price-filters]');
 
-  function activeCategories() {
-    return Array.prototype.filter
-      .call(categoryInputs, function (i) {
-        return i.checked;
+  /* ---- Build the filters from what the store actually sells ---------- */
+  var allColors = [];
+  products.forEach(function (p) {
+    C.colorValues(p).forEach(function (c) {
+      if (allColors.indexOf(c) === -1) allColors.push(c);
+    });
+  });
+
+  if (colorWrap) {
+    colorWrap.innerHTML = allColors
+      .map(function (c) {
+        return (
+          '<button type="button" class="filter-swatch" data-filter-color="' +
+          C.escapeHtml(c) +
+          '" data-active="false" aria-pressed="false" style="background:' +
+          C.colorHex(c) +
+          '" aria-label="Filter by ' +
+          C.escapeHtml(c) +
+          '" title="' +
+          C.escapeHtml(c) +
+          '"></button>'
+        );
       })
-      .map(function (i) {
-        return i.value;
-      });
+      .join('');
   }
 
+  var prices = products.map(function (p) {
+    return p.price;
+  });
+  var minPrice = Math.floor(Math.min.apply(null, prices));
+  var maxPrice = Math.ceil(Math.max.apply(null, prices));
+  var midPrice = Math.round((minPrice + maxPrice) / 2);
+
+  if (priceWrap && minPrice !== maxPrice) {
+    priceWrap.innerHTML =
+      '<label class="filter-option"><input type="radio" name="price" data-filter-price value="all" checked> All prices</label>' +
+      '<label class="filter-option"><input type="radio" name="price" data-filter-price value="0-' +
+      midPrice +
+      '"> Under $' +
+      midPrice +
+      '</label>' +
+      '<label class="filter-option"><input type="radio" name="price" data-filter-price value="' +
+      midPrice +
+      '-99999"> $' +
+      midPrice +
+      ' and up</label>';
+  } else if (priceWrap) {
+    priceWrap.closest('.filter-group').hidden = true;
+  }
+
+  /* ---- Filter state --------------------------------------------------- */
   function activeColors() {
-    return Array.prototype.filter
-      .call(colorSwatches, function (b) {
-        return b.getAttribute('data-active') === 'true';
-      })
+    return Array.prototype.slice
+      .call(document.querySelectorAll('[data-filter-color][data-active="true"]'))
       .map(function (b) {
         return b.getAttribute('data-filter-color');
       });
   }
 
   function activePriceRange() {
-    var checked = Array.prototype.filter.call(priceInputs, function (i) {
-      return i.checked;
-    })[0];
-    if (!checked) return null;
-    var parts = checked.value.split('-').map(Number);
-    return { min: parts[0], max: parts[1] };
+    var checked = document.querySelector('[data-filter-price]:checked');
+    if (!checked || checked.value === 'all') return null;
+    var parts = checked.value.split('-');
+    return [Number(parts[0]), Number(parts[1])];
   }
 
-  function applyFilters() {
-    var cats = activeCategories();
+  function matches(product) {
     var colors = activeColors();
-    var price = activePriceRange();
-    var visible = 0;
+    if (colors.length) {
+      var productColors = C.colorValues(product);
+      var hit = colors.some(function (c) {
+        return productColors.indexOf(c) > -1;
+      });
+      if (!hit) return false;
+    }
 
-    cards.forEach(function (card) {
-      var matchCat = cats.length === 0 || cats.indexOf(card.getAttribute('data-category')) !== -1;
-      var matchColor = colors.length === 0 || colors.indexOf(card.getAttribute('data-color')) !== -1;
-      var cardPrice = parseFloat(card.getAttribute('data-price'));
-      var matchPrice = !price || (cardPrice >= price.min && cardPrice <= price.max);
-      var show = matchCat && matchColor && matchPrice;
-      card.style.display = show ? '' : 'none';
-      if (show) visible += 1;
-    });
+    var range = activePriceRange();
+    if (range && (product.price < range[0] || product.price > range[1])) return false;
 
-    if (resultCount) resultCount.textContent = String(visible);
-    if (emptyState) emptyState.hidden = visible !== 0;
+    if (stockToggle && stockToggle.checked && !product.available) return false;
+
+    return true;
   }
 
-  categoryInputs.forEach(function (input) {
-    input.addEventListener('change', applyFilters);
-  });
+  function sorted(list) {
+    var key = sortSelect ? sortSelect.value : 'featured';
+    var out = list.slice();
+    if (key === 'price-asc') {
+      out.sort(function (a, b) {
+        return a.price - b.price;
+      });
+    } else if (key === 'price-desc') {
+      out.sort(function (a, b) {
+        return b.price - a.price;
+      });
+    } else if (key === 'name') {
+      out.sort(function (a, b) {
+        return a.name.localeCompare(b.name);
+      });
+    }
+    return out;
+  }
 
-  colorSwatches.forEach(function (swatch) {
-    swatch.addEventListener('click', function () {
-      var isActive = swatch.getAttribute('data-active') === 'true';
-      swatch.setAttribute('data-active', String(!isActive));
-      swatch.setAttribute('aria-pressed', String(!isActive));
-      applyFilters();
-    });
-  });
+  function apply() {
+    var visible = sorted(products.filter(matches));
+    C.renderGrid(grid, visible);
+    if (resultCount) resultCount.textContent = String(visible.length);
+    if (emptyState) emptyState.hidden = visible.length > 0;
+  }
 
-  priceInputs.forEach(function (input) {
-    input.addEventListener('change', applyFilters);
-  });
-
-  clearButtons.forEach(function (btn) {
+  /* ---- Wiring ---------------------------------------------------------- */
+  document.querySelectorAll('[data-filter-color]').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      categoryInputs.forEach(function (i) {
-        i.checked = false;
-      });
-      colorSwatches.forEach(function (s) {
-        s.setAttribute('data-active', 'false');
-        s.setAttribute('aria-pressed', 'false');
-      });
-      priceInputs.forEach(function (i) {
-        i.checked = false;
-      });
-      applyFilters();
+      var active = btn.getAttribute('data-active') === 'true';
+      btn.setAttribute('data-active', String(!active));
+      btn.setAttribute('aria-pressed', String(!active));
+      apply();
     });
   });
 
-  if (sortSelect) {
-    sortSelect.addEventListener('change', function () {
-      var value = sortSelect.value;
-      var sorted = cards.slice();
-      if (value === 'price-asc') {
-        sorted.sort(function (a, b) {
-          return parseFloat(a.getAttribute('data-price')) - parseFloat(b.getAttribute('data-price'));
-        });
-      } else if (value === 'price-desc') {
-        sorted.sort(function (a, b) {
-          return parseFloat(b.getAttribute('data-price')) - parseFloat(a.getAttribute('data-price'));
-        });
-      } else if (value === 'name-asc') {
-        sorted.sort(function (a, b) {
-          var nameA = a.querySelector('h3').textContent.trim();
-          var nameB = b.querySelector('h3').textContent.trim();
-          return nameA.localeCompare(nameB);
-        });
-      } else {
-        sorted = originalOrder.slice();
-      }
-      sorted.forEach(function (card) {
-        grid.appendChild(card);
+  document.querySelectorAll('[data-filter-price]').forEach(function (input) {
+    input.addEventListener('change', apply);
+  });
+
+  stockToggle && stockToggle.addEventListener('change', apply);
+  sortSelect && sortSelect.addEventListener('change', apply);
+
+  document.querySelectorAll('[data-filter-clear]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('[data-filter-color]').forEach(function (b) {
+        b.setAttribute('data-active', 'false');
+        b.setAttribute('aria-pressed', 'false');
       });
+      var allPrices = document.querySelector('[data-filter-price][value="all"]');
+      if (allPrices) allPrices.checked = true;
+      if (stockToggle) stockToggle.checked = false;
+      apply();
     });
-  }
+  });
+
+  apply();
 })();
