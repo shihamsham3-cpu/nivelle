@@ -63,62 +63,58 @@
   var storeLink = $('[data-pd-store-link]');
   if (storeLink && product.storeUrl) storeLink.setAttribute('href', product.storeUrl);
 
-  /* ---- Gallery -------------------------------------------------------- */
-  var mainEl = $('[data-pd-main]');
+  /* ---- Gallery: 3D viewer + thumbnails ------------------------------ */
   var thumbsEl = $('[data-pd-thumbs]');
+  var images = product.images;
 
-  function imageTag(image, width, eager) {
+  function imageTag(image, width) {
     return (
       '<img src="' +
       C.imageUrl(image.url, width) +
-      '" alt="' +
-      C.escapeHtml(image.alt || product.name) +
-      '" width="' +
-      image.width +
-      '" height="' +
-      image.height +
-      '"' +
-      (eager ? '' : ' loading="lazy"') +
-      ' decoding="async">'
+      '" alt="" loading="lazy" decoding="async">'
     );
   }
 
-  function showImage(url) {
-    if (!mainEl) return;
-    var image =
-      product.images.filter(function (i) {
-        return i.url === url;
-      })[0] || product.images[0];
-    if (!image) return;
-    mainEl.innerHTML = imageTag(image, 1200, true);
-    if (thumbsEl) {
-      thumbsEl.querySelectorAll('.pd-thumb').forEach(function (t) {
-        t.setAttribute('data-active', String(t.getAttribute('data-image') === image.url));
-      });
+  function indexOfImage(url) {
+    for (var i = 0; i < images.length; i++) {
+      if (images[i].url === url) return i;
     }
+    return 0;
+  }
+
+  if (window.NivelleViewer && images.length) {
+    window.NivelleViewer.load(images, product.name);
+    window.NivelleViewer.onChange = function (i) {
+      if (!thumbsEl) return;
+      thumbsEl.querySelectorAll('.pd-thumb').forEach(function (t, ti) {
+        t.setAttribute('data-active', String(ti === i));
+      });
+    };
+  }
+
+  function showImage(url) {
+    if (window.NivelleViewer) window.NivelleViewer.show(indexOfImage(url));
   }
 
   if (thumbsEl) {
-    thumbsEl.innerHTML = product.images
+    thumbsEl.innerHTML = images
       .map(function (image, i) {
         return (
-          '<button type="button" class="pd-thumb" data-image="' +
-          C.escapeHtml(image.url) +
-          '" data-active="' +
+          '<button type="button" class="pd-thumb" data-active="' +
           (i === 0) +
-          '" aria-label="Show image ' +
+          '" aria-label="Show view ' +
           (i + 1) +
           ' of ' +
-          product.images.length +
+          images.length +
           '">' +
           imageTag(image, 200) +
           '</button>'
         );
       })
       .join('');
-    thumbsEl.querySelectorAll('.pd-thumb').forEach(function (btn) {
+    thumbsEl.querySelectorAll('.pd-thumb').forEach(function (btn, i) {
       btn.addEventListener('click', function () {
-        showImage(btn.getAttribute('data-image'));
+        if (window.NivelleViewer) window.NivelleViewer.show(i);
       });
     });
   }

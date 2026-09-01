@@ -204,26 +204,6 @@
   }
 
   /* ------------------------------------------------------------------ */
-  /* Pointer tilt on product imagery (fine pointers only)               */
-  /* ------------------------------------------------------------------ */
-  if (canHover && !reduceMotion) {
-    document.querySelectorAll('.product-media').forEach(function (media) {
-      var art = media.querySelector('svg');
-      if (!art) return;
-      media.addEventListener('pointermove', function (e) {
-        var rect = media.getBoundingClientRect();
-        var x = (e.clientX - rect.left) / rect.width - 0.5;
-        var y = (e.clientY - rect.top) / rect.height - 0.5;
-        art.style.transform =
-          'scale(1.06) translate(' + (-x * 14).toFixed(2) + 'px, ' + (-y * 12 - 6).toFixed(2) + 'px)';
-      });
-      media.addEventListener('pointerleave', function () {
-        art.style.transform = '';
-      });
-    });
-  }
-
-  /* ------------------------------------------------------------------ */
   /* Scroll-driven layer: progress rail, parallax, sticky CTA           */
   /* ------------------------------------------------------------------ */
   var progressFill = document.querySelector('[data-scroll-progress] span');
