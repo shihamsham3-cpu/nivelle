@@ -3021,3 +3021,285 @@ body.has-sticky-cta .back-to-top {
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* ==========================================================================
+   3D layer — real perspective applied to real product photography
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Hero stage — product photos held on separate Z planes
+   -------------------------------------------------------------------------- */
+.hero-stage {
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  width: min(42vw, 520px);
+  aspect-ratio: 1 / 1;
+  margin-top: -4%;
+  transform: translateY(-50%);
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 900ms var(--ease-out) 200ms;
+}
+
+.hero-stage[data-ready='true'] {
+  opacity: 1;
+}
+
+.stage-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 52%;
+  aspect-ratio: 4 / 5;
+  margin: -32.5% 0 0 -26%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-muted-bg);
+  border: 1px solid rgba(220, 177, 90, 0.28);
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55), 0 2px 0 rgba(255, 255, 255, 0.06) inset;
+  transform: translate3d(var(--x), var(--y), var(--z)) rotateY(var(--rot)) scale(var(--scale));
+  will-change: transform;
+}
+
+.stage-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stage-card figcaption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: var(--space-5) var(--space-3) var(--space-3);
+  background: linear-gradient(0deg, rgba(12, 10, 9, 0.82), transparent);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+/* The drawn illustration stays as the fallback: it covers no-JS, and it is
+   the hero art on narrow screens where the photo stage would crowd the copy.
+   Only hide it where the stage actually renders. */
+@media (min-width: 901px) {
+  .hero-stage[data-ready='true'] + .hero-silhouette {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-stage {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Card tilt — perspective rotation with a highlight that tracks the pointer
+   -------------------------------------------------------------------------- */
+.product-media {
+  transform-style: preserve-3d;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.tilt-glare {
+  position: absolute;
+  inset: -30%;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.38), transparent 62%);
+  transition: opacity var(--duration-base) var(--ease-standard);
+}
+
+/* The old sweep would fight the pointer highlight — one or the other. */
+.product-media[data-tilt='on']::after {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Product viewer — drag to step through the real photographs
+   -------------------------------------------------------------------------- */
+.product-viewer {
+  position: relative;
+  perspective: 1200px;
+  border-radius: var(--radius-md);
+  background: var(--color-muted-bg);
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.product-viewer[data-dragging='true'] {
+  cursor: grabbing;
+}
+
+.product-viewer:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 3px;
+}
+
+.viewer-stage {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  transform-style: preserve-3d;
+  transform: rotateY(var(--tilt, 0deg));
+  transition: transform 140ms linear;
+}
+
+.viewer-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--space-6);
+  opacity: 0;
+  transform: scale(0.985);
+  transition: opacity 280ms var(--ease-out), transform 380ms var(--ease-out);
+}
+
+.viewer-frame[data-active='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+.viewer-controls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-inline: var(--space-3);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.viewer-controls .viewer-arrow {
+  pointer-events: auto;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-out), background var(--duration-base) var(--ease-standard);
+}
+
+.product-viewer:hover .viewer-arrow,
+.viewer-arrow:focus-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Touch devices get no hover, so the arrows stay put. */
+@media (hover: none) {
+  .viewer-controls .viewer-arrow {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.viewer-arrow {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(6px);
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.viewer-arrow:hover {
+  background: #fff;
+}
+
+.viewer-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+
+.viewer-dots {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.viewer-dots button {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border-radius: var(--radius-full);
+  background: rgba(28, 25, 23, 0.28);
+  transition: background var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-out);
+}
+
+.viewer-dots button[data-active='true'] {
+  background: var(--color-accent);
+  transform: scale(1.5);
+}
+
+.viewer-hint {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 2;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  background: rgba(255, 255, 255, 0.75);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  transition: opacity var(--duration-base) var(--ease-standard);
+}
+
+.product-viewer[data-dragging='true'] .viewer-hint {
+  opacity: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Colourway tiles gain depth on approach
+   -------------------------------------------------------------------------- */
+.gallery-grid[data-colorway-strip] {
+  perspective: 1000px;
+}
+
+.gallery-grid[data-colorway-strip] .gallery-item {
+  transition: transform var(--duration-slow) var(--ease-out), box-shadow var(--duration-slow) var(--ease-out);
+}
+
+.gallery-grid[data-colorway-strip] .gallery-item:hover {
+  transform: translateZ(40px) rotateX(4deg);
+  box-shadow: 0 24px 50px rgba(28, 25, 23, 0.28);
+  z-index: 2;
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion — depth stays, movement goes
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .stage-card,
+  .viewer-stage,
+  .viewer-frame {
+    transition: none !important;
+  }
+
+  .hero-stage {
+    transition: none !important;
+  }
+
+  .tilt-glare {
+    display: none;
+  }
+
+  .gallery-grid[data-colorway-strip] .gallery-item:hover {
+    transform: none;
+  }
+}
