@@ -1,0 +1,54 @@
+<section class="section{% if section.settings.tinted %} bg-surface-alt{% endif %}">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+      {%- if section.settings.body != blank -%}<p class="lede">{{ section.settings.body }}</p>{%- endif -%}
+    </div>
+
+    <div class="feature-grid cols-{{ section.blocks.size | at_most: 4 }}" data-stagger="80">
+      {%- for block in section.blocks -%}
+        <div class="feature-card" data-reveal {{ block.shopify_attributes }}>
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+          </div>
+          <h3>{{ block.settings.heading }}</h3>
+          <p>{{ block.settings.body }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Icon grid",
+  "settings": [
+    { "type": "checkbox", "id": "tinted", "label": "Tinted background", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Buying from us" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Simple, And Refundable" },
+    { "type": "textarea", "id": "body", "label": "Body" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Heading", "default": "30-Day Returns" },
+        { "type": "textarea", "id": "body", "label": "Body", "default": "Thirty days from delivery to change your mind." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon grid",
+      "blocks": [
+        { "type": "item", "settings": { "heading": "30-Day Returns", "body": "Thirty days from delivery to change your mind, in original condition." } },
+        { "type": "item", "settings": { "heading": "Ships Worldwide", "body": "United States, United Kingdom, Canada, Australia, UAE, Austria and the Maldives." } },
+        { "type": "item", "settings": { "heading": "Secure Checkout", "body": "Payment processed by Shopify. Visa, Mastercard, Amex and PayPal." } },
+        { "type": "item", "settings": { "heading": "In Stock", "body": "Everything shown is physically in stock. Sold-out colours are marked." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

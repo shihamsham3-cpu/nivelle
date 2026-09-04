@@ -1,0 +1,23 @@
+{%- comment -%}
+  Maps an option value to a swatch colour. Anything the store adds later that
+  is not listed falls back to a neutral chip rather than a wrong colour.
+  Accepts: name
+{%- endcomment -%}
+{%- assign key = name | downcase | strip -%}
+{%- case key -%}
+  {%- when 'white' -%}#F2EFE9
+  {%- when 'black' -%}#1c1917
+  {%- when 'gray', 'grey' -%}#8B8985
+  {%- when 'brown' -%}#6B4226
+  {%- when 'pink' -%}#E2A9BC
+  {%- when 'claret' -%}#7B2D3B
+  {%- when 'dark coffee' -%}#3E2A20
+  {%- when 'purple' -%}#6B4E9B
+  {%- when 'ivory', 'cream' -%}#D8CDBB
+  {%- when 'tan', 'cognac' -%}#A9764C
+  {%- when 'navy' -%}#22304A
+  {%- when 'green', 'emerald' -%}#2F4C3B
+  {%- when 'red' -%}#9B2C2C
+  {%- when 'beige', 'sand' -%}#C7B299
+  {%- else -%}#CFC7BA
+{%- endcase -%}

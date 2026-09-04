@@ -1,0 +1,35 @@
+<section class="press-strip" aria-label="{{ section.settings.label | escape }}">
+  <div class="marquee-viewport">
+    <div class="marquee" aria-hidden="true">
+      {%- for i in (1..2) -%}
+        {%- for block in section.blocks -%}
+          <span {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+  <p class="visually-hidden">
+    {%- for block in section.blocks -%}{{ block.settings.text }}{% unless forloop.last %}. {% endunless %}{%- endfor -%}
+  </p>
+</section>
+
+{% schema %}
+{
+  "name": "Value marquee",
+  "settings": [{ "type": "text", "id": "label", "label": "Accessible label", "default": "Why shop with us" }],
+  "blocks": [
+    { "type": "item", "name": "Item", "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "30-Day Returns" }] }
+  ],
+  "presets": [
+    {
+      "name": "Value marquee",
+      "blocks": [
+        { "type": "item", "settings": { "text": "30-Day Returns" } },
+        { "type": "item", "settings": { "text": "Ships Worldwide" } },
+        { "type": "item", "settings": { "text": "Secure Shopify Checkout" } },
+        { "type": "item", "settings": { "text": "In Stock, Ready To Ship" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,101 @@
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">The Collection</span>
+    <h1>{{ collection.title | default: 'All Bags' }}</h1>
+    {%- if collection.description != blank -%}
+      <div class="lede mx-auto">{{ collection.description }}</div>
+    {%- endif -%}
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <div class="shop-layout">
+      <aside class="filters" data-filter-panel data-open="false" aria-label="Filters">
+        {%- if collection.filters.size > 0 -%}
+          <form id="facets">
+            {%- for filter in collection.filters -%}
+              <div class="filter-group">
+                <h4>{{ filter.label }}</h4>
+                {%- case filter.type -%}
+                  {%- when 'list' -%}
+                    {%- for value in filter.values -%}
+                      <label class="filter-option">
+                        <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"
+                               {% if value.active %}checked{% endif %}
+                               {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                        {{ value.label }} ({{ value.count }})
+                      </label>
+                    {%- endfor -%}
+                  {%- when 'price_range' -%}
+                    <label class="filter-option">
+                      From <input type="number" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}" placeholder="0" style="width:80px">
+                    </label>
+                    <label class="filter-option">
+                      To <input type="number" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}" placeholder="{{ filter.range_max | money_without_currency | round }}" style="width:80px">
+                    </label>
+                {%- endcase -%}
+              </div>
+            {%- endfor -%}
+            <button type="submit" class="btn btn-dark btn-block">Apply</button>
+            <a href="{{ collection.url }}" class="link-underline">Clear filters</a>
+          </form>
+        {%- else -%}
+          <div class="filter-group">
+            <h4>Colour</h4>
+            <p class="text-muted" style="font-size:0.82rem">
+              Turn on product filtering in Shopify (Search &amp; Discovery) to filter by colour here.
+            </p>
+          </div>
+        {%- endif -%}
+      </aside>
+
+      <div>
+        <div class="toolbar">
+          <button type="button" class="filter-toggle-btn" data-filter-toggle aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="17" x2="14" y2="17"/></svg>
+            Filters
+          </button>
+          <p class="result-count">{{ collection.products_count }} {% if collection.products_count == 1 %}bag{% else %}bags{% endif %}</p>
+          {%- if collection.sort_options.size > 0 -%}
+            <div class="sort-select">
+              <label for="sort-by">Sort by</label>
+              <select id="sort-by" onchange="location.href = this.value">
+                {%- for option in collection.sort_options -%}
+                  <option value="{{ collection.url }}?sort_by={{ option.value }}" {% if option.value == collection.sort_by %}selected{% endif %}>
+                    {{ option.name }}
+                  </option>
+                {%- endfor -%}
+              </select>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- paginate collection.products by 24 -%}
+        <div class="product-grid" data-stagger="90">
+          {%- for product in collection.products -%}
+            {% render 'product-card', product: product %}
+          {%- else -%}
+            <p class="text-muted">Nothing here yet.</p>
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" aria-label="Pagination">
+            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">{{ 'general.pagination.previous' | t }}</a>{%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+              {%- else -%}<span class="active" aria-current="page">{{ part.title }}</span>{%- endif -%}
+            {%- endfor -%}
+            {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{{ 'general.pagination.next' | t }}</a>{%- endif -%}
+          </nav>
+        {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collection", "settings": [] }
+{% endschema %}

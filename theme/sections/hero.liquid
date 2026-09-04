@@ -1,0 +1,120 @@
+{%- liquid
+  assign products = section.settings.collection.products
+  if products == blank or products.size == 0
+    assign products = collections.all.products
+  endif
+-%}
+
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+
+  {%- comment -%}
+    Three photographs held on separate Z planes. Geometry is fixed here so the
+    composition is stable; scene3d.js only drifts each plane at its own rate.
+  {%- endcomment -%}
+  <div class="hero-stage" data-hero-stage aria-hidden="true">
+    {%- assign planes = '-240|-46|-16|17|0.78|0.32,-120|46|14|-15|0.84|0.6,60|0|0|3|1|1' | split: ',' -%}
+    {%- assign shown = 0 -%}
+    {%- for product in products limit: 3 -%}
+      {%- if product.featured_image == blank -%}{%- continue -%}{%- endif -%}
+      {%- assign plane = planes[forloop.index0] | split: '|' -%}
+      <figure class="stage-card"
+              data-drift="{{ plane[5] }}"
+              style="--z: {{ plane[0] }}px; --x: {{ plane[1] }}%; --y: {{ plane[2] }}%; --rot: {{ plane[3] }}deg; --scale: {{ plane[4] }}">
+        {{ product.featured_image | image_url: width: 640 | image_tag: loading: 'eager', widths: '320, 480, 640', alt: '' }}
+        <figcaption>{{ product.title }}</figcaption>
+      </figure>
+      {%- assign shown = shown | plus: 1 -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="container">
+    <div class="hero-content">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h1 class="display-1">{{ section.settings.heading }}</h1>
+      {%- if section.settings.body != blank -%}
+        <p class="lede">{{ section.settings.body }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.show_proof -%}
+        {%- assign swatch_count = 0 -%}
+        <div class="hero-proof">
+          <span class="avatar-row" aria-hidden="true">
+            {%- for product in products limit: 3 -%}
+              {%- for option in product.options_with_values -%}
+                {%- assign lowered = option.name | downcase -%}
+                {%- if lowered contains 'colour' or lowered contains 'color' -%}
+                  {%- for value in option.values -%}
+                    {%- if swatch_count < 5 -%}
+                      <span class="swatch-chip" style="background: {% render 'swatch-color', name: value %}"></span>
+                      {%- assign swatch_count = swatch_count | plus: 1 -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor -%}
+          </span>
+          <span>{{ section.settings.proof_text }}</span>
+        </div>
+      {%- endif -%}
+
+      <div class="hero-actions">
+        <a href="{{ section.settings.cta_url | default: routes.all_products_collection_url }}" class="btn btn-primary">
+          {{ section.settings.cta_label }}
+        </a>
+        {%- if section.settings.cta2_label != blank -%}
+          <a href="{{ section.settings.cta2_url | default: routes.all_products_collection_url }}" class="btn btn-outline-light">
+            {{ section.settings.cta2_label }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <ul class="hero-meta">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+            {{ block.settings.text }}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+  <span class="scroll-cue" aria-hidden="true"><span class="line"></span>Scroll</span>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Products shown in the 3D stage", "info": "Leave empty to use all products." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Three designs · Ten colourways" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Made to be<br><em>carried daily.</em>" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "A small, considered range of everyday bags — priced to actually use, not to save for a special occasion. Every colourway ships from stock, worldwide." },
+    { "type": "checkbox", "id": "show_proof", "label": "Show colourway row", "default": true },
+    { "type": "text", "id": "proof_text", "label": "Colourway line", "default": "Ten colourways, in stock now" },
+    { "type": "text", "id": "cta_label", "label": "Primary button", "default": "Shop All Bags" },
+    { "type": "url", "id": "cta_url", "label": "Primary link" },
+    { "type": "text", "id": "cta2_label", "label": "Secondary button" },
+    { "type": "url", "id": "cta2_url", "label": "Secondary link" }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Trust point",
+      "settings": [{ "type": "text", "id": "text", "label": "Text", "default": "30-day returns" }]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "blocks": [
+        { "type": "point", "settings": { "text": "30-day returns" } },
+        { "type": "point", "settings": { "text": "Ships worldwide" } },
+        { "type": "point", "settings": { "text": "Secure Shopify checkout" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

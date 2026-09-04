@@ -1,0 +1,35 @@
+{%- comment -%} One tile per variant image, straight from the catalog. {%- endcomment -%}
+<section class="section" style="padding-block-end:0">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h2 class="section-title">{{ section.settings.heading }}</h2>
+    </div>
+  </div>
+  <div class="gallery-grid" data-colorway-strip data-stagger="70">
+    {%- for product in collections.all.products -%}
+      {%- for variant in product.variants -%}
+        {%- if variant.image -%}
+          <a class="gallery-item" data-reveal="wipe" href="{{ variant.url }}"
+             aria-label="{{ product.title | escape }} in {{ variant.title | escape }}">
+            {{ variant.image | image_url: width: 400 | image_tag: loading: 'lazy', widths: '200, 300, 400', alt: product.title | append: ' in ' | append: variant.title }}
+            <span class="handle">
+              {{ variant.title }}{% unless variant.available %} &middot; sold out{% endunless %}
+            </span>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Colourways",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Every colourway" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Every Way To Carry It" }
+  ],
+  "presets": [{ "name": "Colourways" }]
+}
+{% endschema %}

@@ -1,0 +1,214 @@
+{%- assign current = product.selected_or_first_available_variant -%}
+
+<div class="container" style="padding-top: var(--space-6)">
+  <nav class="breadcrumbs" aria-label="Breadcrumb" style="justify-content:flex-start; color: var(--color-muted)">
+    <a href="{{ routes.root_url }}">Home</a>
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    <a href="{{ routes.all_products_collection_url }}">All Bags</a>
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+    <span aria-current="page">{{ product.title }}</span>
+  </nav>
+</div>
+
+<section class="section" style="padding-top: var(--space-5)">
+  <div class="container">
+    <div class="product-detail">
+
+      <div>
+        <div class="product-viewer pd-gallery-main" data-viewer>
+          <div class="viewer-stage">
+            {%- for media in product.media -%}
+              {%- assign is_active = false -%}
+              {%- if current.featured_media and current.featured_media.id == media.id -%}
+                {%- assign is_active = true -%}
+              {%- elsif current.featured_media == blank and forloop.first -%}
+                {%- assign is_active = true -%}
+              {%- endif -%}
+              <img class="viewer-frame"
+                   src="{{ media | image_url: width: 1200 }}"
+                   srcset="{{ media | image_url: width: 600 }} 600w, {{ media | image_url: width: 900 }} 900w, {{ media | image_url: width: 1200 }} 1200w"
+                   sizes="(min-width: 960px) 46vw, 92vw"
+                   width="{{ media.width }}" height="{{ media.height }}"
+                   alt="{{ media.alt | default: product.title | escape }}"
+                   draggable="false"
+                   decoding="async"
+                   {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
+                   data-media-id="{{ media.id }}"
+                   data-active="{{ is_active }}">
+            {%- endfor -%}
+          </div>
+
+          {%- if product.media.size > 1 -%}
+            <div class="viewer-controls">
+              <button type="button" class="viewer-arrow" data-viewer-prev aria-label="Previous view">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+              </button>
+              <button type="button" class="viewer-arrow" data-viewer-next aria-label="Next view">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+            <p class="viewer-hint" aria-hidden="true">{{ 'products.product.drag_hint' | t }}</p>
+          {%- endif -%}
+          <p class="visually-hidden" role="status" data-viewer-status></p>
+        </div>
+
+        {%- if product.media.size > 1 -%}
+          <div class="pd-thumbs">
+            {%- for media in product.media -%}
+              <button type="button" class="pd-thumb" data-active="{% if forloop.first %}true{% else %}false{% endif %}"
+                      aria-label="Show view {{ forloop.index }} of {{ product.media.size }}">
+                {{ media | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="pd-info">
+        {%- assign colour_option = null -%}
+        {%- for option in product.options_with_values -%}
+          {%- assign lowered = option.name | downcase -%}
+          {%- if lowered contains 'colour' or lowered contains 'color' -%}{%- assign colour_option = option -%}{%- endif -%}
+        {%- endfor -%}
+
+        <span class="eyebrow">
+          {%- if colour_option -%}{{ colour_option.values | size }} {{ 'products.product.colourways' | t }}
+          {%- else -%}{{ product.type | default: shop.name }}{%- endif -%}
+        </span>
+        <h1 class="display-2">{{ product.title }}</h1>
+
+        <div class="product-price pd-price" data-pd-price>
+          <span data-price>{{ current.price | money }}</span>
+          {%- if current.compare_at_price > current.price -%}
+            <span class="was" data-compare>{{ current.compare_at_price | money }}</span>
+          {%- else -%}
+            <span class="was" data-compare hidden></span>
+          {%- endif -%}
+        </div>
+
+        <div class="pd-desc">{{ product.description }}</div>
+
+        <p class="pd-stock" data-stock {% unless current.available == false %}hidden{% endunless %}>
+          {{ current.title }} is sold out
+        </p>
+
+        <form method="post" action="{{ routes.cart_add_url }}" data-add-to-cart-form data-product-form>
+          <input type="hidden" name="id" value="{{ current.id }}" data-variant-id>
+
+          {%- for option in product.options_with_values -%}
+            <div class="option-group">
+              <h4>{{ option.name }}: <span data-option-label="{{ forloop.index0 }}">{{ option.selected_value }}</span></h4>
+              <div class="color-options" role="radiogroup" aria-label="{{ option.name | escape }}">
+                {%- for value in option.values -%}
+                  {%- assign value_available = false -%}
+                  {%- for variant in product.variants -%}
+                    {%- if variant.options[forloop.parentloop.index0] == value and variant.available -%}
+                      {%- assign value_available = true -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <button type="button"
+                          class="color-option"
+                          role="radio"
+                          data-option-index="{{ forloop.parentloop.index0 }}"
+                          data-option-value="{{ value | escape }}"
+                          data-active="{% if option.selected_value == value %}true{% else %}false{% endif %}"
+                          data-sold-out="{% unless value_available %}true{% else %}false{% endunless %}"
+                          aria-checked="{% if option.selected_value == value %}true{% else %}false{% endif %}"
+                          style="background: {% render 'swatch-color', name: value %}"
+                          aria-label="{{ value | escape }}{% unless value_available %} (sold out){% endunless %}"></button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+
+          <div class="qty-add-row">
+            <div class="qty-stepper">
+              <button type="button" data-qty-dec aria-label="Decrease quantity">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+              <input type="number" name="quantity" value="1" min="1" max="10" data-qty-input aria-label="{{ 'products.product.quantity' | t }}">
+              <button type="button" data-qty-inc aria-label="Increase quantity">
+                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" data-add-button {% unless current.available %}disabled{% endunless %}>
+              <span data-add-label>
+                {%- if current.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+              </span>
+            </button>
+          </div>
+          <p class="form-error" data-cart-error hidden></p>
+        </form>
+
+        <ul class="pd-perks">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h9a7 7 0 0 1 0 14H8"/></svg>
+            30-day returns in original condition
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18Z"/></svg>
+            Ships worldwide
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
+            Secure checkout handled by Shopify
+          </li>
+        </ul>
+
+        <div class="accordion">
+          {%- if shop.policies.refund_policy != blank -%}
+            <div class="accordion-item" data-open="true">
+              <button type="button" class="accordion-trigger" aria-expanded="true">
+                Shipping &amp; Returns
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+              <div class="accordion-panel">
+                <div class="accordion-panel-inner">
+                  Orders ship from stock. You have 30 days from delivery to request a return — unworn, unused and in original packaging.
+                  <a href="{{ shop.policies.refund_policy.url }}" class="link-underline" style="text-transform:none; letter-spacing:normal; font-weight:400">Read the full refund policy</a>.
+                </div>
+              </div>
+            </div>
+          {%- endif -%}
+          <div class="accordion-item" data-open="false">
+            <button type="button" class="accordion-trigger" aria-expanded="false">
+              Payment
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </button>
+            <div class="accordion-panel">
+              <div class="accordion-panel-inner">Checkout is processed by Shopify. Card details never touch this page.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- assign related = collections.all.products | where: 'available' -%}
+<section class="section bg-surface-alt">
+  <div class="container">
+    <div class="section-head center" data-reveal>
+      <span class="eyebrow">Also in the range</span>
+      <h2 class="section-title">The Rest Of It</h2>
+    </div>
+    <div class="product-grid" data-stagger="90">
+      {%- assign shown = 0 -%}
+      {%- for other in collections.all.products -%}
+        {%- if other.id != product.id and shown < 3 -%}
+          {% render 'product-card', product: other %}
+          {%- assign shown = shown | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<script type="application/json" data-product-json>
+  {{ product.variants | json }}
+</script>
+<script src="{{ 'product.js' | asset_url }}" defer></script>
+
+{% schema %}
+{ "name": "Product", "settings": [] }
+{% endschema %}

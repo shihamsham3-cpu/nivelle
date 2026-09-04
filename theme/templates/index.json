@@ -1,0 +1,70 @@
+{
+  "sections": {
+    "hero": { "type": "hero", "blocks": {
+        "p1": { "type": "point", "settings": { "text": "30-day returns" } },
+        "p2": { "type": "point", "settings": { "text": "Ships worldwide" } },
+        "p3": { "type": "point", "settings": { "text": "Secure Shopify checkout" } }
+      },
+      "block_order": ["p1", "p2", "p3"],
+      "settings": {
+        "eyebrow": "Three designs · Ten colourways",
+        "heading": "Made to be<br><em>carried daily.</em>",
+        "body": "A small, considered range of everyday bags — priced to actually use, not to save for a special occasion. Every colourway ships from stock, worldwide.",
+        "show_proof": true,
+        "proof_text": "Ten colourways, in stock now",
+        "cta_label": "Shop All Bags"
+      }
+    },
+    "marquee": { "type": "value-marquee", "blocks": {
+        "m1": { "type": "item", "settings": { "text": "30-Day Returns" } },
+        "m2": { "type": "item", "settings": { "text": "Ships Worldwide" } },
+        "m3": { "type": "item", "settings": { "text": "Secure Shopify Checkout" } },
+        "m4": { "type": "item", "settings": { "text": "In Stock, Ready To Ship" } }
+      },
+      "block_order": ["m1", "m2", "m3", "m4"],
+      "settings": { "label": "Why shop with Nivelle" }
+    },
+    "statement": { "type": "statement", "settings": {
+        "quote": "Three bags. Ten colourways. Nothing here is waiting for a special occasion."
+      }
+    },
+    "featured": { "type": "featured-collection", "settings": {
+        "count": 6,
+        "eyebrow": "The Range",
+        "heading": "Everything We Make",
+        "body": "Each design in its own set of colourways. Prices and stock are live."
+      }
+    },
+    "spotlight": { "type": "spotlight", "settings": {
+        "eyebrow": "Down to the last colourway",
+        "cta_label": "See it"
+      }
+    },
+    "how": { "type": "icon-grid", "blocks": {
+        "i1": { "type": "item", "settings": { "heading": "30-Day Returns", "body": "Thirty days from delivery to change your mind, in original condition." } },
+        "i2": { "type": "item", "settings": { "heading": "Ships Worldwide", "body": "Delivered wherever your shipping zones reach." } },
+        "i3": { "type": "item", "settings": { "heading": "Secure Checkout", "body": "Payment processed by Shopify. Visa, Mastercard, Amex and PayPal." } },
+        "i4": { "type": "item", "settings": { "heading": "In Stock", "body": "Everything shown is physically in stock. Sold-out colours are marked." } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4"],
+      "settings": {
+        "eyebrow": "Buying from us",
+        "heading": "Simple, And Refundable",
+        "body": "Orders, payment and delivery run through Shopify — the same checkout and buyer protection you get anywhere else."
+      }
+    },
+    "stats": { "type": "stats", "settings": {} },
+    "colourways": { "type": "colourways", "settings": {
+        "eyebrow": "Every colourway",
+        "heading": "Every Way To Carry It"
+      }
+    },
+    "cta": { "type": "final-cta", "settings": {
+        "eyebrow": "Ready when you are",
+        "heading": "Pick A Colour, We'll Ship It",
+        "cta_label": "Shop All Bags"
+      }
+    }
+  },
+  "order": ["hero", "marquee", "statement", "featured", "spotlight", "how", "stats", "colourways", "cta"]
+}

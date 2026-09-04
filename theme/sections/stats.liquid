@@ -1,0 +1,34 @@
+{%- liquid
+  assign product_count = collections.all.products.size
+  assign variant_count = 0
+  for product in collections.all.products
+    assign variant_count = variant_count | plus: product.variants.size
+  endfor
+  assign cheapest = collections.all.products | sort: 'price' | first
+-%}
+<section class="section bg-surface-alt">
+  <div class="container">
+    <dl class="stats-strip" data-reveal>
+      <div class="stat">
+        <dd data-count-to="{{ product_count }}">{{ product_count }}</dd>
+        <dt>Designs</dt>
+      </div>
+      <div class="stat">
+        <dd data-count-to="{{ variant_count }}">{{ variant_count }}</dd>
+        <dt>Colourways</dt>
+      </div>
+      <div class="stat">
+        <dd>{{ cheapest.price | money }}</dd>
+        <dt>Starting Price</dt>
+      </div>
+      <div class="stat">
+        <dd data-count-to="30">30</dd>
+        <dt>Day Returns</dt>
+      </div>
+    </dl>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Catalog stats", "presets": [{ "name": "Catalog stats" }] }
+{% endschema %}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <script>document.documentElement.classList.replace('no-js','js');</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64 }}">
+  {%- else -%}
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231c1917'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23dcb15a' text-anchor='middle'%3EN%3C/text%3E%3C/svg%3E">
+  {%- endif -%}
+
+  <title>{{ page_title }}{% if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif %}{% unless page_title contains shop.name %} &middot; {{ shop.name }}{% endunless %}</title>
+  {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+
+  <link rel="preload" href="{{ 'cormorant-variable.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ 'montserrat-variable.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ 'styles.css' | asset_url }}">
+
+  {{ content_for_header }}
+
+  <script>
+    window.Nivelle = window.Nivelle || {};
+    window.NivelleTheme = {
+      cartUrl: {{ routes.cart_url | json }},
+      cartAddUrl: {{ routes.cart_add_url | json }},
+      cartChangeUrl: {{ routes.cart_change_url | json }},
+      moneyFormat: {{ shop.money_format | json }},
+      motion: {{ settings.enable_motion | default: true | json }}
+    };
+  </script>
+</head>
+<body class="template-{{ template.name | handle }}">
+  <a class="skip-link" href="#main">{{ 'general.accessibility.skip_to_content' | t }}</a>
+  <div class="scroll-progress" data-scroll-progress aria-hidden="true"><span></span></div>
+
+  {% section 'announcement' %}
+  {% section 'header' %}
+
+  <main id="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+  {% section 'cart-drawer' %}
+
+  <button type="button" class="back-to-top" data-visible="false" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><path d="M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script src="{{ 'main.js' | asset_url }}" defer></script>
+  <script src="{{ 'scene3d.js' | asset_url }}" defer></script>
+  <script src="{{ 'motion.js' | asset_url }}" defer></script>
+  <script src="{{ 'cart.js' | asset_url }}" defer></script>
+</body>
+</html>

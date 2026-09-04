@@ -1,0 +1,40 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "menu": "Menu"
+    },
+    "search": { "title": "Search", "placeholder": "Search products" },
+    "404": { "title": "Page not found", "subtext": "The page you were after doesn't exist." },
+    "pagination": { "previous": "Previous", "next": "Next" }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to bag",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "on_sale": "Save",
+      "regular_price": "Regular price",
+      "sale_price": "Sale price",
+      "colourways": "colourways",
+      "drag_hint": "Drag to inspect"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your bag",
+      "empty": "Your bag is empty",
+      "continue_shopping": "Continue shopping",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "remove": "Remove",
+      "taxes_note": "Shipping and taxes calculated at checkout."
+    }
+  },
+  "layout": {
+    "cart": { "title": "Bag" },
+    "footer": { "copyright": "All rights reserved." }
+  }
+}

@@ -1,0 +1,17 @@
+<section class="statement">
+  <div class="container">
+    <blockquote>{{ section.settings.quote }}</blockquote>
+    {%- if section.settings.cite != blank -%}<cite>&mdash; {{ section.settings.cite }}</cite>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Statement",
+  "settings": [
+    { "type": "textarea", "id": "quote", "label": "Statement", "default": "Three bags. Ten colourways. Nothing here is waiting for a special occasion." },
+    { "type": "text", "id": "cite", "label": "Attribution" }
+  ],
+  "presets": [{ "name": "Statement" }]
+}
+{% endschema %}

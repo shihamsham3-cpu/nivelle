@@ -1,0 +1,78 @@
+{%- comment -%}
+  Product card. Accepts: product, (optional) reveal_delay
+{%- endcomment -%}
+{%- assign colour_option = null -%}
+{%- for option in product.options_with_values -%}
+  {%- assign lowered = option.name | downcase -%}
+  {%- if lowered contains 'colour' or lowered contains 'color' -%}
+    {%- assign colour_option = option -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign in_stock = 0 -%}
+{%- for variant in product.variants -%}
+  {%- if variant.available -%}{%- assign in_stock = in_stock | plus: 1 -%}{%- endif -%}
+{%- endfor -%}
+{%- assign total_variants = product.variants | size -%}
+
+<article class="product-card" data-reveal{% if reveal_delay %} data-reveal-delay="{{ reveal_delay }}"{% endif %}>
+  <div class="product-media">
+    {%- if product.compare_at_price > product.price -%}
+      {%- assign saving = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+      <span class="product-badge gold">Save {{ saving }}%</span>
+    {%- endif -%}
+
+    <a href="{{ product.url }}" class="product-media-link" aria-label="View {{ product.title | escape }}">
+      {%- if product.featured_image -%}
+        {{ product.featured_image | image_url: width: 700 | image_tag:
+             loading: 'lazy',
+             widths: '300, 500, 700',
+             sizes: '(min-width: 768px) 33vw, 50vw',
+             alt: product.featured_image.alt | default: product.title }}
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+      {%- endif -%}
+    </a>
+
+    <span class="product-quickadd">
+      {%- if product.available -%}
+        {%- assign first_available = product.selected_or_first_available_variant -%}
+        <form method="post" action="{{ routes.cart_add_url }}" data-add-to-cart-form>
+          <input type="hidden" name="id" value="{{ first_available.id }}">
+          <input type="hidden" name="quantity" value="1">
+          <button type="submit" class="btn btn-dark">{{ 'products.product.add_to_cart' | t }}</button>
+        </form>
+      {%- else -%}
+        <a class="btn btn-dark" href="{{ product.url }}">{{ 'products.product.sold_out' | t }}</a>
+      {%- endif -%}
+    </span>
+  </div>
+
+  <div class="product-info">
+    <span class="product-category">
+      {%- if colour_option -%}{{ colour_option.values | size }} {{ 'products.product.colourways' | t }}
+      {%- else -%}{{ product.type | default: shop.name }}{%- endif -%}
+    </span>
+    <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
+    <div class="product-price">
+      <span>{{ product.price | money }}</span>
+      {%- if product.compare_at_price > product.price -%}
+        <span class="was">{{ product.compare_at_price | money }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if in_stock == 0 -%}
+      <p class="stock-note">{{ 'products.product.sold_out' | t }}</p>
+    {%- elsif in_stock < total_variants -%}
+      <p class="stock-note">{{ in_stock }} of {{ total_variants }} colours in stock</p>
+    {%- endif -%}
+
+    {%- if colour_option -%}
+      <div class="product-swatches" aria-hidden="true">
+        {%- for value in colour_option.values -%}
+          <span class="swatch" style="background: {% render 'swatch-color', name: value %}" title="{{ value | escape }}"></span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</article>

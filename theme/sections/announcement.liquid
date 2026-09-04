@@ -1,0 +1,34 @@
+<div class="announcement">
+  <div class="container">
+    <ul class="announce-rotator" data-rotator>
+      {%- for block in section.blocks -%}
+        <li data-active="{% if forloop.first %}true{% else %}false{% endif %}" {{ block.shopify_attributes }}>
+          {%- if block.settings.text != blank -%}{{ block.settings.text }}{%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement",
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "30-day returns on every order" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "message", "settings": { "text": "Ships worldwide — US, UK, Canada, Australia, UAE, Austria & Maldives" } },
+      { "type": "message", "settings": { "text": "30-day returns on every order" } },
+      { "type": "message", "settings": { "text": "Secure checkout, handled by Shopify" } }
+    ]
+  }
+}
+{% endschema %}
