@@ -2,7 +2,7 @@
 /**
  * Sync the Nivelle catalog from Shopify into js/products-data.js
  *
- *   SHOPIFY_STORE_DOMAIN=nivellestore.myshopify.com \
+ *   SHOPIFY_STORE_DOMAIN=bc31be-dv.myshopify.com \
  *   SHOPIFY_ADMIN_TOKEN=shpat_xxx \
  *   node scripts/sync-shopify.mjs
  *
@@ -172,9 +172,25 @@ async function fetchAll(domain, token) {
   return edges;
 }
 
+/* The admin API is addressed by the .myshopify.com host, but every public
+   link must use the storefront's primary domain — they are not the same once
+   a custom domain is connected. The storefront domain is read back off the
+   products so that moving domains cannot leave dead buy buttons behind. */
+function storefrontDomainFrom(products, fallback) {
+  for (const product of products) {
+    if (!product.storeUrl) continue;
+    try {
+      return new URL(product.storeUrl).host;
+    } catch (err) {
+      /* keep looking */
+    }
+  }
+  return fallback;
+}
+
 async function main() {
   const fromJsonIdx = process.argv.indexOf('--from-json');
-  const domain = process.env.SHOPIFY_STORE_DOMAIN || 'nivellestore.myshopify.com';
+  const apiDomain = process.env.SHOPIFY_STORE_DOMAIN || 'bc31be-dv.myshopify.com';
   const currency = process.env.SHOPIFY_CURRENCY || 'USD';
 
   let edges;
@@ -191,12 +207,14 @@ async function main() {
       );
       process.exit(1);
     }
-    edges = await fetchAll(domain, token);
+    edges = await fetchAll(apiDomain, token);
   }
 
   const products = edges.map((e) => normaliseProduct(e.node));
   const syncedAt = new Date().toISOString().slice(0, 10);
+  const domain = storefrontDomainFrom(products, apiDomain);
   await writeFile(OUT, renderCatalogFile(products, { domain, currency, syncedAt }), 'utf8');
+  console.log(`Storefront domain: ${domain}`);
 
   const variantCount = products.reduce((n, p) => n + p.variants.length, 0);
   console.log(`Wrote ${products.length} products (${variantCount} variants) to js/products-data.js`);
