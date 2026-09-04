@@ -5,15 +5,7 @@
     "theme_version": "1.0.0",
     "theme_author": "Nivelle",
     "theme_documentation_url": "https://github.com/shihamsham3-cpu/nivelle",
-    "theme_support_url": "mailto:shihamsham3@gmail.com"
-  },
-  {
-    "name": "Colours",
-    "settings": [
-      { "type": "color", "id": "color_accent", "label": "Accent", "default": "#a16207" },
-      { "type": "color", "id": "color_primary", "label": "Ink", "default": "#1c1917" },
-      { "type": "color", "id": "color_background", "label": "Background", "default": "#faf9f7" }
-    ]
+    "theme_support_url": "https://github.com/shihamsham3-cpu/nivelle"
   },
   {
     "name": "Motion",
@@ -23,8 +15,16 @@
         "id": "enable_motion",
         "label": "Enable scroll animations and 3D effects",
         "default": true,
-        "info": "Visitors who ask their device to reduce motion always get a static page regardless of this setting."
+        "info": "Visitors whose device asks for reduced motion always get a static page regardless of this setting."
       }
+    ]
+  },
+  {
+    "name": "Colours",
+    "settings": [
+      { "type": "color", "id": "color_primary", "label": "Ink", "default": "#1c1917" },
+      { "type": "color", "id": "color_accent", "label": "Accent", "default": "#a16207" },
+      { "type": "color", "id": "color_background", "label": "Background", "default": "#faf9f7" }
     ]
   }
 ]
