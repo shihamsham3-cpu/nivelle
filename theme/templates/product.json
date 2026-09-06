@@ -1,1 +1,13 @@
-{ "sections": { "main": { "type": "main-product", "settings": {} } }, "order": ["main"] }
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "accessories_collection": "charms",
+        "accessory_type": "Bag Charm",
+        "ctl_heading": "Add a charm"
+      }
+    }
+  },
+  "order": ["main"]
+}

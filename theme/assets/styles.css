@@ -3792,3 +3792,104 @@ body.has-sticky-cta .back-to-top {
   grid-column: 1 / -1;
   margin: var(--space-2) 0 0;
 }
+
+/* ==========================================================================
+   Complete the look — inline (inside the buy box, under Add to cart)
+   ========================================================================== */
+.ctl-inline {
+  margin-top: var(--space-5);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-background);
+}
+
+.ctl-inline-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.ctl-inline-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.ctl-see-all {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ctl-see-all:hover {
+  text-decoration: underline;
+}
+
+.ctl-inline-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-3);
+}
+
+/* Inside the buy box the card sheds its own frame — the wrapper provides it. */
+.ctl-inline .ctl-card {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  gap: var(--space-3);
+}
+
+.ctl-inline .ctl-card:hover {
+  box-shadow: none;
+}
+
+.ctl-inline .ctl-card + .ctl-card {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.ctl-inline .ctl-media {
+  flex: 0 0 64px;
+  width: 64px;
+}
+
+.ctl-inline .ctl-add {
+  margin-top: var(--space-3);
+  width: auto;
+  min-width: 128px;
+}
+
+@media (min-width: 480px) {
+  .ctl-inline .ctl-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'title  button'
+      'price  button'
+      'swatch button';
+    align-items: center;
+    column-gap: var(--space-3);
+  }
+
+  .ctl-inline .ctl-title { grid-area: title; }
+  .ctl-inline .ctl-price { grid-area: price; }
+  .ctl-inline .product-swatches { grid-area: swatch; }
+  .ctl-inline .ctl-add {
+    grid-area: button;
+    margin-top: 0;
+    align-self: center;
+  }
+  .ctl-inline .form-error {
+    grid-column: 1 / -1;
+  }
+}

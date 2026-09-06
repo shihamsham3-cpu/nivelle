@@ -13,7 +13,11 @@
   <nav class="breadcrumbs" aria-label="Breadcrumb" style="justify-content:flex-start; color: var(--color-muted)">
     <a href="{{ routes.root_url }}">Home</a>
     <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-    <a href="{{ routes.all_products_collection_url }}">All Bags</a>
+    {%- if collections.bags != blank and collections.bags.products.size > 0 -%}
+      <a href="{{ collections.bags.url }}">{{ collections.bags.title }}</a>
+    {%- else -%}
+      <a href="{{ routes.all_products_collection_url }}">All Bags</a>
+    {%- endif -%}
     <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
     <span aria-current="page">{{ product.title }}</span>
   </nav>
@@ -153,6 +157,13 @@
           <p class="form-error" data-cart-error hidden></p>
         </form>
 
+        {% render 'complete-the-look',
+             product: product,
+             collection: section.settings.accessories_collection,
+             type: section.settings.accessory_type,
+             layout: 'inline',
+             heading: section.settings.ctl_heading %}
+
         <div class="pd-desc">{{ product.description }}</div>
 
         <ul class="pd-perks">
@@ -200,13 +211,6 @@
   </div>
 </section>
 
-{% render 'complete-the-look',
-     product: product,
-     collection: section.settings.accessories_collection,
-     type: section.settings.accessory_type,
-     eyebrow: section.settings.ctl_eyebrow,
-     heading: section.settings.ctl_heading %}
-
 <section class="section bg-surface-alt">
   <div class="container">
     <div class="section-head center" data-reveal>
@@ -239,7 +243,7 @@
     { "type": "collection", "id": "accessories_collection", "label": "Accessory collection", "info": "Leave empty to use every product matching the type below." },
     { "type": "text", "id": "accessory_type", "label": "Accessory product type", "default": "Bag Charm" },
     { "type": "text", "id": "ctl_eyebrow", "label": "Eyebrow", "default": "Finish it off" },
-    { "type": "text", "id": "ctl_heading", "label": "Heading", "default": "Complete The Look" }
+    { "type": "text", "id": "ctl_heading", "label": "Heading", "default": "Add a charm" }
   ]
 }
 {% endschema %}
