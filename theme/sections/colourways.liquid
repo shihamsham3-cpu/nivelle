@@ -8,17 +8,39 @@
   </div>
   <div class="gallery-grid" data-colorway-strip data-stagger="70">
     {%- for product in collections.all.products -%}
+      {%- comment -%}
+        Prefer per-variant photography when the store models colours as
+        variants; otherwise fall back to the product's own images, which is
+        where the colourways live for single-variant products.
+      {%- endcomment -%}
+      {%- assign variant_images = 0 -%}
       {%- for variant in product.variants -%}
-        {%- if variant.image -%}
-          <a class="gallery-item" data-reveal="wipe" href="{{ variant.url }}"
-             aria-label="{{ product.title | escape }} in {{ variant.title | escape }}">
-            {{ variant.image | image_url: width: 400 | image_tag: loading: 'lazy', widths: '200, 300, 400', alt: product.title | append: ' in ' | append: variant.title }}
-            <span class="handle">
-              {{ variant.title }}{% unless variant.available %} &middot; sold out{% endunless %}
-            </span>
-          </a>
-        {%- endif -%}
+        {%- if variant.image -%}{%- assign variant_images = variant_images | plus: 1 -%}{%- endif -%}
       {%- endfor -%}
+
+      {%- if variant_images > 0 -%}
+        {%- for variant in product.variants -%}
+          {%- if variant.image -%}
+            <a class="gallery-item" data-reveal="wipe" href="{{ variant.url }}"
+               aria-label="{{ product.title | escape }} in {{ variant.title | escape }}">
+              {{ variant.image | image_url: width: 400 | image_tag: loading: 'lazy', widths: '200, 300, 400', alt: product.title | append: ' in ' | append: variant.title }}
+              <span class="handle">
+                {{ variant.title }}{% unless variant.available %} &middot; sold out{% endunless %}
+              </span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for media in product.media limit: section.settings.per_product -%}
+          {%- if media.media_type == 'image' -%}
+            <a class="gallery-item" data-reveal="wipe" href="{{ product.url }}"
+               aria-label="{{ product.title | escape }}">
+              {{ media | image_url: width: 400 | image_tag: loading: 'lazy', widths: '200, 300, 400', alt: product.title }}
+              <span class="handle">{{ product.title }}</span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
     {%- endfor -%}
   </div>
 </section>
@@ -28,7 +50,8 @@
   "name": "Colourways",
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Every colourway" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Every Way To Carry It" }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Every Way To Carry It" },
+    { "type": "range", "id": "per_product", "label": "Photos per product", "min": 2, "max": 12, "step": 1, "default": 6 }
   ],
   "presets": [{ "name": "Colourways" }]
 }

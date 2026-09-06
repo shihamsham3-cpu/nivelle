@@ -49,10 +49,11 @@
   </div>
 
   <div class="product-info">
-    <span class="product-category">
-      {%- if colour_option -%}{{ colour_option.values | size }} {{ 'products.product.colourways' | t }}
-      {%- else -%}{{ product.type | default: shop.name }}{%- endif -%}
-    </span>
+    {%- if colour_option -%}
+      <span class="product-category">{{ colour_option.values | size }} {{ 'products.product.colourways' | t }}</span>
+    {%- elsif product.type != blank -%}
+      <span class="product-category">{{ product.type }}</span>
+    {%- endif -%}
     <h3><a href="{{ product.url }}">{{ product.title }}</a></h3>
     <div class="product-price">
       <span>{{ product.price | money }}</span>

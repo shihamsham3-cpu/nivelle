@@ -71,10 +71,13 @@
           {%- if lowered contains 'colour' or lowered contains 'color' -%}{%- assign colour_option = option -%}{%- endif -%}
         {%- endfor -%}
 
-        <span class="eyebrow">
-          {%- if colour_option -%}{{ colour_option.values | size }} {{ 'products.product.colourways' | t }}
-          {%- else -%}{{ product.type | default: shop.name }}{%- endif -%}
-        </span>
+        {%- if colour_option -%}
+          <span class="eyebrow">{{ colour_option.values | size }} {{ 'products.product.colourways' | t }}</span>
+        {%- elsif product.type != blank -%}
+          <span class="eyebrow">{{ product.type }}</span>
+        {%- else -%}
+          <span class="eyebrow">{{ product.media.size }} views</span>
+        {%- endif -%}
         <h1 class="display-2">{{ product.title }}</h1>
 
         <div class="product-price pd-price" data-pd-price>

@@ -1,8 +1,14 @@
 {%- liquid
   assign product_count = collections.all.products.size
   assign variant_count = 0
+  assign real_variants = 0
   for product in collections.all.products
     assign variant_count = variant_count | plus: product.variants.size
+    for variant in product.variants
+      unless variant.title contains 'Default'
+        assign real_variants = real_variants | plus: 1
+      endunless
+    endfor
   endfor
   assign cheapest = collections.all.products | sort: 'price' | first
 -%}
@@ -13,10 +19,12 @@
         <dd data-count-to="{{ product_count }}">{{ product_count }}</dd>
         <dt>Designs</dt>
       </div>
-      <div class="stat">
-        <dd data-count-to="{{ variant_count }}">{{ variant_count }}</dd>
-        <dt>Colourways</dt>
-      </div>
+      {%- if real_variants > 0 -%}
+        <div class="stat">
+          <dd data-count-to="{{ real_variants }}">{{ real_variants }}</dd>
+          <dt>Colourways</dt>
+        </div>
+      {%- endif -%}
       <div class="stat">
         <dd>{{ cheapest.price | money }}</dd>
         <dt>Starting Price</dt>

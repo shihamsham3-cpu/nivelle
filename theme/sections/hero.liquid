@@ -14,10 +14,20 @@
   {%- endcomment -%}
   <div class="hero-stage" data-hero-stage aria-hidden="true">
     {%- assign planes = '-240|-46|-16|17|0.78|0.32,-120|46|14|-15|0.84|0.6,60|0|0|3|1|1' | split: ',' -%}
+    {%- comment -%}
+      Fewer than three products must use the FRONT planes, otherwise the stage
+      renders only distant background cards with an empty foreground.
+    {%- endcomment -%}
+    {%- assign with_images = 0 -%}
+    {%- for product in products limit: 3 -%}
+      {%- if product.featured_image != blank -%}{%- assign with_images = with_images | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+    {%- assign plane_offset = 3 | minus: with_images -%}
     {%- assign shown = 0 -%}
     {%- for product in products limit: 3 -%}
       {%- if product.featured_image == blank -%}{%- continue -%}{%- endif -%}
-      {%- assign plane = planes[forloop.index0] | split: '|' -%}
+      {%- assign plane_index = shown | plus: plane_offset -%}
+      {%- assign plane = planes[plane_index] | split: '|' -%}
       <figure class="stage-card"
               data-drift="{{ plane[5] }}"
               style="--z: {{ plane[0] }}px; --x: {{ plane[1] }}%; --y: {{ plane[2] }}%; --rot: {{ plane[3] }}deg; --scale: {{ plane[4] }}">
