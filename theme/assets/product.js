@@ -51,6 +51,14 @@
     return chosen;
   }
 
+  /* Mirrors the Liquid rule: a variant whose inventory is untracked has no
+     unit count, so `available` must not be treated as a stock signal. */
+  function isAvailable(variant) {
+    if (!variant) return false;
+    if (!variant.inventory_management) return true;
+    return variant.available === true;
+  }
+
   function findVariant(chosen) {
     for (var i = 0; i < variants.length; i++) {
       var v = variants[i];
@@ -82,7 +90,7 @@
     }
 
     if (stockEl) {
-      if (!variant.available) {
+      if (!isAvailable(variant)) {
         stockEl.textContent = variant.title + ' is sold out';
         stockEl.hidden = false;
       } else {
@@ -90,8 +98,8 @@
       }
     }
 
-    if (addButton) addButton.disabled = !variant.available;
-    if (addLabel) addLabel.textContent = variant.available ? 'Add to bag' : 'Sold out';
+    if (addButton) addButton.disabled = !isAvailable(variant);
+    if (addLabel) addLabel.textContent = isAvailable(variant) ? 'Add to bag' : 'Sold out';
 
     if (variant.featured_media && window.NivelleViewer) {
       window.NivelleViewer.showByMediaId(variant.featured_media.id);

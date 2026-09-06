@@ -9,9 +9,12 @@
   {%- endif -%}
 {%- endfor -%}
 
+{%- comment -%} Untracked inventory is never "sold out" — see main-product. {%- endcomment -%}
 {%- assign in_stock = 0 -%}
 {%- for variant in product.variants -%}
-  {%- if variant.available -%}{%- assign in_stock = in_stock | plus: 1 -%}{%- endif -%}
+  {%- if variant.inventory_management == blank or variant.available -%}
+    {%- assign in_stock = in_stock | plus: 1 -%}
+  {%- endif -%}
 {%- endfor -%}
 {%- assign total_variants = product.variants | size -%}
 
@@ -35,7 +38,7 @@
     </a>
 
     <span class="product-quickadd">
-      {%- if product.available -%}
+      {%- if in_stock > 0 -%}
         {%- assign first_available = product.selected_or_first_available_variant -%}
         <form method="post" action="{{ routes.cart_add_url }}" data-add-to-cart-form>
           <input type="hidden" name="id" value="{{ first_available.id }}">

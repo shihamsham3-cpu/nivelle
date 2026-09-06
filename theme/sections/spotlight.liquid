@@ -22,7 +22,9 @@
         {%- assign total = product.variants | size -%}
         {%- assign available = 0 -%}
         {%- for variant in product.variants -%}
-          {%- if variant.available -%}{%- assign available = available | plus: 1 -%}{%- endif -%}
+          {%- if variant.inventory_management == blank or variant.available -%}
+            {%- assign available = available | plus: 1 -%}
+          {%- endif -%}
         {%- endfor -%}
         {%- assign gone = total | minus: available -%}
 

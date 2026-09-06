@@ -1,4 +1,13 @@
 {%- assign current = product.selected_or_first_available_variant -%}
+{%- comment -%}
+  When inventory is untracked, Shopify has no unit count to report and
+  `available` must not be read as a stock signal, or every colourway shows as
+  sold out. Only a tracked variant can be genuinely out of stock.
+{%- endcomment -%}
+{%- assign current_available = true -%}
+{%- if current.inventory_management != blank and current.available == false -%}
+  {%- assign current_available = false -%}
+{%- endif -%}
 
 <div class="container" style="padding-top: var(--space-6)">
   <nav class="breadcrumbs" aria-label="Breadcrumb" style="justify-content:flex-start; color: var(--color-muted)">
@@ -89,7 +98,7 @@
           {%- endif -%}
         </div>
 
-        <p class="pd-stock" data-stock {% unless current.available == false %}hidden{% endunless %}>
+        <p class="pd-stock" data-stock {% if current_available %}hidden{% endif %}>
           {{ current.title }} is sold out
         </p>
 
@@ -104,8 +113,10 @@
                 {%- for value in option.values -%}
                   {%- assign value_available = false -%}
                   {%- for variant in product.variants -%}
-                    {%- if variant.options[option_index] == value and variant.available -%}
-                      {%- assign value_available = true -%}
+                    {%- if variant.options[option_index] == value -%}
+                      {%- if variant.inventory_management == blank or variant.available -%}
+                        {%- assign value_available = true -%}
+                      {%- endif -%}
                     {%- endif -%}
                   {%- endfor -%}
                   <button type="button"
@@ -133,9 +144,9 @@
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               </button>
             </div>
-            <button type="submit" class="btn btn-primary btn-block" data-add-button {% unless current.available %}disabled{% endunless %}>
+            <button type="submit" class="btn btn-primary btn-block" data-add-button {% unless current_available %}disabled{% endunless %}>
               <span data-add-label>
-                {%- if current.available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+                {%- if current_available -%}{{ 'products.product.add_to_cart' | t }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
               </span>
             </button>
           </div>

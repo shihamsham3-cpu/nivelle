@@ -3331,6 +3331,12 @@ body.has-sticky-cta .back-to-top {
   }
 }
 
+/* The hidden attribute must win over any author display rule — several
+   elements here (stock note, compare-at price) are toggled with it. */
+[hidden] {
+  display: none !important;
+}
+
 /* ==========================================================================
    Shopify theme additions — cart drawer, rich text, form states
    ========================================================================== */

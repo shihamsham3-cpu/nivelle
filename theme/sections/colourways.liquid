@@ -25,7 +25,7 @@
                aria-label="{{ product.title | escape }} in {{ variant.title | escape }}">
               {{ variant.image | image_url: width: 400 | image_tag: loading: 'lazy', widths: '200, 300, 400', alt: product.title | append: ' in ' | append: variant.title }}
               <span class="handle">
-                {{ variant.title }}{% unless variant.available %} &middot; sold out{% endunless %}
+                {{ variant.title }}{% if variant.inventory_management != blank and variant.available == false %} &middot; sold out{% endif %}
               </span>
             </a>
           {%- endif -%}
