@@ -49,7 +49,20 @@
 
   <div class="container">
     <div class="hero-content">
-      {%- if section.settings.eyebrow != blank -%}
+      {%- comment -%}
+        Counting the catalogue by hand went stale every time a product was
+        added. Count it live, and fall back to the typed eyebrow only when
+        the collections are missing.
+      {%- endcomment -%}
+      {%- assign bag_count = collections.bags.all_products_count -%}
+      {%- assign charm_count = collections.charms.all_products_count -%}
+      {%- if bag_count > 0 and charm_count > 0 -%}
+        <span class="eyebrow">
+          {{ bag_count }} {% if bag_count == 1 %}bag{% else %}bags{% endif %}
+          &middot;
+          {{ charm_count }} {% if charm_count == 1 %}charm{% else %}charms{% endif %}
+        </span>
+      {%- elsif section.settings.eyebrow != blank -%}
         <span class="eyebrow">{{ section.settings.eyebrow }}</span>
       {%- endif -%}
       <h1 class="display-1">{{ section.settings.heading }}</h1>
@@ -108,11 +121,11 @@
   "name": "Hero",
   "settings": [
     { "type": "collection", "id": "collection", "label": "Products shown in the 3D stage", "info": "Leave empty to use all products." },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Four bags · One charm · Twenty-one colourways" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "info": "Only used if the Bags and Charms collections are unavailable — otherwise counted live.", "default": "Bags and charms, made to be carried" },
     { "type": "html", "id": "heading", "label": "Heading", "default": "Made to be<br><em>carried daily.</em>" },
     { "type": "textarea", "id": "body", "label": "Body", "default": "A small, considered range of everyday bags — priced to actually use, not to save for a special occasion. Every colourway ships from stock, worldwide." },
     { "type": "checkbox", "id": "show_proof", "label": "Show colourway row", "default": true },
-    { "type": "text", "id": "proof_text", "label": "Colourway line", "default": "Twenty-one colourways, in stock now" },
+    { "type": "text", "id": "proof_text", "label": "Colourway line", "default": "Every colourway in stock now" },
     { "type": "text", "id": "cta_label", "label": "Primary button", "default": "Shop All Bags" },
     { "type": "url", "id": "cta_url", "label": "Primary link" },
     { "type": "text", "id": "cta2_label", "label": "Secondary button" },
