@@ -89,8 +89,6 @@
           {%- endif -%}
         </div>
 
-        <div class="pd-desc">{{ product.description }}</div>
-
         <p class="pd-stock" data-stock {% unless current.available == false %}hidden{% endunless %}>
           {{ current.title }} is sold out
         </p>
@@ -99,20 +97,21 @@
           <input type="hidden" name="id" value="{{ current.id }}" data-variant-id>
 
           {%- for option in product.options_with_values -%}
+            {%- assign option_index = forloop.index0 -%}
             <div class="option-group">
-              <h4>{{ option.name }}: <span data-option-label="{{ forloop.index0 }}">{{ option.selected_value }}</span></h4>
+              <h4>{{ option.name }}: <span data-option-label="{{ option_index }}">{{ option.selected_value }}</span></h4>
               <div class="color-options" role="radiogroup" aria-label="{{ option.name | escape }}">
                 {%- for value in option.values -%}
                   {%- assign value_available = false -%}
                   {%- for variant in product.variants -%}
-                    {%- if variant.options[forloop.parentloop.index0] == value and variant.available -%}
+                    {%- if variant.options[option_index] == value and variant.available -%}
                       {%- assign value_available = true -%}
                     {%- endif -%}
                   {%- endfor -%}
                   <button type="button"
                           class="color-option"
                           role="radio"
-                          data-option-index="{{ forloop.parentloop.index0 }}"
+                          data-option-index="{{ option_index }}"
                           data-option-value="{{ value | escape }}"
                           data-active="{% if option.selected_value == value %}true{% else %}false{% endif %}"
                           data-sold-out="{% unless value_available %}true{% else %}false{% endunless %}"
@@ -142,6 +141,8 @@
           </div>
           <p class="form-error" data-cart-error hidden></p>
         </form>
+
+        <div class="pd-desc">{{ product.description }}</div>
 
         <ul class="pd-perks">
           <li>
