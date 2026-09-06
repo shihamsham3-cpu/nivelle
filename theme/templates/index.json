@@ -7,7 +7,7 @@
       },
       "block_order": ["p1", "p2", "p3"],
       "settings": {
-        "eyebrow": "Four designs · Twenty-one colourways",
+        "eyebrow": "Four bags · One charm · Twenty-one colourways",
         "heading": "Made to be<br><em>carried daily.</em>",
         "body": "A small, considered range of everyday bags — priced to actually use, not to save for a special occasion. Every colourway ships from stock, worldwide.",
         "show_proof": true,
@@ -25,7 +25,7 @@
       "settings": { "label": "Why shop with Nivelle" }
     },
     "statement": { "type": "statement", "settings": {
-        "quote": "Four bags. Twenty-one colourways. Nothing here is waiting for a special occasion."
+        "quote": "Four bags, one charm, twenty-one colourways. Nothing here is waiting for a special occasion."
       }
     },
     "featured": { "type": "featured-collection", "settings": {

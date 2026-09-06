@@ -18,13 +18,22 @@
       Fewer than three products must use the FRONT planes, otherwise the stage
       renders only distant background cards with an empty foreground.
     {%- endcomment -%}
+    {%- comment -%}
+      Accessories are the wrong scale for the stage — a charm rendered on a
+      plane reads as a bag the size of a suitcase. Bags only.
+    {%- endcomment -%}
     {%- assign with_images = 0 -%}
-    {%- for product in products limit: 3 -%}
-      {%- if product.featured_image != blank -%}{%- assign with_images = with_images | plus: 1 -%}{%- endif -%}
+    {%- for product in products -%}
+      {%- if product.type == 'Bag Charm' -%}{%- continue -%}{%- endif -%}
+      {%- if product.featured_image == blank -%}{%- continue -%}{%- endif -%}
+      {%- assign with_images = with_images | plus: 1 -%}
+      {%- if with_images >= 3 -%}{%- break -%}{%- endif -%}
     {%- endfor -%}
     {%- assign plane_offset = 3 | minus: with_images -%}
     {%- assign shown = 0 -%}
-    {%- for product in products limit: 3 -%}
+    {%- for product in products -%}
+      {%- if shown >= 3 -%}{%- break -%}{%- endif -%}
+      {%- if product.type == 'Bag Charm' -%}{%- continue -%}{%- endif -%}
       {%- if product.featured_image == blank -%}{%- continue -%}{%- endif -%}
       {%- assign plane_index = shown | plus: plane_offset -%}
       {%- assign plane = planes[plane_index] | split: '|' -%}
@@ -99,7 +108,7 @@
   "name": "Hero",
   "settings": [
     { "type": "collection", "id": "collection", "label": "Products shown in the 3D stage", "info": "Leave empty to use all products." },
-    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Four designs · Twenty-one colourways" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Four bags · One charm · Twenty-one colourways" },
     { "type": "html", "id": "heading", "label": "Heading", "default": "Made to be<br><em>carried daily.</em>" },
     { "type": "textarea", "id": "body", "label": "Body", "default": "A small, considered range of everyday bags — priced to actually use, not to save for a special occasion. Every colourway ships from stock, worldwide." },
     { "type": "checkbox", "id": "show_proof", "label": "Show colourway row", "default": true },
