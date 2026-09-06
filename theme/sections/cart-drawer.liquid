@@ -48,6 +48,78 @@
         {%- endfor -%}
       </ul>
 
+      {%- comment -%}
+        Upsell the first accessory that is not already in the cart. The colour
+        picker is the form's `id` field itself, so adding needs no JavaScript
+        of its own — the delegated handler in cart.js reads the select.
+      {%- endcomment -%}
+      {%- assign accessory_type = section.settings.accessory_type | default: 'Bag Charm' -%}
+      {%- assign accessories = collections.all.products | where: 'type', accessory_type -%}
+      {%- assign upsell = null -%}
+      {%- for candidate in accessories -%}
+        {%- if upsell == null -%}
+          {%- assign in_cart = false -%}
+          {%- for line in cart.items -%}
+            {%- if line.product.id == candidate.id -%}{%- assign in_cart = true -%}{%- endif -%}
+          {%- endfor -%}
+          {%- unless in_cart -%}{%- assign upsell = candidate -%}{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if upsell -%}
+        {%- assign up = upsell.selected_or_first_available_variant -%}
+        {%- assign up_available = true -%}
+        {%- if up.inventory_management != blank and up.available == false -%}
+          {%- assign up_available = false -%}
+        {%- endif -%}
+        {%- if up_available -%}
+          <div class="cart-upsell">
+            <p class="cart-upsell-head">{{ section.settings.upsell_heading | default: 'Add to your order' }}</p>
+            <form class="cart-upsell-row" method="post" action="{{ routes.cart_add_url }}" data-add-to-cart-form>
+              <input type="hidden" name="quantity" value="1">
+
+              {%- assign up_media = up.featured_media | default: upsell.featured_media -%}
+              {%- if up_media -%}
+                <a class="cart-upsell-media" href="{{ upsell.url }}" tabindex="-1" aria-hidden="true">
+                  <img data-upsell-image
+                       src="{{ up_media | image_url: width: 160 }}"
+                       width="80" height="80" alt="" loading="lazy" decoding="async">
+                </a>
+              {%- else -%}
+                <span class="cart-upsell-media" aria-hidden="true"></span>
+              {%- endif -%}
+
+              <div class="cart-upsell-info">
+                <a class="cart-upsell-title" href="{{ upsell.url }}">{{ upsell.title }}</a>
+                <p class="cart-upsell-price">{{ up.price | money }}</p>
+
+                {%- if upsell.variants.size > 1 -%}
+                  <select class="cart-upsell-select" name="id" data-upsell-select aria-label="{{ upsell.title | escape }} colour">
+                    {%- for v in upsell.variants -%}
+                      {%- assign v_available = true -%}
+                      {%- if v.inventory_management != blank and v.available == false -%}
+                        {%- assign v_available = false -%}
+                      {%- endif -%}
+                      <option value="{{ v.id }}"
+                              data-media-src="{{ v.featured_media | default: upsell.featured_media | image_url: width: 160 }}"
+                              {% if v.id == up.id %}selected{% endif %}
+                              {% unless v_available %}disabled{% endunless %}>
+                        {{ v.title }}{% unless v_available %} — sold out{% endunless %}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                {%- else -%}
+                  <input type="hidden" name="id" value="{{ up.id }}">
+                {%- endif -%}
+              </div>
+
+              <button type="submit" class="btn btn-secondary cart-upsell-add">Add</button>
+              <p class="form-error cart-upsell-error" data-cart-error hidden></p>
+            </form>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
       <div class="cart-foot">
         <div class="cart-subtotal">
           <span>{{ 'cart.general.subtotal' | t }}</span>
@@ -63,5 +135,12 @@
 </div>
 
 {% schema %}
-{ "name": "Cart drawer" }
+{
+  "name": "Cart drawer",
+  "settings": [
+    { "type": "header", "content": "Upsell" },
+    { "type": "text", "id": "accessory_type", "label": "Accessory product type", "default": "Bag Charm" },
+    { "type": "text", "id": "upsell_heading", "label": "Upsell heading", "default": "Add to your order" }
+  ]
+}
 {% endschema %}

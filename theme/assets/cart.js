@@ -131,6 +131,20 @@
     });
   }
 
+  /* ---- Drawer upsell --------------------------------------------------
+     The colour <select> is the form's own `id` field, so adding needs no
+     handling here — only the thumbnail has to follow the choice. Delegated,
+     because the drawer's markup is replaced wholesale on every cart change. */
+  document.addEventListener('change', function (e) {
+    var picker = e.target.closest('[data-upsell-select]');
+    if (!picker) return;
+    var form = picker.closest('form');
+    var image = form && form.querySelector('[data-upsell-image]');
+    var chosen = picker.options[picker.selectedIndex];
+    var src = chosen && chosen.getAttribute('data-media-src');
+    if (image && src) image.src = src;
+  });
+
   document.addEventListener('keydown', function (e) {
     var el = drawer();
     if (e.key === 'Escape' && el && el.getAttribute('data-open') === 'true') closeDrawer();

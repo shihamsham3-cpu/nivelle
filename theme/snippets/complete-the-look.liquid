@@ -1,0 +1,131 @@
+{%- comment -%}
+  Accessory upsell for the product page.
+
+  Each card is a real add-to-cart form, so the delegated submit handler in
+  cart.js does the POST and the drawer swap. There is no second add-to-cart
+  path to keep in sync with the first.
+
+  Accepts:
+    product    — the product being viewed (required)
+    collection — optional pool to draw accessories from
+    type       — product type treated as an accessory (default: 'Bag Charm')
+    eyebrow, heading — copy overrides
+{%- endcomment -%}
+
+{%- assign accessory_type = type | default: 'Bag Charm' -%}
+
+{%- comment -%}
+  Never upsell an accessory on an accessory's own page — it would offer the
+  visitor the thing they are already looking at.
+{%- endcomment -%}
+{%- unless product.type == accessory_type -%}
+
+  {%- if collection != blank -%}
+    {%- assign pool = collection.products -%}
+  {%- else -%}
+    {%- assign pool = collections.all.products -%}
+  {%- endif -%}
+  {%- assign accessories = pool | where: 'type', accessory_type -%}
+
+  {%- if accessories.size > 0 -%}
+    <section class="section ctl-section">
+      <div class="container">
+        <div class="section-head center" data-reveal>
+          <span class="eyebrow">{{ eyebrow | default: 'Finish it off' }}</span>
+          <h2 class="section-title">{{ heading | default: 'Complete The Look' }}</h2>
+        </div>
+
+        <div class="ctl-grid" data-stagger="90">
+          {%- for item in accessories limit: 3 -%}
+            {%- assign first = item.selected_or_first_available_variant -%}
+
+            {%- comment -%}
+              Swatches only make sense when the variant title IS the colour —
+              i.e. a single colour option. Anything else links out instead.
+            {%- endcomment -%}
+            {%- assign single_colour = false -%}
+            {%- if item.options.size == 1 -%}
+              {%- assign opt_name = item.options.first | downcase -%}
+              {%- if opt_name contains 'colour' or opt_name contains 'color' -%}
+                {%- assign single_colour = true -%}
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- assign first_available = true -%}
+            {%- if first.inventory_management != blank and first.available == false -%}
+              {%- assign first_available = false -%}
+            {%- endif -%}
+
+            <form class="ctl-card"
+                  method="post"
+                  action="{{ routes.cart_add_url }}"
+                  data-add-to-cart-form
+                  data-ctl-card>
+              <input type="hidden" name="id" value="{{ first.id }}" data-variant-id>
+              <input type="hidden" name="quantity" value="1">
+
+              <a class="ctl-media" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+                {%- for media in item.media -%}
+                  {%- assign is_active = false -%}
+                  {%- if first.featured_media and first.featured_media.id == media.id -%}
+                    {%- assign is_active = true -%}
+                  {%- elsif first.featured_media == blank and forloop.first -%}
+                    {%- assign is_active = true -%}
+                  {%- endif -%}
+                  <img class="ctl-frame"
+                       src="{{ media | image_url: width: 400 }}"
+                       srcset="{{ media | image_url: width: 200 }} 200w, {{ media | image_url: width: 400 }} 400w"
+                       sizes="(min-width: 700px) 220px, 45vw"
+                       width="{{ media.width }}" height="{{ media.height }}"
+                       alt=""
+                       loading="lazy"
+                       decoding="async"
+                       data-media-id="{{ media.id }}"
+                       data-active="{{ is_active }}">
+                {%- endfor -%}
+              </a>
+
+              <div class="ctl-body">
+                <h3 class="ctl-title"><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                <p class="ctl-price" data-ctl-price>{{ first.price | money }}</p>
+
+                {%- if single_colour and item.variants.size > 1 -%}
+                  <div class="product-swatches" role="radiogroup" aria-label="{{ item.title | escape }} colour">
+                    {%- for v in item.variants -%}
+                      {%- assign v_available = true -%}
+                      {%- if v.inventory_management != blank and v.available == false -%}
+                        {%- assign v_available = false -%}
+                      {%- endif -%}
+                      <button type="button"
+                              class="ctl-swatch"
+                              role="radio"
+                              data-ctl-swatch
+                              data-variant="{{ v.id }}"
+                              data-media="{{ v.featured_media.id }}"
+                              data-price="{{ v.price | money }}"
+                              data-label="{{ v.title | escape }}"
+                              data-available="{{ v_available }}"
+                              data-active="{% if v.id == first.id %}true{% else %}false{% endif %}"
+                              aria-checked="{% if v.id == first.id %}true{% else %}false{% endif %}"
+                              style="background: {% render 'swatch-color', name: v.title %}"
+                              aria-label="{{ v.title | escape }}{% unless v_available %} (sold out){% endunless %}"></button>
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
+
+                <button type="submit"
+                        class="btn btn-secondary ctl-add"
+                        data-ctl-add
+                        {% unless first_available %}disabled{% endunless %}>
+                  <span data-ctl-add-text>{% if first_available %}Add{% else %}Sold out{% endif %}</span>
+                  {%- if single_colour and item.variants.size > 1 %} <span class="ctl-add-colour" data-ctl-label>{% if first_available %}{{ first.title }}{% endif %}</span>{% endif -%}
+                </button>
+                <p class="form-error" data-cart-error hidden></p>
+              </div>
+            </form>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+{%- endunless -%}

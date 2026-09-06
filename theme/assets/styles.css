@@ -3574,3 +3574,221 @@ body.has-sticky-cta .back-to-top {
     transition: none !important;
   }
 }
+
+/* ==========================================================================
+   Complete the look (product page accessory upsell)
+   ========================================================================== */
+.ctl-section {
+  border-top: 1px solid var(--color-border);
+}
+
+.ctl-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (min-width: 700px) {
+  .ctl-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+}
+
+.ctl-card {
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.ctl-card:hover {
+  border-color: var(--color-border-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.ctl-media {
+  position: relative;
+  flex: 0 0 96px;
+  width: 96px;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-muted-bg);
+}
+
+/* Frames are stacked so switching colour cannot flash an empty box. */
+.ctl-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--duration-base) var(--ease-standard);
+}
+
+.ctl-frame[data-active='true'] {
+  opacity: 1;
+}
+
+.ctl-body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ctl-title {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.ctl-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ctl-title a:hover {
+  text-decoration: underline;
+}
+
+.ctl-price {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin: var(--space-1) 0 0;
+}
+
+.ctl-card .product-swatches {
+  margin-top: var(--space-3);
+}
+
+.ctl-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-strong);
+  cursor: pointer;
+  padding: 0;
+  transition: box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.ctl-swatch[data-active='true'] {
+  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 3px var(--color-primary);
+}
+
+.ctl-swatch[data-available='false'] {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ctl-add {
+  margin-top: var(--space-4);
+  width: 100%;
+  font-size: 0.75rem;
+  padding: var(--space-3) var(--space-4);
+}
+
+.ctl-add-colour {
+  color: var(--color-muted);
+}
+
+.ctl-add:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Cart drawer upsell
+   ========================================================================== */
+.cart-upsell {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-5);
+}
+
+.cart-upsell-head {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  margin: 0 0 var(--space-3);
+}
+
+.cart-upsell-row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.cart-upsell-media {
+  display: block;
+  width: 56px;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-muted-bg);
+}
+
+.cart-upsell-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-upsell-info {
+  min-width: 0;
+}
+
+.cart-upsell-title {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cart-upsell-title:hover {
+  text-decoration: underline;
+}
+
+.cart-upsell-price {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  margin: 2px 0 0;
+}
+
+.cart-upsell-select {
+  margin-top: var(--space-2);
+  width: 100%;
+  max-width: 100%;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  padding: 6px var(--space-2);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: inherit;
+}
+
+.cart-upsell-add {
+  white-space: nowrap;
+  font-size: 0.7rem;
+  padding: var(--space-2) var(--space-4);
+}
+
+.cart-upsell-error {
+  grid-column: 1 / -1;
+  margin: var(--space-2) 0 0;
+}

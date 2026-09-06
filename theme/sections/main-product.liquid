@@ -200,7 +200,13 @@
   </div>
 </section>
 
-{%- assign related = collections.all.products | where: 'available' -%}
+{% render 'complete-the-look',
+     product: product,
+     collection: section.settings.accessories_collection,
+     type: section.settings.accessory_type,
+     eyebrow: section.settings.ctl_eyebrow,
+     heading: section.settings.ctl_heading %}
+
 <section class="section bg-surface-alt">
   <div class="container">
     <div class="section-head center" data-reveal>
@@ -223,7 +229,17 @@
   {{ product.variants | json }}
 </script>
 <script src="{{ 'product.js' | asset_url }}" defer></script>
+<script src="{{ 'upsell.js' | asset_url }}" defer></script>
 
 {% schema %}
-{ "name": "Product", "settings": [] }
+{
+  "name": "Product",
+  "settings": [
+    { "type": "header", "content": "Complete the look" },
+    { "type": "collection", "id": "accessories_collection", "label": "Accessory collection", "info": "Leave empty to use every product matching the type below." },
+    { "type": "text", "id": "accessory_type", "label": "Accessory product type", "default": "Bag Charm" },
+    { "type": "text", "id": "ctl_eyebrow", "label": "Eyebrow", "default": "Finish it off" },
+    { "type": "text", "id": "ctl_heading", "label": "Heading", "default": "Complete The Look" }
+  ]
+}
 {% endschema %}
