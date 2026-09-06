@@ -890,20 +890,20 @@ p {
    ========================================================================== */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-5) var(--space-4);
 }
 
 @media (min-width: 768px) {
   .product-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-6);
   }
 }
 
 @media (min-width: 1280px) {
   .product-grid.cols-4 {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1057,6 +1057,7 @@ p {
 
 .product-swatches {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   margin-top: var(--space-2);
 }
@@ -1083,18 +1084,18 @@ p {
 
 .spotlight-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
   gap: var(--space-7);
 }
 
 @media (min-width: 900px) {
   .spotlight-grid {
-    grid-template-columns: 1.05fr 0.95fr;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
     gap: var(--space-9);
   }
   .spotlight-grid.reverse {
-    grid-template-columns: 0.95fr 1.05fr;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   }
   .spotlight-grid.reverse .spotlight-media {
     order: 2;
@@ -1159,25 +1160,25 @@ p {
    ========================================================================== */
 .feature-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
 }
 
 @media (min-width: 640px) {
   .feature-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 900px) {
   .feature-grid.cols-3 {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 1024px) {
   .feature-grid.cols-4 {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1226,14 +1227,14 @@ p {
    ========================================================================== */
 .process-list {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-7);
   counter-reset: step;
 }
 
 @media (min-width: 768px) {
   .process-list {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1267,14 +1268,14 @@ p {
    ========================================================================== */
 .stats-strip {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-6);
   text-align: center;
 }
 
 @media (min-width: 768px) {
   .stats-strip {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -1298,13 +1299,13 @@ p {
    ========================================================================== */
 .testimonial-track {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-6);
 }
 
 @media (min-width: 900px) {
   .testimonial-track {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -1373,19 +1374,19 @@ p {
    ========================================================================== */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
 }
 
 @media (min-width: 640px) {
   .gallery-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 1024px) {
   .gallery-grid {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
 
@@ -1509,14 +1510,14 @@ p {
 .footer-top {
   padding-block: var(--space-8);
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-7);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 @media (min-width: 768px) {
   .footer-top {
-    grid-template-columns: 1.3fr repeat(3, 1fr);
+    grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -1711,13 +1712,13 @@ p {
    ========================================================================== */
 .shop-layout {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-8);
 }
 
 @media (min-width: 960px) {
   .shop-layout {
-    grid-template-columns: 260px 1fr;
+    grid-template-columns: 260px minmax(0, 1fr);
   }
 }
 
@@ -1838,13 +1839,13 @@ p {
    ========================================================================== */
 .product-detail {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-8);
 }
 
 @media (min-width: 960px) {
   .product-detail {
-    grid-template-columns: 1.1fr 1fr;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
     gap: var(--space-9);
   }
 }
@@ -1864,7 +1865,7 @@ p {
 
 .pd-thumbs {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: var(--space-3);
 }
 
@@ -1918,6 +1919,7 @@ p {
 
 .color-options {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--space-3);
 }
 
@@ -2050,13 +2052,13 @@ p {
    ========================================================================== */
 .contact-layout {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-9);
 }
 
 @media (min-width: 960px) {
   .contact-layout {
-    grid-template-columns: 0.9fr 1.1fr;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
 }
 
@@ -2142,13 +2144,13 @@ p {
 
 .form-row {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
 }
 
 @media (min-width: 540px) {
   .form-row {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 }
 
@@ -2686,14 +2688,14 @@ p {
 
 .assurance-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-5);
   padding-block: var(--space-6);
 }
 
 @media (min-width: 640px) {
   .assurance-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -3016,7 +3018,7 @@ body.has-sticky-cta .back-to-top {
 /* Ten colourways sit as two clean rows of five on wide screens */
 @media (min-width: 1024px) {
   .gallery-grid[data-colorway-strip] {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
 
@@ -3412,7 +3414,7 @@ body.has-sticky-cta .back-to-top {
 
 .cart-line {
   display: grid;
-  grid-template-columns: 72px 1fr auto;
+  grid-template-columns: 72px minmax(0, 1fr) auto;
   gap: var(--space-4);
   align-items: start;
 }
