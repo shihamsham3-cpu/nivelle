@@ -78,6 +78,10 @@
   --shadow-lg: 0 16px 48px rgba(28, 25, 23, 0.14);
   --shadow-gold: 0 8px 24px rgba(161, 98, 7, 0.18);
 
+  /* A near-invisible leather-grain wash for dark panels — the hero, and any
+     other full-bleed dark section. Self-contained SVG data URI, no request. */
+  --grain-texture: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMjAnIGhlaWdodD0nMjIwJz48ZmlsdGVyIGlkPSduJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC44NScgbnVtT2N0YXZlcz0nMicgc3RpdGNoVGlsZXM9J3N0aXRjaCcvPjxmZUNvbG9yTWF0cml4IHR5cGU9J21hdHJpeCcgdmFsdWVzPScwIDAgMCAwIDEgIDAgMCAwIDAgMSAgMCAwIDAgMCAxICAwIDAgMCAwLjcgMCcvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNuKScvPjwvc3ZnPg==");
+
   /* Motion */
   --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -1099,8 +1103,20 @@ p {
    Spotlight (split feature)
    ========================================================================== */
 .spotlight {
+  position: relative;
   background: var(--color-primary);
   color: var(--color-on-primary);
+}
+
+.spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain-texture);
+  background-size: 220px 220px;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
 .spotlight-grid {
@@ -1524,8 +1540,20 @@ p {
    Footer
    ========================================================================== */
 .site-footer {
+  position: relative;
   background: #0c0a09;
   color: rgba(250, 249, 247, 0.65);
+}
+
+.site-footer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain-texture);
+  background-size: 220px 220px;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
 .footer-top {
@@ -3193,6 +3221,21 @@ body.has-sticky-cta .back-to-top {
 .product-viewer:focus-visible {
   outline: 2px solid var(--color-ring);
   outline-offset: 3px;
+}
+
+/* The hero's stitched leather tag, echoed in the corner of the product photo.
+   Selector beats ".pd-gallery-main svg" (which stretches viewer SVGs to
+   100%) on specificity; width/height are also set explicitly since an
+   absolutely positioned SVG doesn't reliably size from its own attributes. */
+.product-viewer .pd-viewer-tag {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  width: 60px;
+  height: 34px;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.35));
 }
 
 .viewer-stage {
