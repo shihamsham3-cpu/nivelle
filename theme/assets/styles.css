@@ -868,6 +868,83 @@ p {
   filter: drop-shadow(0 45px 55px rgba(0, 0, 0, 0.55));
 }
 
+/* Bag charms sitting beside the hero photo, roughly on the bag's own
+   ground line. Each cluster is an absolutely-positioned span whose only
+   children are themselves absolutely positioned, so it has no in-flow
+   content to shrink-wrap and collapses to a 0-width containing block —
+   that would clamp a plain `width` on the charm images to 0 too, because
+   the global `img { max-width: 100% }` reset resolves against that same
+   0-width parent. `max-width: none` opts these back out so their explicit
+   px widths hold. Offsets are tightened under 640px (the breakpoint where
+   .hero-photo stops scaling with the viewport and hits its 520px cap) so
+   the outer charm doesn't bleed past the viewport edge on a phone. */
+.hero-charms,
+.hero-charms-left {
+  position: absolute;
+  bottom: 2%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.hero-charms {
+  right: -9%;
+}
+
+.hero-charms-left {
+  left: -11%;
+}
+
+.hero-photo .hero-charms img,
+.hero-photo .hero-charms-left img {
+  position: absolute;
+  bottom: 0;
+  max-width: none;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.55));
+}
+
+.hero-photo .hero-charms .charm-taupe {
+  width: 76px;
+  right: 44px;
+  transform: rotate(-5deg);
+  transform-origin: bottom center;
+  z-index: 2;
+}
+
+.hero-photo .hero-charms .charm-purple {
+  width: 64px;
+  right: 0;
+  transform: rotate(6deg);
+  transform-origin: bottom center;
+  z-index: 1;
+}
+
+.hero-photo .hero-charms-left .charm-bear {
+  width: 82px;
+  left: 40px;
+  transform: rotate(6deg);
+  transform-origin: bottom center;
+  z-index: 2;
+}
+
+.hero-photo .hero-charms-left .charm-alpaca {
+  width: 60px;
+  left: 0;
+  transform: rotate(-8deg);
+  transform-origin: bottom center;
+  z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .hero-charms-left { left: -2%; }
+  .hero-charms { right: -2%; }
+  .hero-photo .hero-charms-left .charm-bear { width: 68px; left: 32px; }
+  .hero-photo .hero-charms-left .charm-alpaca { width: 50px; }
+  .hero-photo .hero-charms .charm-taupe { width: 64px; right: 36px; }
+  .hero-photo .hero-charms .charm-purple { width: 54px; }
+}
+
 /* The editorial stack (eyebrow, heading, photo, lede, proof, actions, meta)
    routinely runs taller than the 92vh the base .hero enforces, and the
    scroll cue is positioned absolute against .hero's own bottom edge — so on
