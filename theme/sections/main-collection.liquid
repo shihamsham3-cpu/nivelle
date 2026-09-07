@@ -56,7 +56,20 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="17" x2="14" y2="17"/></svg>
             Filters
           </button>
-          <p class="result-count">{{ collection.products_count }} {% if collection.products_count == 1 %}bag{% else %}bags{% endif %}</p>
+          {%- comment -%}
+            Generic across any collection — was hardcoded to "bag(s)", which
+            was wrong on the charms page. Derive the noun from the
+            collection's own title ("Bags" -> "bag"/"bags") so it always
+            matches this page's own heading, rather than from productType
+            (which would read as the stiffer "handbags").
+          {%- endcomment -%}
+          {%- assign result_noun = collection.title | downcase | default: 'item' -%}
+          {%- assign result_noun_singular = result_noun -%}
+          {%- assign result_noun_chop = result_noun.size | minus: 1 -%}
+          {%- if result_noun | slice: -1, 1 == 's' -%}
+            {%- assign result_noun_singular = result_noun | slice: 0, result_noun_chop -%}
+          {%- endif -%}
+          <p class="result-count">{{ collection.products_count }} {% if collection.products_count == 1 %}{{ result_noun_singular }}{% else %}{{ result_noun }}{% endif %}</p>
           {%- if collection.sort_options.size > 0 -%}
             <div class="sort-select">
               <label for="sort-by">Sort by</label>
