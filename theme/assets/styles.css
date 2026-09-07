@@ -714,6 +714,19 @@ p {
   pointer-events: none;
 }
 
+/* A near-invisible leather-grain wash, kept to the hero only — an accent,
+   not a pattern. Self-contained SVG data URI so it needs no extra request. */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMjAnIGhlaWdodD0nMjIwJz48ZmlsdGVyIGlkPSduJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC44NScgbnVtT2N0YXZlcz0nMicgc3RpdGNoVGlsZXM9J3N0aXRjaCcvPjxmZUNvbG9yTWF0cml4IHR5cGU9J21hdHJpeCcgdmFsdWVzPScwIDAgMCAwIDEgIDAgMCAwIDAgMSAgMCAwIDAgMCAxICAwIDAgMCAwLjcgMCcvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnIGZpbHRlcj0ndXJsKCNuKScvPjwvc3ZnPg==");
+  background-size: 220px 220px;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
 .hero-glow {
   position: absolute;
   right: -10%;
@@ -762,8 +775,16 @@ p {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-4);
   margin-top: var(--space-6);
+}
+
+/* A small stitched leather tag beside the primary button — the hero's one
+   piece of tactile detail. Decorative only: aria-hidden in the markup. */
+.hero-charm-tag {
+  flex-shrink: 0;
+  filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.45));
 }
 
 .hero-meta {
