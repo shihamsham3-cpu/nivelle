@@ -977,6 +977,21 @@ p {
   background: var(--color-accent);
 }
 
+/* The same stitched leather tag as the hero and the product photo, scaled
+   down for a grid card. Top-right is free — .product-wishlist below is
+   unused (no markup renders it), and .product-badge sits top-left.
+   Selector beats ".product-media svg" (100% stretch) on specificity. */
+.product-media .product-tag {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  z-index: 1;
+  width: 40px;
+  height: 22px;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+}
+
 .product-wishlist {
   position: absolute;
   top: var(--space-3);
