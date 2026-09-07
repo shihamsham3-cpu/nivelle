@@ -816,6 +816,67 @@ p {
   color: #dcb15a;
 }
 
+/* ==========================================================================
+   Hero — editorial variant (a single large photo, the heading overlapping
+   its top edge). The overlap is a negative margin on the heading pulling
+   the photo up underneath its own last line, not absolute positioning —
+   it holds regardless of the photo's exact aspect ratio.
+   ========================================================================== */
+.hero.hero-editorial {
+  align-items: center;
+}
+
+.hero-editorial .hero-content {
+  max-width: 640px;
+  margin-inline: auto;
+  text-align: center;
+  padding-block: var(--space-8) var(--space-7);
+}
+
+.hero-editorial .eyebrow,
+.hero-editorial .hero-actions,
+.hero-editorial .hero-meta,
+.hero-editorial .hero-proof {
+  justify-content: center;
+}
+
+.hero-stack {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-editorial .hero-editorial-heading {
+  position: relative;
+  z-index: 2;
+  margin-block: var(--space-4) calc(-1 * clamp(3.5rem, 9vw, 6.5rem));
+  text-shadow: 0 10px 34px rgba(0, 0, 0, 0.65), 0 2px 10px rgba(0, 0, 0, 0.55);
+}
+
+.hero-photo {
+  position: relative;
+  z-index: 1;
+  width: min(520px, 82vw);
+  margin: 0;
+}
+
+.hero-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 45px 55px rgba(0, 0, 0, 0.55));
+}
+
+/* The editorial stack (eyebrow, heading, photo, lede, proof, actions, meta)
+   routinely runs taller than the 92vh the base .hero enforces, and the
+   scroll cue is positioned absolute against .hero's own bottom edge — so on
+   a grown hero it lands on top of the trust list instead of below it. The
+   single-shot layout already reads as complete without a scroll nudge. */
+.hero-editorial .scroll-cue {
+  display: none;
+}
+
 .scroll-cue {
   position: absolute;
   bottom: var(--space-6);

@@ -5,67 +5,42 @@
   endif
 -%}
 
-<section class="hero">
+<section class="hero hero-editorial">
   <div class="hero-glow" aria-hidden="true"></div>
-
-  {%- comment -%}
-    Three photographs held on separate Z planes. Geometry is fixed here so the
-    composition is stable; scene3d.js only drifts each plane at its own rate.
-  {%- endcomment -%}
-  <div class="hero-stage" data-hero-stage aria-hidden="true">
-    {%- assign planes = '-240|-46|-16|17|0.78|0.32,-120|46|14|-15|0.84|0.6,60|0|0|3|1|1' | split: ',' -%}
-    {%- comment -%}
-      Fewer than three products must use the FRONT planes, otherwise the stage
-      renders only distant background cards with an empty foreground.
-    {%- endcomment -%}
-    {%- comment -%}
-      Accessories are the wrong scale for the stage — a charm rendered on a
-      plane reads as a bag the size of a suitcase. Bags only.
-    {%- endcomment -%}
-    {%- assign with_images = 0 -%}
-    {%- for product in products -%}
-      {%- if product.type == 'Bag Charm' -%}{%- continue -%}{%- endif -%}
-      {%- if product.featured_image == blank -%}{%- continue -%}{%- endif -%}
-      {%- assign with_images = with_images | plus: 1 -%}
-      {%- if with_images >= 3 -%}{%- break -%}{%- endif -%}
-    {%- endfor -%}
-    {%- assign plane_offset = 3 | minus: with_images -%}
-    {%- assign shown = 0 -%}
-    {%- for product in products -%}
-      {%- if shown >= 3 -%}{%- break -%}{%- endif -%}
-      {%- if product.type == 'Bag Charm' -%}{%- continue -%}{%- endif -%}
-      {%- if product.featured_image == blank -%}{%- continue -%}{%- endif -%}
-      {%- assign plane_index = shown | plus: plane_offset -%}
-      {%- assign plane = planes[plane_index] | split: '|' -%}
-      <figure class="stage-card"
-              data-drift="{{ plane[5] }}"
-              style="--z: {{ plane[0] }}px; --x: {{ plane[1] }}%; --y: {{ plane[2] }}%; --rot: {{ plane[3] }}deg; --scale: {{ plane[4] }}">
-        {{ product.featured_image | image_url: width: 640 | image_tag: loading: 'eager', widths: '320, 480, 640', alt: '' }}
-        <figcaption>{{ product.title }}</figcaption>
-      </figure>
-      {%- assign shown = shown | plus: 1 -%}
-    {%- endfor -%}
-  </div>
 
   <div class="container">
     <div class="hero-content">
-      {%- comment -%}
-        Counting the catalogue by hand went stale every time a product was
-        added. Count it live, and fall back to the typed eyebrow only when
-        the collections are missing.
-      {%- endcomment -%}
-      {%- assign bag_count = collections.bags.all_products_count -%}
-      {%- assign charm_count = collections.charms.all_products_count -%}
-      {%- if bag_count > 0 and charm_count > 0 -%}
-        <span class="eyebrow">
-          {{ bag_count }} {% if bag_count == 1 %}bag{% else %}bags{% endif %}
-          &middot;
-          {{ charm_count }} {% if charm_count == 1 %}charm{% else %}charms{% endif %}
-        </span>
-      {%- elsif section.settings.eyebrow != blank -%}
-        <span class="eyebrow">{{ section.settings.eyebrow }}</span>
-      {%- endif -%}
-      <h1 class="display-1">{{ section.settings.heading }}</h1>
+      <div class="hero-stack">
+        {%- comment -%}
+          Counting the catalogue by hand went stale every time a product was
+          added. Count it live, and fall back to the typed eyebrow only when
+          the collections are missing.
+        {%- endcomment -%}
+        {%- assign bag_count = collections.bags.all_products_count -%}
+        {%- assign charm_count = collections.charms.all_products_count -%}
+        {%- if bag_count > 0 and charm_count > 0 -%}
+          <span class="eyebrow">
+            {{ bag_count }} {% if bag_count == 1 %}bag{% else %}bags{% endif %}
+            &middot;
+            {{ charm_count }} {% if charm_count == 1 %}charm{% else %}charms{% endif %}
+          </span>
+        {%- elsif section.settings.eyebrow != blank -%}
+          <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        <h1 class="display-1 hero-editorial-heading">{{ section.settings.heading }}</h1>
+
+        {%- comment -%}
+          The photo is a merchant-supplied cutout, not a product image, so it
+          sits outside Shopify's file CDN — a plain theme asset like the
+          webfonts. Deliberately overlapping: a negative margin on the
+          heading pulls this figure up underneath its lower line.
+        {%- endcomment -%}
+        <figure class="hero-photo" aria-hidden="true">
+          <img src="{{ 'hero-marlowe-black-white.png' | asset_url }}"
+               width="1080" height="1040" alt="" loading="eager" fetchpriority="high">
+        </figure>
+      </div>
+
       {%- if section.settings.body != blank -%}
         <p class="lede">{{ section.settings.body }}</p>
       {%- endif -%}
@@ -126,10 +101,10 @@
 {
   "name": "Hero",
   "settings": [
-    { "type": "collection", "id": "collection", "label": "Products shown in the 3D stage", "info": "Leave empty to use all products." },
+    { "type": "collection", "id": "collection", "label": "Products used for the colourway row", "info": "Leave empty to use all products." },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "info": "Only used if the Bags and Charms collections are unavailable — otherwise counted live.", "default": "Bags and charms, made to be carried" },
-    { "type": "html", "id": "heading", "label": "Heading", "default": "Made to be<br><em>carried daily.</em>" },
-    { "type": "textarea", "id": "body", "label": "Body", "default": "A small, considered range of everyday bags — priced to actually use, not to save for a special occasion. Every colourway ships from stock, worldwide." },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "Faux leather.<br><em>Real intention.</em>" },
+    { "type": "textarea", "id": "body", "label": "Body", "default": "Structured, considered, $49.99 to $89.99. We'd rather you use it every day than save it for one." },
     { "type": "checkbox", "id": "show_proof", "label": "Show colourway row", "default": true },
     { "type": "text", "id": "proof_text", "label": "Colourway line", "default": "Every colourway in stock now" },
     { "type": "text", "id": "cta_label", "label": "Primary button", "default": "Shop All Bags" },
