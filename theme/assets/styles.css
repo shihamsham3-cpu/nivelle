@@ -3224,13 +3224,14 @@ body.has-sticky-cta .back-to-top {
 }
 
 /* The hero's stitched leather tag, echoed in the corner of the product photo.
+   Left corner — the right one already holds the "drag to inspect" hint.
    Selector beats ".pd-gallery-main svg" (which stretches viewer SVGs to
    100%) on specificity; width/height are also set explicitly since an
    absolutely positioned SVG doesn't reliably size from its own attributes. */
 .product-viewer .pd-viewer-tag {
   position: absolute;
   top: 14px;
-  right: 14px;
+  left: 14px;
   z-index: 2;
   width: 60px;
   height: 34px;
