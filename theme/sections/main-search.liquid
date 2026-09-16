@@ -1,0 +1,32 @@
+<header class="page-header">
+  <div class="container">
+    <span class="eyebrow">{{ 'general.search.title' | t }}</span>
+    <h1>{% if search.performed %}{{ search.results_count }} results{% else %}{{ 'general.search.title' | t }}{% endif %}</h1>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <form action="{{ routes.search_url }}" method="get" class="newsletter-form" style="margin-bottom: var(--space-7)">
+      <div class="field-group">
+        <label for="q" class="visually-hidden">{{ 'general.search.title' | t }}</label>
+        <input type="search" id="q" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}">
+      </div>
+      <button type="submit" class="btn btn-dark">{{ 'general.search.title' | t }}</button>
+    </form>
+
+    {%- if search.performed -%}
+      <div class="product-grid" data-stagger="90">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}{% render 'product-card', product: item %}{%- endif -%}
+        {%- else -%}
+          <p class="text-muted">No results.</p>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Search", "settings": [] }
+{% endschema %}

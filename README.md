@@ -3,7 +3,7 @@
 Storefront site for the Nivelle Shopify store, deployed to GitHub Pages.
 
 Products, prices, images, colourways and stock are synced from
-`nivellestore.myshopify.com`. Nothing is hand-written in the catalog — every
+`www.nivellebags.shop`. Nothing is hand-written in the catalog — every
 buy button links to a Shopify cart permalink, so carts, payment and delivery
 are handled by Shopify.
 
@@ -26,10 +26,12 @@ are handled by Shopify.
 ## Re-syncing the catalog
 
 Prices, stock and new products only change on this site when the catalog is
-regenerated:
+regenerated. `SHOPIFY_STORE_DOMAIN` is the Admin API host (the `.myshopify.com`
+one); the public storefront domain used for every product and cart link is read
+back off the products, so moving to a new domain fixes itself on the next sync:
 
 ```bash
-SHOPIFY_STORE_DOMAIN=nivellestore.myshopify.com \
+SHOPIFY_STORE_DOMAIN=bc31be-dv.myshopify.com \
 SHOPIFY_ADMIN_TOKEN=shpat_xxx \
 node scripts/sync-shopify.mjs
 ```

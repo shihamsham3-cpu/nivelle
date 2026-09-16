@@ -1,13 +1,13 @@
 /* ==========================================================================
    Nivelle product catalog — GENERATED FILE, DO NOT EDIT BY HAND
-   Synced from nivellestore.myshopify.com on 2026-08-30
+   Synced from www.nivellebags.shop on 2026-09-04
    Regenerate with: node scripts/sync-shopify.mjs
    ========================================================================== */
 window.SHOPIFY_STORE = {
-  "domain": "nivellestore.myshopify.com",
+  "domain": "www.nivellebags.shop",
   "currency": "USD",
-  "syncedAt": "2026-08-30",
-  "cartUrl": "https://nivellestore.myshopify.com/cart"
+  "syncedAt": "2026-09-04",
+  "cartUrl": "https://www.nivellebags.shop/cart"
 };
 
 window.PRODUCT_CATALOG = [
@@ -23,7 +23,7 @@ window.PRODUCT_CATALOG = [
     "was": 79.99,
     "available": true,
     "inventory": 2000,
-    "storeUrl": "https://nivellestore.myshopify.com/products/nivelle-black",
+    "storeUrl": "https://www.nivellebags.shop/products/nivelle-black",
     "options": [
       {
         "name": "Color",
@@ -86,7 +86,7 @@ window.PRODUCT_CATALOG = [
     "was": 45,
     "available": true,
     "inventory": 4500,
-    "storeUrl": "https://nivellestore.myshopify.com/products/fluffy-bunny-purse",
+    "storeUrl": "https://www.nivellebags.shop/products/fluffy-bunny-purse",
     "options": [
       {
         "name": "Color",
@@ -187,7 +187,7 @@ window.PRODUCT_CATALOG = [
     "was": 80,
     "available": true,
     "inventory": 2000,
-    "storeUrl": "https://nivellestore.myshopify.com/products/nivelle-tote-bag",
+    "storeUrl": "https://www.nivellebags.shop/products/nivelle-tote-bag",
     "options": [
       {
         "name": "Color",

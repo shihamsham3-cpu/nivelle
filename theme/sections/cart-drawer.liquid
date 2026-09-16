@@ -1,0 +1,146 @@
+<div class="cart-drawer" data-cart-drawer data-open="false" aria-live="polite">
+  <div class="drawer-backdrop" data-cart-backdrop></div>
+  <div class="cart-panel" role="dialog" aria-modal="true" aria-label="{{ 'cart.general.title' | t }}">
+    <div class="drawer-head">
+      <h2 class="cart-title">{{ 'cart.general.title' | t }}
+        <span class="cart-count-inline">({{ cart.item_count }})</span>
+      </h2>
+      <button type="button" class="icon-btn" data-cart-close aria-label="{{ 'general.accessibility.close' | t }}">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+      </button>
+    </div>
+
+    {%- if cart.item_count == 0 -%}
+      <div class="cart-empty">
+        <p>{{ 'cart.general.empty' | t }}</p>
+        <a class="btn btn-primary" href="{{ routes.all_products_collection_url }}">{{ 'cart.general.continue_shopping' | t }}</a>
+      </div>
+    {%- else -%}
+      <ul class="cart-lines">
+        {%- for line in cart.items -%}
+          <li class="cart-line">
+            <a class="cart-line-media" href="{{ line.url }}">
+              {%- if line.image -%}
+                {{ line.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: line.title }}
+              {%- endif -%}
+            </a>
+            <div class="cart-line-info">
+              <a class="cart-line-title" href="{{ line.url }}">{{ line.product.title }}</a>
+              {%- unless line.variant.title contains 'Default' -%}
+                <p class="cart-line-variant">{{ line.variant.title }}</p>
+              {%- endunless -%}
+              <p class="cart-line-price">{{ line.final_line_price | money }}</p>
+
+              <div class="qty-stepper cart-qty">
+                <button type="button" data-cart-change="{{ line.quantity | minus: 1 }}" data-line="{{ forloop.index }}" aria-label="Decrease quantity">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+                <span class="cart-qty-value">{{ line.quantity }}</span>
+                <button type="button" data-cart-change="{{ line.quantity | plus: 1 }}" data-line="{{ forloop.index }}" aria-label="Increase quantity">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </button>
+              </div>
+            </div>
+            <button type="button" class="cart-remove" data-cart-change="0" data-line="{{ forloop.index }}" aria-label="{{ 'cart.general.remove' | t }} {{ line.product.title | escape }}">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+            </button>
+          </li>
+        {%- endfor -%}
+      </ul>
+
+      {%- comment -%}
+        Upsell the first accessory that is not already in the cart. The colour
+        picker is the form's `id` field itself, so adding needs no JavaScript
+        of its own — the delegated handler in cart.js reads the select.
+      {%- endcomment -%}
+      {%- assign accessory_type = section.settings.accessory_type | default: 'Bag Charm' -%}
+      {%- assign accessories = collections.all.products | where: 'type', accessory_type -%}
+      {%- assign upsell = null -%}
+      {%- for candidate in accessories -%}
+        {%- if upsell == null -%}
+          {%- assign in_cart = false -%}
+          {%- for line in cart.items -%}
+            {%- if line.product.id == candidate.id -%}{%- assign in_cart = true -%}{%- endif -%}
+          {%- endfor -%}
+          {%- unless in_cart -%}{%- assign upsell = candidate -%}{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if upsell -%}
+        {%- assign up = upsell.selected_or_first_available_variant -%}
+        {%- assign up_available = true -%}
+        {%- if up.inventory_management != blank and up.available == false -%}
+          {%- assign up_available = false -%}
+        {%- endif -%}
+        {%- if up_available -%}
+          <div class="cart-upsell">
+            <p class="cart-upsell-head">{{ section.settings.upsell_heading | default: 'Add to your order' }}</p>
+            <form class="cart-upsell-row" method="post" action="{{ routes.cart_add_url }}" data-add-to-cart-form>
+              <input type="hidden" name="quantity" value="1">
+
+              {%- assign up_media = up.featured_media | default: upsell.featured_media -%}
+              {%- if up_media -%}
+                <a class="cart-upsell-media" href="{{ upsell.url }}" tabindex="-1" aria-hidden="true">
+                  <img data-upsell-image
+                       src="{{ up_media | image_url: width: 160 }}"
+                       width="80" height="80" alt="" loading="lazy" decoding="async">
+                </a>
+              {%- else -%}
+                <span class="cart-upsell-media" aria-hidden="true"></span>
+              {%- endif -%}
+
+              <div class="cart-upsell-info">
+                <a class="cart-upsell-title" href="{{ upsell.url }}">{{ upsell.title }}</a>
+                <p class="cart-upsell-price">{{ up.price | money }}</p>
+
+                {%- if upsell.variants.size > 1 -%}
+                  <select class="cart-upsell-select" name="id" data-upsell-select aria-label="{{ upsell.title | escape }} colour">
+                    {%- for v in upsell.variants -%}
+                      {%- assign v_available = true -%}
+                      {%- if v.inventory_management != blank and v.available == false -%}
+                        {%- assign v_available = false -%}
+                      {%- endif -%}
+                      <option value="{{ v.id }}"
+                              data-media-src="{{ v.featured_media | default: upsell.featured_media | image_url: width: 160 }}"
+                              {% if v.id == up.id %}selected{% endif %}
+                              {% unless v_available %}disabled{% endunless %}>
+                        {{ v.title }}{% unless v_available %} — sold out{% endunless %}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                {%- else -%}
+                  <input type="hidden" name="id" value="{{ up.id }}">
+                {%- endif -%}
+              </div>
+
+              <button type="submit" class="btn btn-secondary cart-upsell-add">Add</button>
+              <p class="form-error cart-upsell-error" data-cart-error hidden></p>
+            </form>
+          </div>
+        {%- endif -%}
+      {%- endif -%}
+
+      <div class="cart-foot">
+        <div class="cart-subtotal">
+          <span>{{ 'cart.general.subtotal' | t }}</span>
+          <strong>{{ cart.total_price | money }}</strong>
+        </div>
+        <p class="form-note">{{ 'cart.general.taxes_note' | t }}</p>
+        <form action="{{ routes.cart_url }}" method="post">
+          <button type="submit" name="checkout" class="btn btn-primary btn-block">{{ 'cart.general.checkout' | t }}</button>
+        </form>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart drawer",
+  "settings": [
+    { "type": "header", "content": "Upsell" },
+    { "type": "text", "id": "accessory_type", "label": "Accessory product type", "default": "Bag Charm" },
+    { "type": "text", "id": "upsell_heading", "label": "Upsell heading", "default": "Add to your order" }
+  ]
+}
+{% endschema %}
