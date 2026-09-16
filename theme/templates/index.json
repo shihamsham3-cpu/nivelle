@@ -2,14 +2,15 @@
   "sections": {
     "hero": { "type": "hero", "blocks": {
         "p1": { "type": "point", "settings": { "text": "30-day returns" } },
-        "p2": { "type": "point", "settings": { "text": "Ships worldwide" } },
-        "p3": { "type": "point", "settings": { "text": "Secure Shopify checkout" } }
+        "p2": { "type": "point", "settings": { "text": "Ships to 7 countries" } },
+        "p3": { "type": "point", "settings": { "text": "Secure Shopify checkout" } },
+        "p4": { "type": "point", "settings": { "text": "Delivered in 10–25 business days" } }
       },
-      "block_order": ["p1", "p2", "p3"],
+      "block_order": ["p1", "p2", "p3", "p4"],
       "settings": {
         "eyebrow": "Bags and charms, made to be carried",
         "heading": "Made to be<br><em>carried daily.</em>",
-        "body": "A small, considered range of everyday bags — priced to actually use, not to save for a special occasion. Every colourway ships from stock, worldwide.",
+        "body": "A small, considered range of everyday bags — priced to actually use, not to save for a special occasion. Every colourway ships from stock, to the US, UK, Canada, Australia, UAE, Austria and the Maldives.",
         "show_proof": true,
         "proof_text": "Every colourway in stock now",
         "cta_label": "Shop All Bags"
@@ -17,11 +18,12 @@
     },
     "marquee": { "type": "value-marquee", "blocks": {
         "m1": { "type": "item", "settings": { "text": "30-Day Returns" } },
-        "m2": { "type": "item", "settings": { "text": "Ships Worldwide" } },
+        "m2": { "type": "item", "settings": { "text": "Ships To 7 Countries" } },
         "m3": { "type": "item", "settings": { "text": "Secure Shopify Checkout" } },
-        "m4": { "type": "item", "settings": { "text": "In Stock, Ready To Ship" } }
+        "m4": { "type": "item", "settings": { "text": "In Stock At Our Warehouse" } },
+        "m5": { "type": "item", "settings": { "text": "10–25 Day Delivery" } }
       },
-      "block_order": ["m1", "m2", "m3", "m4"],
+      "block_order": ["m1", "m2", "m3", "m4", "m5"],
       "settings": { "label": "Why shop with Nivelle" }
     },
     "statement": { "type": "statement", "settings": {
@@ -42,9 +44,9 @@
     },
     "how": { "type": "icon-grid", "blocks": {
         "i1": { "type": "item", "settings": { "heading": "30-Day Returns", "body": "Thirty days from delivery to change your mind, in original condition." } },
-        "i2": { "type": "item", "settings": { "heading": "Ships Worldwide", "body": "Delivered wherever your shipping zones reach." } },
-        "i3": { "type": "item", "settings": { "heading": "Secure Checkout", "body": "Payment processed by Shopify. Visa, Mastercard, Amex and PayPal." } },
-        "i4": { "type": "item", "settings": { "heading": "In Stock", "body": "Everything shown is physically in stock. Sold-out colours are marked." } }
+        "i2": { "type": "item", "settings": { "heading": "Where We Ship", "body": "United States, United Kingdom, Canada, Australia, UAE, Austria and the Maldives — delivered in 10–25 business days." } },
+        "i3": { "type": "item", "settings": { "heading": "Secure Checkout", "body": "Payment processed securely via Skrill." } },
+        "i4": { "type": "item", "settings": { "heading": "In Stock", "body": "Everything shown is physically in stock at our warehouse. Sold-out colours are marked." } }
       },
       "block_order": ["i1", "i2", "i3", "i4"],
       "settings": {
